@@ -51,19 +51,15 @@ void	set_map_array(t_map *map, char *filename)
 	close(fd);
 }
 
-void	set_map_cols_amount(t_map *map)
+int	check_borders(char	**map)
 {
+	int	row;
+	int	col;
+
 	if (!map)
-		return (perror("Map Pointer Error\n"));
-	map->cols = ft_strlen(map->map_ar[0]);
-}
-
-int		complete_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while ()
+		return (perror("Map Pointer Error\n"), -1);
+	row = 0;
+	col = 0;
 }
 
 //Map border check:
@@ -72,5 +68,36 @@ int		complete_map(t_map *map)
 // the next char is a number, check if it is 1
 //3) if the next char is space or null, check if current character is 1
 //4) Repeat for columns
-//5) For columns compare the length of the current row to the next row
+//5) For columns compare the cur row index to the legth of the next row
 // to avoid going out of bounds with the string
+//6) Check if first and last rows have only '1' and ' ' characters
+//7) Any other row containing only '1' and ' ' is invalid
+
+int	check_empty_row(char *row)
+{
+	if (!row || !*row)
+		return (1);
+	while (*row)
+		if (*row != ' ')
+			return (0);
+		else
+			row++;
+	return (1);
+}
+
+int	row_has_only_space_and_ones(char *row)
+{
+	if (!row || !*row)
+		return (0);
+	while (*row)
+		if (*row != ' ' || *row != '1')
+			return (0);
+		else
+			row++;
+	return (1);
+}
+
+int	is_map_char(int c)
+{
+	return(c == '1' || c == '0');
+}
