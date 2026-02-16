@@ -10,4 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_VALIDATION_H
+# define MAP_VALIDATION_H
+# include "map.h"
 
+int	next_direction(t_map *map, int row, int col);
+int	check_closed_border(t_map *map, int row, int col);
+#endif

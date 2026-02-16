@@ -18,34 +18,28 @@
 int	parse_borders(t_map *map)
 {
 	t_vector	v;
-	t_vector	*queue;
 
 	if (!map)
 		return (perror("Map Pointer Error\n"), -1);
 	v.y = 0;
-	while (map->array[v.y])
+	while (map->array[v.y] && map->is_invalid == 0 && map->is_closed == 0)
 	{
 		v.x = 0;
-		while (map->array[v.y][v.x])
-			if (is_edge(map, v.y, v.x) == 1 && map->visited[v.y][v.x] == 0)
-				check_closed_border();
-			else
-				v.x++;
+		while (map->array[v.y][v.x] && map->is_invalid == 0 
+				&& map->is_closed == 0)
+		{
+			if (is_edge(map, v.y, v.x) == 1 && map->visited[v.y][v.x] == 0
+				&& is_map_char(map->array[v.y][v.x]))
+			{
+				map->start_wall.y = v.y;
+				map->start_wall.x = v.x;
+				check_closed_border(map, v.y, v.x);
+			}
+			v.x++;
+		}
 		v.y++;
 	}
-}
-
-int	next_direction(t_map *map, int row, int col)
-{
-	if (is_edge(map, row, col) && is_valid_check(map, row, col))
-	{
-		if (map->array[row][col] != '1')
-			return (map->is_invalid = 1);
-		map->visited[row][col] = 1;
-		check_closed_border(map, row + 1, col);
-		return (0);
-	}
-	return (1);
+	return (map->is_closed == 0 && map->is_invalid == 0);
 }
 
 //I want to check all blocks in the map. If a block is an edge piece, there should
@@ -56,30 +50,33 @@ int	next_direction(t_map *map, int row, int col)
 // started
 int	check_closed_border(t_map *map, int row, int col)
 {
-	if (map->is_closed == 1 || map->is_invalid == 1)
+	if (map->is_closed == 1)
 		return (0);
-	if (is_edge(map, row + 1, col) && is_valid_check(map, row + 1, col))
-	{
-		map->visited[row + 1][col] = 1;
-		check_closed_border(map, row + 1, col);
-	}
-	if (is_edge(map, row - 1, col) && is_valid_check(map, row - 1, col))
-	{
-		map->visited[row - 1][col] = 1;
-		check_closed_border(map, row - 1, col);
-	}
-	if (is_edge(map, row, col + 1) && is_valid_check(map, row, col + 1))
-	{
-		map->visited[row][col + 1] = 1;
-		check_closed_border(map, row, col + 1);
-	}
-	if (is_edge(map, row, col - 1) && is_valid_check(map, row, col - 1))
-	{
-		map->visited[row][col - 1] = 1;
-		check_closed_border(map, row, col - 1);
-	}
-	if (row == map->start.y && col == map->start.x && map->visited[row][col])
+	if (map->is_invalid == 1)
+		return (1);
+	next_direction(map, row + 1, col);
+	next_direction(map, row, col + 1);
+	if (row - 1 != map->start_wall.y && col != map->start_wall.x)
+		next_direction(map, row - 1, col);
+	next_direction(map, row, col - 1);
+	if (map->visited[map->start_wall.y][map->start_wall.x] == 1)
 		return (map->is_closed = 1);
+	return (0);
+}
+
+int	next_direction(t_map *map, int row, int col)
+{
+	if (map->visited[row][col] == 1)
+		return (0);
+	if (is_edge(map, row, col) && is_valid_check(map, row, col))
+	{
+		if (map->array[row][col] != '1')
+			return (map->is_invalid = 1);
+		map->visited[row][col] = 1;
+		check_closed_border(map, row, col);
+		return (0);
+	}
+	return (1);
 }
 
 //Returns 1 if we can check the following block
