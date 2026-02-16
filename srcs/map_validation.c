@@ -31,8 +31,7 @@ int	parse_borders(t_map *map)
 			if (is_edge(map, v.y, v.x) == 1 && map->visited[v.y][v.x] == 0
 				&& is_map_char(map->array[v.y][v.x]))
 			{
-				map->start_wall.y = v.y;
-				map->start_wall.x = v.x;
+				set_start_wall(map, v.y, v.x);
 				check_closed_border(map, v.y, v.x);
 			}
 			v.x++;

@@ -84,15 +84,8 @@ void	set_map_visited(t_map *map)
 	}
 }
 
-void	set_first_wall(t_map *map, char *first_row)
+void	set_start_wall(t_map *map, int row, int col)
 {
-	int			col;
-
-	col = 0;
-	map->start_wall.x = 0;
-	map->start_wall.y = 0;
-	while (first_row[col] &&  first_row[col] != '1')
-		col++;
-	if (first_row[col])
-		map->start_wall.x = col;
+	map->start_wall.x = col;
+	map->start_wall.y = row;
 }

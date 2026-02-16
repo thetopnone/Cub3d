@@ -23,6 +23,6 @@ typedef struct s_map
 void		set_map_row_amount(t_map *map, char *filename);
 void		set_map_array(t_map *map, char *filename);
 void		set_map_cols_amount(t_map *map);
-void		set_map_visited_array(t_map *map);
-void		set_start_wall(t_map *map, char *first_row);
+void		set_map_visited(t_map *map);
+void		set_start_wall(t_map *map, int row, int col);
 #endif

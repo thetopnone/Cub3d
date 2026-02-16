@@ -9,7 +9,7 @@ NAME = cub3d
 MLX = $(MLX_DIR)/linmlx.a
 LIBFT = $(LIBFT_DIR)/libft.a
 OBJS_DIR = objs
-SRCS = 
+SRCS = srcs/main.c srcs/map_validation.c srcs/map_setters.c
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 all: $(NAME)
