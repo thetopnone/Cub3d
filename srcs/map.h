@@ -14,7 +14,9 @@ typedef struct s_map
 	size_t		cols;
 	char		**array;
 	int			**visited;
-	t_vector	first_wall;
+	int			is_closed;
+	int			is_invalid;
+	t_vector	start;
 }	t_map;
 
 //Functions for map struct
@@ -32,4 +34,4 @@ void		set_first_wall(t_map *map, char *first_row);
    10000000111111000000000001
    10000000000000000000000001
    11111111100001111111111111
-           111111
+		   111111

@@ -49,7 +49,7 @@ void	set_map_row_amount(t_map *map, char *filename)
 	close(fd);
 }
 
-void	set_arrayray(t_map *map, char *filename)
+void	set_map_array(t_map *map, char *filename)
 {
 	int		fd;
 	int		i;
