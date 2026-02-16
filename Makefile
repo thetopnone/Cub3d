@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LIBFT_DIR = ./libft_extended
 MLX_DIR = ./minilibx-linux
-LIBFTFLAGS = -L$(LIBFT_DIR) -lft
+LIBFTFLAGS = -Llibft_extended -lft
 TRAILFLAGS = -lm -lz -lXext -lX11
 MLXFLAGS = -Lminilibx-linux -lmlx -Imlx_linux
 NAME = cub3d
@@ -23,7 +23,7 @@ $(LIBFT):
 $(MLX):
 	@make -C $(MLX_DIR)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+$(OBJS_DIR)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

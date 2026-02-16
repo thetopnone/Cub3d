@@ -38,7 +38,7 @@ int	parse_borders(t_map *map)
 		}
 		v.y++;
 	}
-	return (map->is_closed == 0 && map->is_invalid == 0);
+	return (map->is_closed == 1 && map->is_invalid == 0);
 }
 
 //I want to check all blocks in the map. If a block is an edge piece, there should
@@ -53,28 +53,43 @@ int	check_closed_border(t_map *map, int row, int col)
 		return (0);
 	if (map->is_invalid == 1)
 		return (1);
-	next_direction(map, row + 1, col);
-	next_direction(map, row, col + 1);
-	if (row - 1 != map->start_wall.y && col != map->start_wall.x)
-		next_direction(map, row - 1, col);
-	next_direction(map, row, col - 1);
 	if (map->visited[map->start_wall.y][map->start_wall.x] == 1)
 		return (map->is_closed = 1);
+	if (row == map->start_wall.y && col == map->start_wall.x)
+		next_direction(map, row, col + 1);
+	else
+	{
+		next_direction(map, row, col + 1);
+		next_direction(map, row + 1, col);
+		next_direction(map, row - 1, col);
+		next_direction(map, row, col - 1);
+	}
 	return (0);
 }
 
 int	next_direction(t_map *map, int row, int col)
 {
-	if (map->visited[row][col] == 1)
+	if (map->is_closed == 1 || map->is_invalid == 1)
+		return (1);
+	printf("Row %d column %d is ", row, col);
+	if (is_valid_check(map, row, col) && map->visited[row][col] == 1)
+	{
+		printf("visited\n");
 		return (0);
-	if (is_edge(map, row, col) && is_valid_check(map, row, col))
+	}
+	if (is_valid_check(map, row, col) && is_edge(map, row, col))
 	{
 		if (map->array[row][col] != '1')
+		{
+			printf("not '1'\n");
 			return (map->is_invalid = 1);
+		}
+		printf("valid. Moving on\n");
 		map->visited[row][col] = 1;
 		check_closed_border(map, row, col);
 		return (0);
 	}
+	printf("out of bounds\n");
 	return (1);
 }
 
@@ -83,10 +98,11 @@ int	is_valid_check(t_map *map, int row, int col)
 {
 	if (!map)
 		return(perror("Error\nInvalid Map Pointer\n"), -1);
-	if (row < 0 || col < 0 || row >= map->rows - 1 || col >= ft_strlen(row) - 1)
-		return (0);
+	if (row < 0 || col < 0 || row >= map->rows
+			|| col >= (int)ft_strlen(map->array[row]))
+		return (printf("(HERE 1)"), 0);
 	if (map->visited[row][col] == 1)
-		return (0);
+		return (printf("(HERE 2)"), 0);
 	return (1);
 }
 
@@ -94,27 +110,49 @@ int	is_valid_check(t_map *map, int row, int col)
 // which means it would be an edge piece
 int	is_edge(t_map *map, int row, int col)
 {
+
 	if (!map || row < 0 || col < 0)
-		return (perror("Error\nInvalid Map Pointer or coordinates\n"), 0);
-	if (!is_map_char(map->array[row][col]))
+	{
+		printf("(Trigger -1)");
 		return (0);
+	}
+	if (!is_map_char(map->array[row][col]))
+	{
+		printf("(Trigger 0)");
+		return (0);
+	}
 	if (row == 0 || row + 1 == map->rows || col == 0
-			|| col + 1 == ft_strlen(map->array[row]))
+			|| col + 1 == (int)ft_strlen(map->array[row]))
+	{
+		printf("(Trigger 1)");
 		return (1);
-	if (row + 1 < map->rows && (ft_strlen(map->array[row + 1]) <= col + 1
+	}
+	if ((row + 1 < map->rows && (int)ft_strlen(map->array[row]) <= col)
 			|| map->array[row + 1][col] == ' ' 
 			|| map->array[row + 1][col + 1] == ' '
-			|| map->array[row + 1][col - 1] == ' '))
+			|| map->array[row + 1][col - 1] == ' ')
+	{
+		printf("(Trigger 2)");
 		return (1);
-	if (ft_strlen(map->array[row - 1]) <= col + 1
+	}
+	if ((int)ft_strlen(map->array[row - 1]) <= col
 			|| map->array[row - 1][col] == ' '
 			|| map->array[row - 1][col + 1] == ' '
 			|| map->array[row -1][col - 1] == ' ')
+	{
+		printf("(Trigger 3)");
 		return (1);
+	}
 	if (!map->array[row][col + 1] || map->array[row][col + 1] == ' ')
+	{
+		printf("(Trigger 4)");
 		return (1);
+	}
 	if (!map->array[row][col - 1] || map->array[row][col - 1] == ' ')
+	{
+		printf("(Trigger 5)");
 		return (1);
+	}
 	return (0);
 }
 

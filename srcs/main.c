@@ -12,6 +12,7 @@
 
 #include "map_validation.h"
 #include <stdio.h>
+#include "../libft_extended/libft.h"
 
 int	main(int argc, char *argv[])
 {

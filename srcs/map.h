@@ -10,8 +10,8 @@ typedef struct s_vector
 
 typedef struct s_map
 {
-	size_t		rows;
-	size_t		cols;
+	int			rows;
+	int			cols;
 	char		**array;
 	int			**visited;
 	int			is_closed;

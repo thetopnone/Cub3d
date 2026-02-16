@@ -3,6 +3,7 @@
 #include "../libft_extended/libft.h"
 #include "map.h"
 #include <errno.h>
+#include <stdlib.h>
 
 void	set_map_cols_amount(t_map *map)
 {
@@ -17,7 +18,7 @@ void	set_map_cols_amount(t_map *map)
 	while (row < map->rows)
 	{
 		row_len = ft_strlen(map->array[row]);
-		if (row_len > map->cols)
+		if ((int)row_len > map->cols)
 			map->cols = row_len;
 		row++;
 	}
@@ -53,6 +54,7 @@ void	set_map_array(t_map *map, char *filename)
 {
 	int		fd;
 	int		i;
+	char	*line;
 
 	if (!map || !filename)
 		return (perror("Map Pointer Error\n"));
@@ -63,7 +65,9 @@ void	set_map_array(t_map *map, char *filename)
 	i = 0;
 	while (i < map->rows)
 	{
-		map->array[i] = get_next_line(fd);
+		line = get_next_line(fd);
+		map->array[i] = ft_strtrim(line, "\n");
+		free (line);
 		i++;
 	}
 	map->array[i] = NULL;
@@ -76,6 +80,7 @@ void	set_map_visited(t_map *map)
 
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
+	row = 0;
 	map->visited = ft_calloc(map->rows + 1, sizeof(int *));
 	while (row < map->rows)
 	{
