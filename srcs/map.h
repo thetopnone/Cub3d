@@ -1,12 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/17 16:27:26 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/17 16:27:27 by akonstan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAP_H
 # define MAP_H
 # include <stdio.h>
-
-typedef struct s_vector
-{
-	int		x;
-	int		y;
-} t_vector;
+# include "vectors.h"
 
 typedef struct s_map
 {
@@ -16,13 +23,24 @@ typedef struct s_map
 	int			**visited;
 	int			is_closed;
 	int			is_invalid;
-	t_vector	start_wall;
+	int			spawn_amount;
+	int			spawn_direction;
+	t_2dvector	start_wall;
+	t_2dvector	player_spawn;
 }	t_map;
 
 //Functions for map struct
+//----------------------------------------------------------------------------
+// MAP_SETTERS_1 (5)
+//----------------------------------------------------------------------------
 void		set_map_row_amount(t_map *map, char *filename);
 void		set_map_array(t_map *map, char *filename);
 void		set_map_cols_amount(t_map *map);
 void		set_map_visited(t_map *map);
 void		set_start_wall(t_map *map, int row, int col);
+//----------------------------------------------------------------------------
+// MAP_SETTERS_2 (2)
+//----------------------------------------------------------------------------
+void		set_player_spawn(t_map *map, int row, int col);
+void		set_spawn_direction(t_map *map, char c);
 #endif

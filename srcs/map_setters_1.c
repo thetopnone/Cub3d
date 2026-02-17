@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_setters_1.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/17 15:44:27 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/17 15:44:29 by akonstan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <fcntl.h>
 #include "../libft_extended/libft.h"
@@ -11,7 +23,7 @@ void	set_map_cols_amount(t_map *map)
 	int		row;
 
 	if (!map || !map->array)
-		return(perror("Error\nMap Pointer Error\n"));
+		return (perror("Error\nMap Pointer Error\n"));
 	row_len = 0;
 	row = 0;
 	map->cols = 0;
@@ -39,7 +51,7 @@ void	set_map_row_amount(t_map *map, char *filename)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if(line)
+		if (line)
 		{
 			free(line);
 			map->rows++;
