@@ -25,8 +25,8 @@ typedef struct s_map
 	int			is_invalid;
 	int			spawn_amount;
 	int			spawn_direction;
-	t_2dvector	start_wall;
-	t_2dvector	player_spawn;
+	t_vector	start_wall;
+	t_vector	player_spawn;
 }	t_map;
 
 //Functions for map struct

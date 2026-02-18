@@ -12,7 +12,6 @@
 
 #include <stdio.h>
 #include "../libft_extended/libft.h"
-#include "map.h"
 #include "map_validation.h"
 
 //Returns 1 on spawn char detection

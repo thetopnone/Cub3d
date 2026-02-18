@@ -12,7 +12,8 @@
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
-# include "map.h"
+# include "./inclusions/map.h"
+# include <errno.h>
 
 //----------------------------------------------------------------------------
 // MAP_VALIDATION (5)

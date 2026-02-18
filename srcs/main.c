@@ -28,6 +28,6 @@ int	main(int argc, char *argv[])
 	if (validate_map(&map) == 1)
 		printf("This is a VALID MAP!!!\n");
 	else
-		printf("ERROR\nIVALID MAP\n");
+		printf("Error\nIVALID MAP\n");
 	return (0);
 }
