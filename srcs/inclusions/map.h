@@ -1,33 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation.h                                   :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/13 13:20:38 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/13 13:20:39 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/17 16:27:26 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/17 16:27:27 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_VALIDATION_H
-# define MAP_VALIDATION_H
-# include "./inclusions/map.h"
-# include <errno.h>
+#ifndef MAP_H
+# define MAP_H
+# include <stdio.h>
+# include "vectors.h"
 
+typedef struct s_map
+{
+	int			rows;
+	int			cols;
+	char		**array;
+	int			**visited;
+	int			is_closed;
+	int			is_invalid;
+	int			spawn_amount;
+	int			spawn_direction;
+	t_vector	start_wall;
+	t_vector	player_spawn;
+}	t_map;
+
+//Functions for map struct
 //----------------------------------------------------------------------------
-// MAP_VALIDATION (5)
+// MAP_SETTERS_1 (5)
 //----------------------------------------------------------------------------
-int		validate_map(t_map *map);
-int		check_closed_border(t_map *map, int row, int col);
-int		next_direction(t_map *map, int row, int col);
-int		is_valid_check(t_map *map, int row, int col);
-int		is_edge(t_map *map, int row, int col);
+void		set_map_row_amount(t_map *map, char *filename);
+void		set_map_array(t_map *map, char *filename);
+void		set_map_cols_amount(t_map *map);
+void		set_map_visited(t_map *map);
+void		set_start_wall(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
-// MAP_VALIDATION_UTILS (4)
+// MAP_SETTERS_2 (2)
 //----------------------------------------------------------------------------
-int		check_map_data(t_map *map);
-void	update_map_player_data(t_map *map, int row, int col);
-int		is_spawn_char(int c);
-int		is_map_char(int c);
+void		set_player_spawn(t_map *map, int row, int col);
+void		set_spawn_direction(t_map *map, char c);
 #endif

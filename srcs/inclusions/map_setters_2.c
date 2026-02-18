@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map_setters_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:51:10 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/16 16:51:11 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/17 15:44:34 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/17 15:44:36 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_validation.h"
+#include "map.h"
+#include <errno.h>
 #include <stdio.h>
-#include "../libft_extended/libft.h"
 
-int	main(int argc, char *argv[])
+void	set_player_spawn(t_map *map, int row, int col)
 {
-	t_map	map;
+	if (!map)
+		return (perror("Error\nInvalid Map Pointer\n"));
+	map->player_spawn.y = row;
+	map->player_spawn.x = col;
+}
 
-	if (argc != 2)
-		return (1);
-	ft_bzero(&map, sizeof (map));
-	set_map_row_amount(&map, argv[1]);
-	set_map_array(&map, argv[1]);
-	set_map_cols_amount(&map);
-	set_map_visited(&map);
-	if (validate_map(&map) == 1)
-		printf("This is a VALID MAP!!!\n");
-	else
-		printf("Error\nIVALID MAP\n");
-	return (0);
+void	set_spawn_direction(t_map *map, char c)
+{
+	if (!map)
+		return (perror("Error\nInvalid Map Pointer\n"));
+	map->spawn_direction = c;
 }
