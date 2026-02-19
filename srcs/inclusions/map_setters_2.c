@@ -28,3 +28,12 @@ void	set_spawn_direction(t_map *map, char c)
 		return (perror("Error\nInvalid Map Pointer\n"));
 	map->spawn_direction = c;
 }
+
+void	set_grid_size(t_map *map, double size)
+{
+	if (!map)
+		return (perror("Error\nInvalid Map Pointer\n"));
+	if (size <= 0)
+		return (perror("Error\nInvalid Grid Size\n"));
+	map->grid_size = size;
+}

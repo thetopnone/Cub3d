@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   game_data.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 12:49:42 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/18 12:49:44 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/19 15:35:59 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/19 15:36:01 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
-# ifndef WIDTH
-#  define WIDTH 1280
-# endif
-# ifndef HEIGHT
-#  define HEIGHT 1024
-# endif
-# include "vectors.h"
+#ifndef GAME_DATA_H
+# define GAME_DATA_H
+# include "./inclusions/camera.h"
+# include "./inclusions/map.h"
+# include "./inclusions/player.h"
+# include "./inclusions/tiles.h"
+# include <errno.h>
 
-typedef struct s_camera
+typedef struct s_gameData
 {
-	t_2dvector	plane;
-	double		rot_speed;
-	double		fov;
+	t_camera	camera;
+	t_player	player;
+	t_map		map;
+	t_ceiling	ceiling;
+	t_floor		s_floor;
+	t_wall		wall;
 	int			error;
-}	t_camera;
+}	t_gameData;
 
-void	setPlane(t_camera *camera, t_map map);
-void	setRot_speed(t_camera *camera, double speed);
-void	setFov(t_camera *camera, double fov);
 #endif

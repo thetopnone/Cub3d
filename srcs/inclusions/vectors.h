@@ -31,5 +31,5 @@ void		rot_2dvec(t_2dvector *vector, double angle);
 double		norm_2dvec(t_2dvector v);
 t_2dvector	add_2dvec(t_2dvector v1, t_2dvector v2);
 t_2dvector	sub_2dvec(t_2dvector v1, t_2dvector v2);
-void		mul_vect(t_2dvector *v, double n);
+t_2dvector	mul_2dvect(t_2dvector v, double n);
 #endif

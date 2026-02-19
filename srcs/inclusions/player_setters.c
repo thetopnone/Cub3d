@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "map.h"
 #include "player.h"
 #include "camera.h"
 #include <errno.h>
 
-//Set the Map_pos from the input array
-void	setMap_pos(t_player *player, int x, int y)
+//set the starting Pos of the player in the 2D block grid as the starting position
+void	setPos(t_player *player, t_map map)
 {
 	if (!player)
 		return (perror("Error\nInvalid Player Pointer\n"));
-	player->map_pos.x = x;
-	player->map_pos.y = y;
-}
-
-//set the Pos of the player in the 2D block grid (different because
-//each tile has dimensions)
-void	setPos(t_player *player, double x, double y)
-{
-	if (!player)
-		return (perror("Error\nInvalid Player Pointer\n"));
-	player->pos.x = x;
-	player->pos.y = y;
+	player->pos.x = ((double)map.player_spawn.x + 0.5) * GRIDSIZE;
+	player->pos.y = ((double)map.player_spawn.y + 0.5) * GRIDSIZE;
 }
 
 //Sets the dir vector, this vector shows where is the player looking and

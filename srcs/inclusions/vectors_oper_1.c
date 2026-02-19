@@ -62,10 +62,11 @@ t_2dvector	sub_2dvec(t_2dvector v1, t_2dvector v2)
 }
 
 //Multiplies the vector with the double n
-void	mul_vect(t_2dvector *v, double n)
+t_2dvector	mul_2dvect(t_2dvector v, double n)
 {
-	if (!v || n == 1.0)
-		return ;
-	v->x = n * v->x;
-	v->y = n * v->y;
+	t_2dvector res;
+
+	res.x = n * v.x;
+	res.y = n * v.y;
+	return (res);
 }

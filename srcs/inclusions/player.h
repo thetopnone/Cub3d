@@ -15,12 +15,10 @@
 
 typedef struct s_player
 {
-	t_vector	map_pos;
 	t_2dvector	pos;
 	t_2dvector	dir;
 }	t_player;
 
-void	setMap_pos(t_player *player, int x, int y);
-void	setPos(t_player *player, double x, double y);
+void	setPos(t_player *player, t_map map);
 void	setDir(t_player *player, t_camera camera);
 #endif
