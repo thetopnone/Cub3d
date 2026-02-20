@@ -18,7 +18,7 @@
 // offset is ranging from -1 to 1 and is representing where will our ray pass
 // through in the camera plane. It increases/ decreases the plane vector's 
 // size.
-void	setDir(t_rayCast2D *ray, t_gameData data, double pxl_i)
+void	set2DRayDir(t_rayCast2D *ray, t_gameData data, double pxl_i)
 {
 	double	offset;
 
@@ -31,7 +31,7 @@ void	setDir(t_rayCast2D *ray, t_gameData data, double pxl_i)
 
 //Ray pos will only count the current tile coordinates, AKA the block in the 
 // original map
-void	setPos(t_rayCast2D *ray, t_gameData data)
+void	set2DRayPos(t_rayCast2D *ray, t_gameData data)
 {
 	if (!ray)
 		return (perror("Error\nIvalid Ray Pointer"));
@@ -40,7 +40,7 @@ void	setPos(t_rayCast2D *ray, t_gameData data)
 }
 
 //Delta Dist is desribed in the rayCaster.h header
-void	setDelta_Dist(t_rayCast2D *ray, t_gameData data)
+void	set2DRayDelta_Dist(t_rayCast2D *ray, t_gameData data)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
@@ -55,7 +55,7 @@ void	setDelta_Dist(t_rayCast2D *ray, t_gameData data)
 }
 
 //Sets the initial side_dist from each next block
-void	setSide_Dist(t_rayCast2D *ray, t_gameData data)
+void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData data)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
@@ -81,3 +81,16 @@ void	setSide_Dist(t_rayCast2D *ray, t_gameData data)
 	}
 }
 
+//Function sets all ray fields
+void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i)
+{
+	if (!ray)
+		return (perror("Error\nInvalid Ray Pointer\n"));
+	ray->hit == 0;
+	ray->side = -1;
+	ray->error = 0;
+	set2DRayDir(ray, data, pxl_i);
+	set2DRayPos(ray, data);
+	set2DRayDelta_Dist(ray, data);
+	set2DRaySide_Dist(ray, data);
+}

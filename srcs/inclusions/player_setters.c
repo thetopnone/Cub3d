@@ -16,25 +16,48 @@
 #include <errno.h>
 
 //set the starting Pos of the player in the 2D block grid as the starting position
-void	setPos(t_player *player, t_map map)
+void	setPlayerPos(t_player *player, t_map map)
 {
 	if (!player)
 		return (perror("Error\nInvalid Player Pointer\n"));
-	player->pos.x = ((double)map.player_spawn.x + 0.5) * GRIDSIZE;
-	player->pos.y = ((double)map.player_spawn.y + 0.5) * GRIDSIZE;
+	player->pos.x = ((double)map.player_spawn.x + 0.5);
+	player->pos.y = ((double)map.player_spawn.y + 0.5);
 }
 
 //Sets the dir vector, this vector shows where is the player looking and
 // also its size changes where the camera plane will be (thats why fov adjust-
 // ment was added, because the camera plane vector will not fluctuate according
 // to POV)
-void	setDir(t_player *player, t_camera camera)
+void	setPlayerDir(t_player *player, t_map map)
 {
-	double	fov_adjustment;
-
 	if (!player)
 		return (perror("Error\nInvalid Player Pointer\n"));
-	fov_adjustment = tan((camera.fov * PI / 360));
-	player->dir.y == camera.plane.x * fov_adjustment;
-	player->dir.x == camera.plane.y * fov_adjustment;
+	if (map.spawn_direction == 'S')
+		player->dir.y = -1.0;
+	else if (map.spawn_direction == 'N')
+		player->dir.y = 1.0;
+	else if (map.spawn_direction == 'W')
+		player->dir.x = -1.0;
+	else if (map.spawn_direction == 'E')
+		player->dir.x = 1.0;
+	else
+		return(perror("Error\nInvalid Orientation Input\n"));
+}
+
+//Function that is setting the player movement speed
+void	setPlayerMove_speed(t_player *player, unsigned int speed)
+{
+	if (!player)
+		return (perror("Error\nInvalid Player Pointer\n"));
+	player->move_speed = speed;
+}
+
+//Function sets all initial data for the player structure
+void	setPlayer(t_player *player, t_map map, unsigned int speed)
+{
+	if (!player)
+		return (perror("Error\nInvalid Player Pointer\n"));
+	setPlayerPos(player, map);
+	setPlayerDir(player, map);
+	setPlayerMove_speed(player, speed);
 }

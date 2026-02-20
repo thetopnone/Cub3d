@@ -17,7 +17,7 @@
 #include <errno.h>
 #include <stdlib.h>
 
-void	set_map_cols_amount(t_map *map)
+void	setMapCols(t_map *map)
 {
 	size_t	row_len;
 	int		row;
@@ -36,7 +36,7 @@ void	set_map_cols_amount(t_map *map)
 	}
 }
 
-void	set_map_row_amount(t_map *map, char *filename)
+void	setMapRows(t_map *map, char *filename)
 {
 	int		fd;
 	char	*line;
@@ -62,7 +62,8 @@ void	set_map_row_amount(t_map *map, char *filename)
 	close(fd);
 }
 
-void	set_map_array(t_map *map, char *filename)
+//The map array we use for validation
+void	setMapArray(t_map *map, char *filename)
 {
 	int		fd;
 	int		i;
@@ -86,7 +87,9 @@ void	set_map_array(t_map *map, char *filename)
 	close(fd);
 }
 
-void	set_map_visited(t_map *map)
+//Allocates the visited array, in order to track which border blocks have been
+// validated already
+void	setMapVisited(t_map *map)
 {
 	int	row;
 
@@ -101,7 +104,8 @@ void	set_map_visited(t_map *map)
 	}
 }
 
-void	set_start_wall(t_map *map, int row, int col)
+//First Border character in the map array
+void	setMapStart_wall(t_map *map, int row, int col)
 {
 	map->start_wall.x = col;
 	map->start_wall.y = row;

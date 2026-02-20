@@ -13,11 +13,18 @@
 #ifndef MAP_H
 # define MAP_H
 # ifndef GRIDSIZE
-#  define GRIDSIZE 10;
+#  define GRIDSIZE 1000;
 # endif
 # include <stdio.h>
 # include "vectors.h"
 
+//Setting up before the execution of the raycasting is as now:
+//	1) Validate config file
+//	2) Assign gameData structure
+//	3) Assign map structure and validate the map form
+//	4) Assign player structure
+//	5) Assign camera structure
+//	6) Run Raycaster Loop
 typedef struct s_map
 {
 	int			rows;
@@ -28,7 +35,6 @@ typedef struct s_map
 	int			is_invalid;
 	int			spawn_amount;
 	int			spawn_direction;
-	double		grid_size;
 	t_vector	start_wall;
 	t_vector	player_spawn;
 }	t_map;
@@ -37,15 +43,14 @@ typedef struct s_map
 //----------------------------------------------------------------------------
 // MAP_SETTERS_1 (5)
 //----------------------------------------------------------------------------
-void		set_map_row_amount(t_map *map, char *filename);
-void		set_map_array(t_map *map, char *filename);
-void		set_map_cols_amount(t_map *map);
-void		set_map_visited(t_map *map);
-void		set_start_wall(t_map *map, int row, int col);
+void		setMapRows(t_map *map, char *filename);
+void		setMapArray(t_map *map, char *filename);
+void		setMapCols(t_map *map);
+void		setMapVisited(t_map *map);
+void		setMapStart_wall(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
 // MAP_SETTERS_2 (2)
 //----------------------------------------------------------------------------
-void		set_player_spawn(t_map *map, int row, int col);
-void		set_spawn_direction(t_map *map, char c);
-void		set_grid_size(t_map	*map, double size);
+void		setMapPlayer_spawn(t_map *map, int row, int col);
+void		setMapSpawn_direction(t_map *map, char c);
 #endif

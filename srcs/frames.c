@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_setters_2.c                                    :+:      :+:    :+:   */
+/*   frames.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 15:44:34 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/17 15:44:36 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/20 11:30:11 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/20 11:30:17 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <errno.h>
-#include <stdio.h>
+#include "frames.h"
 
-void	setMapPlayer_spawn(t_map *map, int row, int col)
+double	get_time_in_s(void)
 {
-	if (!map)
-		return (perror("Error\nInvalid Map Pointer\n"));
-	map->player_spawn.y = row;
-	map->player_spawn.x = col;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((double)time.tv_sec + ((double)time.tv_usec) / 1000000);
 }
 
-void	setMapSpawn_direction(t_map *map, char c)
+//Calculates how many frames we can render in one seconds
+unsigned long	get_fps(double oldTime)
 {
-	if (!map)
-		return (perror("Error\nInvalid Map Pointer\n"));
-	map->spawn_direction = c;
+	return ((unsigned long)(1.0 / (get_time_in_s() - oldTime)));
 }
 

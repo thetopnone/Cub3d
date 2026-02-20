@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_setters_2.c                                    :+:      :+:    :+:   */
+/*   frames.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 15:44:34 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/17 15:44:36 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/20 11:37:51 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/20 11:37:52 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include <errno.h>
-#include <stdio.h>
+#ifndef FRAMES_H
+# define FRAMES_H
+# include <stdio.h>
+# include <sys/time.h>
 
-void	setMapPlayer_spawn(t_map *map, int row, int col)
-{
-	if (!map)
-		return (perror("Error\nInvalid Map Pointer\n"));
-	map->player_spawn.y = row;
-	map->player_spawn.x = col;
-}
-
-void	setMapSpawn_direction(t_map *map, char c)
-{
-	if (!map)
-		return (perror("Error\nInvalid Map Pointer\n"));
-	map->spawn_direction = c;
-}
-
+double			get_time_in_s(void);
+unsigned long	get_fps(double oldTime);
+#endif

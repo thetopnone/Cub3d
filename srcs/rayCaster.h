@@ -25,6 +25,10 @@
 //		in the direction of dir vector, from 1- side to the next corresponding
 //		side of a wall (from a y-side to the next y-side and form an x-side 
 //		to the next	x-side)
+//	->step : if we should increase or decrease when checking through the
+//		coordinates
+//	->hit : if we hit a wall or not
+//	->side : which face of the wall did we hit (NS or EW)? (0 for NS, 1 for EW)
 typedef struct s_rayCast2D
 {
 	t_2dvector	dir;
@@ -37,8 +41,9 @@ typedef struct s_rayCast2D
 	int			error;
 }	t_rayCast2D;
 
-void	setDir(t_rayCast2D *ray, t_gameData data, double pxl_i);
-void	setPos(t_rayCast2D *ray, t_gameData data);
-void	setDelta_Dist(t_rayCast2D *ray, t_gameData data);
-void	setSide_Dist(t_rayCast2D *ray, t_gameData data);
+void	set2DRayDir(t_rayCast2D *ray, t_gameData data, double pxl_i);
+void	set2DRayPos(t_rayCast2D *ray, t_gameData data);
+void	set2DRayDelta_Dist(t_rayCast2D *ray, t_gameData data);
+void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData data);
+void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i);
 #endif
