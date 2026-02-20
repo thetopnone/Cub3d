@@ -12,6 +12,7 @@
 
 #include "camera.h"
 #include "player.h"
+#include <math.h>
 
 //Sets the initial plane for the player, adjustreed according to the fov we want
 void	setCameraPlane(t_camera *camera, t_player player)
