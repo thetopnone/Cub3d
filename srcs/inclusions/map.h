@@ -53,4 +53,5 @@ void		setMapStart_wall(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
 void		setMapPlayer_spawn(t_map *map, int row, int col);
 void		setMapSpawn_direction(t_map *map, char c);
+void		setMapData(t_map *map, char *filename);
 #endif

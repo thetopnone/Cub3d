@@ -13,6 +13,7 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 # include "vectors.h"
+# include "player.h"
 
 typedef struct s_camera
 {

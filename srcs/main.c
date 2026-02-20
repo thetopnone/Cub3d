@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gameData.h"
+#include "game_data.h"
 #include <stdio.h>
 #include "../libft_extended/libft.h"
 
@@ -21,8 +21,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	ft_bzero(&game, sizeof (game));
-	setMapData(&(game.map), filename);
-	if (validate_map(&(game.map) == 1))
+	setMapData(&(game.map), argv[1]);
+	if (validate_map(&(game.map)) == 1)
 		printf("This is a VALID MAP!!!\n");
 	else
 		printf("Error\nIVALID MAP\n");

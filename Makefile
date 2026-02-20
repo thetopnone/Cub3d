@@ -25,11 +25,13 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
-$(MLX):
+$(MLX_DIR):
 	@git clone https://github.com/42paris/minilibx-linux.git mlx_linux
+
+$(MLX): $(MLX_DIR)
 	@make -C $(MLX_DIR)
 
-$(OBJS_DIR)/%.o: srcs/%.c
+$(OBJS_DIR)/%.o: srcs/%.c srcs/inclusions/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
 

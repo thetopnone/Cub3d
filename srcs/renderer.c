@@ -21,7 +21,7 @@ void	putPixel(t_image *img, int x, int y, int color)
 	char	*dst;
 	int		pixel_offset;
 
-	pixel_offset = (y * line_len + x * (bpp / 8));
+	pixel_offset = (y * img->line_len + x * (img->bpp / 8));
 	dst = img->addr + pixel_offset;
 	*(unsigned int *)dst = color;
 }
@@ -43,9 +43,9 @@ void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i)
 	while (render_start <= render_end)
 	{
 		if (ray->side == 0)
-			putPixel(&(img), pxl_i, render_start, 0x00FF00);
+			putPixel(img, pxl_i, render_start, 0x00FF00);
 		if (ray->side == -1)
-			putPixel(&(img), pxl_i, render_start, 0x00DD00);
+			putPixel(img, pxl_i, render_start, 0x00DD00);
 	}
 }
 

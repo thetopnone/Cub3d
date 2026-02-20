@@ -40,7 +40,7 @@ void	set2DRayPos(t_rayCast2D *ray, t_gameData data)
 }
 
 //Delta Dist is desribed in the rayCaster.h header
-void	set2DRayDelta_Dist(t_rayCast2D *ray, t_gameData data)
+void	set2DRayDelta_Dist(t_rayCast2D *ray)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
@@ -86,11 +86,11 @@ void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
-	ray->hit == 0;
+	ray->hit = 0;
 	ray->side = -1;
 	ray->error = 0;
 	set2DRayDir(ray, data, pxl_i);
 	set2DRayPos(ray, data);
-	set2DRayDelta_Dist(ray, data);
+	set2DRayDelta_Dist(ray);
 	set2DRaySide_Dist(ray, data);
 }

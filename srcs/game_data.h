@@ -46,4 +46,6 @@ typedef struct s_image
 	int		line_len;
 	int		endian;
 }	t_image;
+
+void	runGameLoop(t_gameData *data);
 #endif

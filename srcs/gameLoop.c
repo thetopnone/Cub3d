@@ -14,23 +14,8 @@
 #include "renderer.h"
 #include <mlx.h>
 
-//main game loop
-void	runGameLoop(t_gameData *data);
-{
-	void	*mlx;
-	void	*screen;
-	t_image	img;
-
-	mlx = mlx_init();
-	screen = mlx_new_window(mlx, WIDTH, HEIGHT, "CUB3D");
-	setImage(&img);
-	renderImage(*data, &img);
-	mlx_put_image_to_window(mlx, screen, img.img, 0, 0);
-	mlx_loop(mlx);
-}
-
 //Sets the image data structure
-void	setImage(t_image *img)
+void	setImage(t_image *img, void *mlx)
 {
 	if (!img)
 		return(perror("Error\nInvalid Image Pointer"));
@@ -38,3 +23,19 @@ void	setImage(t_image *img)
 	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->line_len),
 		&(img->endian));
 }
+
+//main game loop
+void	runGameLoop(t_gameData *data)
+{
+	void	*mlx;
+	void	*screen;
+	t_image	img;
+
+	mlx = mlx_init();
+	screen = mlx_new_window(mlx, WIDTH, HEIGHT, "CUB3D");
+	setImage(&img, mlx);
+	renderImage(*data, &img);
+	mlx_put_image_to_window(mlx, screen, img.img, 0, 0);
+	mlx_loop(mlx);
+}
+

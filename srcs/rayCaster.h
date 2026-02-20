@@ -47,7 +47,7 @@ typedef struct s_rayCast2D
 //-----------------------------------------------------------------------------
 void	set2DRayDir(t_rayCast2D *ray, t_gameData data, double pxl_i);
 void	set2DRayPos(t_rayCast2D *ray, t_gameData data);
-void	set2DRayDelta_Dist(t_rayCast2D *ray, t_gameData data);
+void	set2DRayDelta_Dist(t_rayCast2D *ray);
 void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData data);
 void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i);
 //-----------------------------------------------------------------------------
