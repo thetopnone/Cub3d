@@ -12,12 +12,6 @@
 
 #ifndef CAMERA_H
 # define CAMERA_H
-# ifndef WIDTH
-#  define WIDTH 1280
-# endif
-# ifndef HEIGHT
-#  define HEIGHT 1024
-# endif
 # include "vectors.h"
 
 typedef struct s_camera

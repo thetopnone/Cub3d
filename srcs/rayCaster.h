@@ -36,14 +36,26 @@ typedef struct s_rayCast2D
 	t_2dvector	delta_dist;
 	t_2dvector	side_dist;
 	t_vector	step;
+	double		dist_to_hit;
 	int			hit;
 	int			side;
 	int			error;
 }	t_rayCast2D;
 
+//-----------------------------------------------------------------------------
+// RAYCASTER_SETTERS_1.C (5)
+//-----------------------------------------------------------------------------
 void	set2DRayDir(t_rayCast2D *ray, t_gameData data, double pxl_i);
 void	set2DRayPos(t_rayCast2D *ray, t_gameData data);
 void	set2DRayDelta_Dist(t_rayCast2D *ray, t_gameData data);
 void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData data);
 void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i);
+//-----------------------------------------------------------------------------
+// RAYCASTER_SETTERS_2.C (1)
+//-----------------------------------------------------------------------------
+void	set2DRayDist_to_hit(t_rayCast2D *ray);
+//-----------------------------------------------------------------------------
+// RAYCASTER.C (1)
+//-----------------------------------------------------------------------------
+void	castRay2D(t_rayCast2D *ray, t_gameData data, double pxl_i);
 #endif

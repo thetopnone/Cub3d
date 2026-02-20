@@ -29,3 +29,16 @@ void	setMapSpawn_direction(t_map *map, char c)
 	map->spawn_direction = c;
 }
 
+// Function sets up the Map for validation
+void	setMapData(t_map *map, char *filename)
+{
+	if (!map)
+		return (perror("Error\nInvalid Map Pointer\n"));
+	setMapRows(map, filename);
+	setMapArray(map, filename);
+	setMapCols(map);
+	setMapVisited(map);
+	setMapStart_wall(map, 0, 0);
+	setMapPlayer_spawn(map, 0, 0);
+	setMapSpawn_direction(map, 0);
+}

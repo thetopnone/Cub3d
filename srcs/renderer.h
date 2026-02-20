@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:51:10 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/16 16:51:11 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/20 17:57:54 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/20 17:57:55 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gameData.h"
-#include <stdio.h>
-#include "../libft_extended/libft.h"
+#ifndef RENDERER_H
+#  define RENDERER_H
+# include "game_data.h"
+# include "rayCaster.h"
+# include <mlx.h>
 
-int	main(int argc, char *argv[])
-{
-	t_gameData	game;
-
-	if (argc != 2)
-		return (1);
-	ft_bzero(&game, sizeof (game));
-	setMapData(&(game.map), filename);
-	if (validate_map(&(game.map) == 1))
-		printf("This is a VALID MAP!!!\n");
-	else
-		printf("Error\nIVALID MAP\n");
-	runGameLoop(&game);
-	return (0);
-}
+void	putPixel(t_image *img, int x, int y, int color);
+void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i);
+void	renderImage(t_gameData data, t_image *img);
+#endif

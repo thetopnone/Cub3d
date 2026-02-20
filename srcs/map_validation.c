@@ -32,21 +32,21 @@ int	validate_map(t_map *map)
 		v.x = 0;
 		while (map->array[v.y][v.x] && map->is_invalid == 0)
 		{
-			update_map_player_data(map, v.y, v.x);
+			updateMapPlayerData(map, v.y, v.x);
 			if (!is_map_char(map->array[v.y][v.x])
 					&& map->array[v.y][v.x] != ' ')
 				return (map->is_invalid = 1, 0);
 			if (is_edge(map, v.y, v.x) == 1 && map->visited[v.y][v.x] == 0)
 			{
 				map->is_closed = 0;
-				set_start_wall(map, v.y, v.x);
+				setMapStart_wall(map, v.y, v.x);
 				check_closed_border(map, v.y, v.x);
 			}
 			v.x++;
 		}
 		v.y++;
 	}
-	return (check_map_data(map));
+	return (checkMapData(map));
 }
 
 //I want to check all blocks in the map. If a block is an edge piece, 
