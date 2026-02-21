@@ -13,6 +13,7 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 # include "vectors.h"
+# include "player.h"
 
 typedef struct s_camera
 {
@@ -22,7 +23,8 @@ typedef struct s_camera
 	int			error;
 }	t_camera;
 
-void	setPlane(t_camera *camera, double x, double y);
-void	setRot_speed(t_camera *camera, double speed);
-void	setFov(t_camera *camera, double fov);
+void	setCameraPlane(t_camera *camera, t_player player);
+void	setCameraRot_speed(t_camera *camera, double speed);
+void	setCameraFov(t_camera *camera, double fov);
+void	setCamera(t_camera *camera, t_player player, double speed, double fov);
 #endif

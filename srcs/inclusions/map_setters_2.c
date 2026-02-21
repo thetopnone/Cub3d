@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-void	set_player_spawn(t_map *map, int row, int col)
+void	setMapPlayer_spawn(t_map *map, int row, int col)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
@@ -22,9 +22,23 @@ void	set_player_spawn(t_map *map, int row, int col)
 	map->player_spawn.x = col;
 }
 
-void	set_spawn_direction(t_map *map, char c)
+void	setMapSpawn_direction(t_map *map, char c)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
 	map->spawn_direction = c;
+}
+
+// Function sets up the Map for validation
+void	setMapData(t_map *map, char *filename)
+{
+	if (!map)
+		return (perror("Error\nInvalid Map Pointer\n"));
+	setMapRows(map, filename);
+	setMapArray(map, filename);
+	setMapCols(map);
+	setMapVisited(map);
+	setMapStart_wall(map, 0, 0);
+	setMapPlayer_spawn(map, 0, 0);
+	setMapSpawn_direction(map, 0);
 }

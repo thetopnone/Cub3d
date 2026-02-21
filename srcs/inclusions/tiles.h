@@ -37,6 +37,5 @@ typedef struct s_wall
 	float		size;
 	float		height;
 	//t_texture	textures[4];
-	t_2dvector	pos;
 }	t_wall;
 #endif

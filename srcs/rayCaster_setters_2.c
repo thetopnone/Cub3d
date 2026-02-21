@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rayCaster_setters_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:51:10 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/16 16:51:11 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/20 15:46:40 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/20 15:46:42 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game_data.h"
-#include <stdio.h>
-#include "../libft_extended/libft.h"
+#include "rayCaster.h"
 
-int	main(int argc, char *argv[])
+//Sets the dist that the ray traveled until it hit the trigger
+void	set2DRayDist_to_hit(t_rayCast2D *ray)
 {
-	t_gameData	game;
-
-	if (argc != 2)
-		return (1);
-	ft_bzero(&game, sizeof (game));
-	setMapData(&(game.map), argv[1]);
-	if (validate_map(&(game.map)) == 1)
-		printf("This is a VALID MAP!!!\n");
+	if (!ray)
+		return (perror("Error\nInvalid Ray Pointer\n"));
+	if (ray->side == 0)
+		ray->dist_to_hit = ray->side_dist.y - ray->delta_dist.y;
 	else
-		printf("Error\nIVALID MAP\n");
-	runGameLoop(&game);
-	return (0);
+		ray->dist_to_hit = ray->side_dist.x - ray->delta_dist.x;
 }

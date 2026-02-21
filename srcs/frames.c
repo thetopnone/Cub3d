@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   frames.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:51:10 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/16 16:51:11 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/20 11:30:11 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/20 11:30:17 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game_data.h"
-#include <stdio.h>
-#include "../libft_extended/libft.h"
+#include "frames.h"
 
-int	main(int argc, char *argv[])
+double	get_time_in_s(void)
 {
-	t_gameData	game;
+	struct timeval	time;
 
-	if (argc != 2)
-		return (1);
-	ft_bzero(&game, sizeof (game));
-	setMapData(&(game.map), argv[1]);
-	if (validate_map(&(game.map)) == 1)
-		printf("This is a VALID MAP!!!\n");
-	else
-		printf("Error\nIVALID MAP\n");
-	runGameLoop(&game);
-	return (0);
+	gettimeofday(&time, NULL);
+	return ((double)time.tv_sec + ((double)time.tv_usec) / 1000000);
 }
+
+//Calculates how many frames we can render in one seconds
+unsigned long	get_fps(double oldTime)
+{
+	return ((unsigned long)(1.0 / (get_time_in_s() - oldTime)));
+}
+

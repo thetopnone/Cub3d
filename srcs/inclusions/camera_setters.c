@@ -11,28 +11,23 @@
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "map.h"
+#include "player.h"
+#include <math.h>
 
-void	setPlane(t_camera *camera, t_map map)
+//Sets the initial plane for the player, adjustreed according to the fov we want
+void	setCameraPlane(t_camera *camera, t_player player)
 {
+	double	fov_adjustment;
+
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
-	if (map.spawn_direction == 'S')
-		camera->plane.x = -1.0;
-	else if (map.spawn_direction == 'N')
-		camera->plane.x = 1.0;
-	else if (map.spawn_direction == 'W')
-		camera->plane.y = 1.0;
-	else if (map.spawn_direction == 'E')
-		camera->plane.y = -1.0;
-	else
-	{
-		perror("Error\nInvalid Orientation Input\n");
-		camera->error = 1;
-	}
+	fov_adjustment = tan((camera->fov * PI / 360));
+	camera->plane.x = player.dir.y * fov_adjustment;
+	camera->plane.y = player.dir.x * fov_adjustment;
 }
 
-void	setRot_speed(t_camera *camera, double speed)
+//Assigns camera rotation speed
+void	setCameraRot_speed(t_camera *camera, double speed)
 {
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
@@ -45,7 +40,8 @@ void	setRot_speed(t_camera *camera, double speed)
 	}
 }
 
-void	setFov(t_camera *camera, double fov)
+//Assigns camera fov
+void	setCameraFov(t_camera *camera, double fov)
 {
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
@@ -56,4 +52,14 @@ void	setFov(t_camera *camera, double fov)
 		perror("Error\nFov must be between 30 and 120 degrees\n");
 		camera->error = 1;
 	}
+}
+
+//Assisgns the initial data for the camera
+void	setCamera(t_camera *camera, t_player player, double speed, double fov)
+{
+	if (!camera)
+		return (perror("Error\nInvalid Camera Pointer\n"));
+	setCameraFov(camera, fov);
+	setCameraRot_speed(camera, speed);
+	setCameraPlane(camera, player);
 }
