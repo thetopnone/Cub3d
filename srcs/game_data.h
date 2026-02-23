@@ -47,5 +47,8 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
-void	runGameLoop(t_gameData *data);
+void	setGameData(t_gameData *game);
+void	runGameLoop(t_gameData *game);
+void	printGameData(t_gameData game);
+void	printImageData(t_image image);
 #endif

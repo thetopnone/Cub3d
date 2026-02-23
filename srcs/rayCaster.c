@@ -37,5 +37,6 @@ void	castRay2D(t_rayCast2D *ray, t_gameData data, double pxl_i)
 			ray->hit = 1;
 	}
 	set2DRayDist_to_hit(ray);
+	print2DRay(*ray);
 }
 

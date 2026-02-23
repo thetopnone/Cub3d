@@ -28,7 +28,7 @@
 //	->step : if we should increase or decrease when checking through the
 //		coordinates
 //	->hit : if we hit a wall or not
-//	->side : which face of the wall did we hit (NS or EW)? (0 for NS, 1 for EW)
+//	->side : which face of the wall did we hit (NS or EW)? (0 for EW, 1 for NS)
 typedef struct s_rayCast2D
 {
 	t_2dvector	dir;
@@ -54,6 +54,7 @@ void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i);
 // RAYCASTER_SETTERS_2.C (1)
 //-----------------------------------------------------------------------------
 void	set2DRayDist_to_hit(t_rayCast2D *ray);
+void	print2DRay(t_rayCast2D ray);
 //-----------------------------------------------------------------------------
 // RAYCASTER.C (1)
 //-----------------------------------------------------------------------------

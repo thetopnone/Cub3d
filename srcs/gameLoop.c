@@ -25,17 +25,41 @@ void	setImage(t_image *img, void *mlx)
 }
 
 //main game loop
-void	runGameLoop(t_gameData *data)
+void	runGameLoop(t_gameData *game)
 {
-	void	*mlx;
 	void	*screen;
 	t_image	img;
 
-	mlx = mlx_init();
-	screen = mlx_new_window(mlx, WIDTH, HEIGHT, "CUB3D");
-	setImage(&img, mlx);
-	renderImage(*data, &img);
-	mlx_put_image_to_window(mlx, screen, img.img, 0, 0);
-	mlx_loop(mlx);
+	game->mlx = mlx_init();
+	screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
+	printGameData(*game);
+	setImage(&img, game->mlx);
+	printImageData(img);
+	renderImage(*game, &img);
+	mlx_put_image_to_window(game->mlx, screen, img.img, 0, 0);
+	mlx_loop(game->mlx);
 }
 
+void	printImageData(t_image img)
+{
+	printf("Image\n");
+	printf("	img pointer: %p\n	addr pointer: %p\n", img.img, img.addr);
+	printf("	bpp: %d\n	line_len: %d\n	endian: %d\n",
+			img.bpp, img.line_len, img.endian);
+}
+
+void	printGameData(t_gameData game)
+{
+	printf("--GAME-DATA--------\n\n");
+	printCamera(game.camera);
+	printPlayer(game.player);
+	printMap(game.map);
+	printf("	mlx pointer: %p\n", game.mlx);
+	printf("---------------\n\n");
+}
+
+void	setGameData(t_gameData *game)
+{
+	setPlayer(&game->player, game->map, 10.0);
+	setCamera(&game->camera, game->player, 10.0, 90.0);
+}

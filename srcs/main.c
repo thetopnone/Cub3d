@@ -26,6 +26,7 @@ int	main(int argc, char *argv[])
 		printf("This is a VALID MAP!!!\n");
 	else
 		printf("Error\nIVALID MAP\n");
+	setGameData(&game);
 	runGameLoop(&game);
 	return (0);
 }

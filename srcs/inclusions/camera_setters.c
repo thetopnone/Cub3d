@@ -22,7 +22,7 @@ void	setCameraPlane(t_camera *camera, t_player player)
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
 	fov_adjustment = tan((camera->fov * PI / 360));
-	camera->plane.x = player.dir.y * fov_adjustment;
+	camera->plane.x = -1 * (player.dir.y * fov_adjustment);
 	camera->plane.y = player.dir.x * fov_adjustment;
 }
 
@@ -62,4 +62,13 @@ void	setCamera(t_camera *camera, t_player player, double speed, double fov)
 	setCameraFov(camera, fov);
 	setCameraRot_speed(camera, speed);
 	setCameraPlane(camera, player);
+}
+
+void	printCamera(t_camera camera)
+{
+	printf("Camera\n");
+	printf("	Plane");
+	print2DVector(camera.plane);
+	printf("	rot_speed: %lf\n", camera.rot_speed);
+	printf("	FOV: %lf\n", camera.fov);
 }

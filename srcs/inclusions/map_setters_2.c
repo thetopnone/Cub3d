@@ -42,3 +42,12 @@ void	setMapData(t_map *map, char *filename)
 	setMapPlayer_spawn(map, 0, 0);
 	setMapSpawn_direction(map, 0);
 }
+
+void	printMap(t_map map)
+{
+	printf("Map\n");
+	printf("	rows: %d\n	cols: %d\n", map.rows, map.cols);
+	printf("	spawn_direction: %c\n", map.spawn_direction);
+	printf("	player_spawn ");
+	printVector(map.player_spawn);
+}

@@ -42,10 +42,21 @@ void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i)
 		render_end = HEIGHT - 1;
 	while (render_start <= render_end)
 	{
-		if (ray->side == 0)
-			putPixel(img, pxl_i, render_start, 0x00FF00);
-		if (ray->side == -1)
-			putPixel(img, pxl_i, render_start, 0x00DD00);
+		if (ray->side == 1)
+		{
+			if (ray->step.y == -1)
+				putPixel(img, pxl_i, render_start, 0x000000FF);
+			else
+				putPixel(img, pxl_i, render_start, 0x00000055);
+		}
+		else if (ray->side == 0)
+		{
+			if (ray->step.x == -1)
+				putPixel(img, pxl_i, render_start, 0x0000FF00);
+			else
+				putPixel(img, pxl_i, render_start, 0x00005500);
+		}
+		render_start++;
 	}
 }
 
