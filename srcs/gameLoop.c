@@ -40,26 +40,8 @@ void	runGameLoop(t_gameData *game)
 	mlx_loop(game->mlx);
 }
 
-void	printImageData(t_image img)
-{
-	printf("Image\n");
-	printf("	img pointer: %p\n	addr pointer: %p\n", img.img, img.addr);
-	printf("	bpp: %d\n	line_len: %d\n	endian: %d\n",
-			img.bpp, img.line_len, img.endian);
-}
-
-void	printGameData(t_gameData game)
-{
-	printf("--GAME-DATA--------\n\n");
-	printCamera(game.camera);
-	printPlayer(game.player);
-	printMap(game.map);
-	printf("	mlx pointer: %p\n", game.mlx);
-	printf("---------------\n\n");
-}
-
 void	setGameData(t_gameData *game)
 {
 	setPlayer(&game->player, game->map, 10.0);
-	setCamera(&game->camera, game->player, 10.0, 90.0);
+	setCamera(&game->camera, game->player, 10.0, 120.0);
 }
