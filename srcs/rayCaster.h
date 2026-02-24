@@ -28,7 +28,7 @@
 //	->step : if we should increase or decrease when checking through the
 //		coordinates
 //	->hit : if we hit a wall or not
-//	->side : which face of the wall did we hit (NS or EW)? (0 for NS, 1 for EW)
+//	->side : which face of the wall did we hit (NS or EW)? (0 for EW, 1 for NS)
 typedef struct s_rayCast2D
 {
 	t_2dvector	dir;
@@ -37,6 +37,8 @@ typedef struct s_rayCast2D
 	t_2dvector	side_dist;
 	t_vector	step;
 	double		dist_to_hit;
+	double		wall_hit_x;
+	t_vector	tex;
 	int			hit;
 	int			side;
 	int			error;
@@ -45,17 +47,20 @@ typedef struct s_rayCast2D
 //-----------------------------------------------------------------------------
 // RAYCASTER_SETTERS_1.C (5)
 //-----------------------------------------------------------------------------
-void	set2DRayDir(t_rayCast2D *ray, t_gameData data, double pxl_i);
-void	set2DRayPos(t_rayCast2D *ray, t_gameData data);
+void	set2DRayDir(t_rayCast2D *ray, t_gameData *game, double pxl_i);
+void	set2DRayPos(t_rayCast2D *ray, t_gameData *game);
 void	set2DRayDelta_Dist(t_rayCast2D *ray);
-void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData data);
-void	set2DRay(t_rayCast2D *ray, t_gameData data, double pxl_i);
+void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData *game);
+void	set2DRay(t_rayCast2D *ray, t_gameData *game, double pxl_i);
 //-----------------------------------------------------------------------------
 // RAYCASTER_SETTERS_2.C (1)
 //-----------------------------------------------------------------------------
 void	set2DRayDist_to_hit(t_rayCast2D *ray);
+void	set2DRayWall_hit_x(t_rayCast2D *ray, t_gameData *game);
+void	set2DRayTex(t_rayCast2D *ray);
+void	print2DRay(t_rayCast2D ray);
 //-----------------------------------------------------------------------------
 // RAYCASTER.C (1)
 //-----------------------------------------------------------------------------
-void	castRay2D(t_rayCast2D *ray, t_gameData data, double pxl_i);
+void	castRay2D(t_rayCast2D *ray, t_gameData *game, double pxl_i);
 #endif

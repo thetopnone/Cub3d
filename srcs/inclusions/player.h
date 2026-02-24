@@ -24,4 +24,5 @@ void	setPlayerPos(t_player *player, t_map map);
 void	setPlayerDir(t_player *player, t_map map);
 void	setPlayerMove_speed(t_player *player, unsigned int speed);
 void	setPlayer(t_player *player, t_map map, unsigned int speed);
+void	printPlayer(t_player player);
 #endif

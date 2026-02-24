@@ -33,9 +33,9 @@ void	setPlayerDir(t_player *player, t_map map)
 	if (!player)
 		return (perror("Error\nInvalid Player Pointer\n"));
 	if (map.spawn_direction == 'S')
-		player->dir.y = -1.0;
-	else if (map.spawn_direction == 'N')
 		player->dir.y = 1.0;
+	else if (map.spawn_direction == 'N')
+		player->dir.y = -1.0;
 	else if (map.spawn_direction == 'W')
 		player->dir.x = -1.0;
 	else if (map.spawn_direction == 'E')
@@ -60,4 +60,14 @@ void	setPlayer(t_player *player, t_map map, unsigned int speed)
 	setPlayerPos(player, map);
 	setPlayerDir(player, map);
 	setPlayerMove_speed(player, speed);
+}
+
+void	printPlayer(t_player player)
+{
+	printf("Player\n");
+	printf("	pos ");
+	print2DVector(player.pos);
+	printf("	dir ");
+	print2DVector(player.dir);
+	printf("	move_speed: %u\n", player.move_speed);
 }

@@ -12,6 +12,7 @@
 
 #include "game_data.h"
 #include "renderer.h"
+#include "../libft_extended/libft.h"
 #include <mlx.h>
 
 //Sets the image data structure
@@ -25,17 +26,25 @@ void	setImage(t_image *img, void *mlx)
 }
 
 //main game loop
-void	runGameLoop(t_gameData *data)
+void	runGameLoop(t_gameData *game)
 {
-	void	*mlx;
 	void	*screen;
 	t_image	img;
 
-	mlx = mlx_init();
-	screen = mlx_new_window(mlx, WIDTH, HEIGHT, "CUB3D");
-	setImage(&img, mlx);
-	renderImage(*data, &img);
-	mlx_put_image_to_window(mlx, screen, img.img, 0, 0);
-	mlx_loop(mlx);
+	game->mlx = mlx_init();
+	setTexture(&game->textures[0], game, "./textures/Wall_North.xpm");
+	screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
+	//printGameData(*game);
+	setImage(&img, game->mlx);
+	//printImageData(img);
+	renderImage(game, &img);
+	mlx_put_image_to_window(game->mlx, screen, img.img, 0, 0);
+	mlx_loop(game->mlx);
 }
 
+void	setGameData(t_gameData *game)
+{
+	setPlayer(&game->player, game->map, 10.0);
+	setCamera(&game->camera, game->player, 10.0, 60.0);
+	ft_bzero(game->buffer, HEIGHT * WIDTH);
+}

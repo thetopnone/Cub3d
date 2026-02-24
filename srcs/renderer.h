@@ -18,5 +18,5 @@
 
 void	putPixel(t_image *img, int x, int y, int color);
 void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i);
-void	renderImage(t_gameData data, t_image *img);
+void	renderImage(t_gameData *game, t_image *img);
 #endif
