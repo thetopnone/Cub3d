@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TILES_H
-# define TILES_H
+#ifndef TEXTURES_H
+# define TEXTURES_H
 # include "vectors.h"
+
+typedef struct s_gameData	t_gameData;
+
 //Map will be based on tiles, which means squares
 //Floors will be a size * size flat square
 //Walls will be a size * height rectangles (wall size smae as floor size)
@@ -31,11 +34,23 @@ typedef struct s_ceiling
 	int			rgb[3];
 }	t_ceiling;
 
-//Array of textures will hold all 4 textures for all 4 faces N,S,E,W
-typedef struct s_wall
+typedef struct s_image
 {
-	float		size;
-	float		height;
-	//t_texture	textures[4];
-}	t_wall;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_image;
+
+//Array of textures will hold all 4 textures for all 4 faces N,S,E,W
+typedef	struct	s_texture
+{
+	char	*path;
+	t_image	img;
+}	t_texture;
+
+void	setTexture(t_texture *tex, t_gameData *game, char *path);
 #endif

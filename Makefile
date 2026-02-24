@@ -14,7 +14,7 @@ srcs/renderer.c srcs/rayCaster.c srcs/rayCaster_setters_1.c \
 srcs/rayCaster_setters_2.c srcs/gameLoop.c srcs/inclusions/camera_setters.c \
 srcs/inclusions/map_setters_1.c srcs/inclusions/map_setters_2.c \
 srcs/inclusions/player_setters.c srcs/inclusions/vectors_oper_1.c \
-srcs/inclusions/vectors_oper_2.c 
+srcs/inclusions/vectors_oper_2.c srcs/printers.c srcs/inclusions/textures_setters.c
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 all: $(NAME)
