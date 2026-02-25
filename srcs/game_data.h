@@ -37,16 +37,29 @@ typedef struct s_gameData
 	t_camera		camera;
 	t_player		player;
 	t_map			map;
+	t_image			img;
 	t_ceiling		ceiling;
-	t_floor			s_floor;
+	t_floor			floor;
 	t_texture		textures[4];
 	unsigned int	buffer[HEIGHT][WIDTH];
 	void			*mlx;
+	void			*screen;
 	int				error;
 }	t_gameData;
 
+//-----------------------------------------------------------------------------
+// GAME_LOOP.C (3)
+//-----------------------------------------------------------------------------
+void	setImage(t_image *img, void *mlx);
 void	setGameData(t_gameData *game);
 void	runGameLoop(t_gameData *game);
-void	printGameData(t_gameData game);
-void	printImageData(t_image image);
+//-----------------------------------------------------------------------------
+// PRINTERS.C (2)
+//-----------------------------------------------------------------------------
+void	printGameData(t_gameData *game);
+void	printImageData(t_image *image);
+//-----------------------------------------------------------------------------
+// MOVEMENT.C (2)
+//-----------------------------------------------------------------------------
+int		handleInput(int keycode, t_gameData *game);
 #endif

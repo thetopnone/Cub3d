@@ -16,7 +16,17 @@
 # include "rayCaster.h"
 # include <mlx.h>
 
-void	putPixel(t_image *img, int x, int y, int color);
-void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i);
-void	renderImage(t_gameData *game, t_image *img);
+typedef struct	s_renderData
+{
+	int		line_h;
+	int		render_start;
+	int		render_end;
+	double	step;
+	double	texPos;
+}	t_renderData;
+
+void    putTexturePixel(t_image *img, int x, int  y, t_gameData *game, t_vector *tex);
+void	renderVerticalLine(t_rayCast2D *ray, t_gameData *game, double pxl_i);
+void	renderImage(t_gameData *game);
+void	setRenderRange(int *render_start, int *render_end, int line_h);
 #endif

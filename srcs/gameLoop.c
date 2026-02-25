@@ -28,23 +28,20 @@ void	setImage(t_image *img, void *mlx)
 //main game loop
 void	runGameLoop(t_gameData *game)
 {
-	void	*screen;
-	t_image	img;
-
 	game->mlx = mlx_init();
 	setTexture(&game->textures[0], game, "./textures/Wall_North.xpm");
-	screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
-	//printGameData(*game);
-	setImage(&img, game->mlx);
-	//printImageData(img);
-	renderImage(game, &img);
-	mlx_put_image_to_window(game->mlx, screen, img.img, 0, 0);
+	game->screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
+	setImage(&game->img, game->mlx);
+	renderImage(game);
+	mlx_hook(game->screen, 2, 1L<<0, handleInput, game);
 	mlx_loop(game->mlx);
 }
 
+//
+//Game data settup
 void	setGameData(t_gameData *game)
 {
-	setPlayer(&game->player, game->map, 10.0);
-	setCamera(&game->camera, game->player, 10.0, 60.0);
+	setPlayer(&game->player, &game->map, 10.0);
+	setCamera(&game->camera, &game->player, 10.0, 60.0);
 	ft_bzero(game->buffer, HEIGHT * WIDTH);
 }

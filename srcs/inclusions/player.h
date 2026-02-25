@@ -17,12 +17,13 @@ typedef struct s_player
 {
 	t_2dvector		pos;
 	t_2dvector		dir;
-	unsigned int	move_speed;
+	double			move_speed;
+	double			speed;
 }	t_player;
 
-void	setPlayerPos(t_player *player, t_map map);
-void	setPlayerDir(t_player *player, t_map map);
-void	setPlayerMove_speed(t_player *player, unsigned int speed);
-void	setPlayer(t_player *player, t_map map, unsigned int speed);
-void	printPlayer(t_player player);
+void	setPlayerPos(t_player *player, t_map *map);
+void	setPlayerDir(t_player *player, t_map *map);
+void	setPlayerMove_speed(t_player *player, double move_speed);
+void	setPlayer(t_player *player, t_map *map, double move_speed);
+void	printPlayer(t_player *player);
 #endif

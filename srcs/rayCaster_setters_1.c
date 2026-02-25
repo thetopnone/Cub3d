@@ -25,7 +25,6 @@ void	set2DRayDir(t_rayCast2D *ray, t_gameData *game, double pxl_i)
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
 	offset = (2 * pxl_i / (double)WIDTH - 1);
-	printf("\n	offset: %lf\n", offset);
 	ray->dir.x = game->player.dir.x + game->camera.plane.x * offset;
 	ray->dir.y = game->player.dir.y + game->camera.plane.y * offset;
 	//ray->dir = add_2dvec(game.player.dir, mul_2dvect(game.camera.plane,

@@ -33,12 +33,11 @@ void	castRay2D(t_rayCast2D *ray, t_gameData *game, double pxl_i)
 			ray->pos.x += ray->step.x;
 			ray->side = 0;
 		}
-		if (game->map.array[ray->pos.y][ray->pos.x] != '0')
+		if (game->map.array[ray->pos.y][ray->pos.x] == '1')
 			ray->hit = 1;
 	}
 	set2DRayDist_to_hit(ray);
 	set2DRayWall_hit_x(ray, game);
 	set2DRayTex(ray);
-	print2DRay(*ray);
 }
 
