@@ -13,7 +13,7 @@
 #ifndef MAP_H
 # define MAP_H
 # ifndef GRIDSIZE
-#  define GRIDSIZE 1000;
+#  define GRIDSIZE 1000
 # endif
 # include <stdio.h>
 # include "vectors.h"
@@ -43,16 +43,16 @@ typedef struct s_map
 //----------------------------------------------------------------------------
 // MAP_SETTERS_1 (5)
 //----------------------------------------------------------------------------
-void		setMapRows(t_map *map, char *filename);
-void		setMapArray(t_map *map, char *filename);
-void		setMapCols(t_map *map);
-void		setMapVisited(t_map *map);
-void		setMapStart_wall(t_map *map, int row, int col);
+void		set_map_rows(t_map *map, char *filename);
+void		set_map_array(t_map *map, char *filename);
+void		set_map_cols(t_map *map);
+void		set_map_visited(t_map *map);
+void		set_map_start_wall(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
 // MAP_SETTERS_2 (2)
 //----------------------------------------------------------------------------
-void		setMapPlayer_spawn(t_map *map, int row, int col);
-void		setMapSpawn_direction(t_map *map, char c);
-void		setMapData(t_map *map, char *filename);
-void		printMap(t_map map);
+void		set_map_player_spawn(t_map *map, int row, int col);
+void		set_map_spawn_direction(t_map *map, char c);
+void		set_map_data(t_map *map, char *filename);
+void		print_map(t_map *map);
 #endif

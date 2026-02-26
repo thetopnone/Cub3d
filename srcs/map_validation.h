@@ -26,8 +26,8 @@ int		is_edge(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
 // MAP_VALIDATION_UTILS (4)
 //----------------------------------------------------------------------------
-int		checkMapData(t_map *map);
-void	updateMapPlayerData(t_map *map, int row, int col);
+int		check_map_data(t_map *map);
+void	update_map_player_data(t_map *map, int row, int col);
 int		is_spawn_char(int c);
 int		is_map_char(int c);
 #endif

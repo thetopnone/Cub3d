@@ -12,36 +12,37 @@
 
 #include "game_data.h"
 #include "renderer.h"
+#include "frames.h"
 #include "../libft_extended/libft.h"
 #include <mlx.h>
 
 //Sets the image data structure
-void	setImage(t_image *img, void *mlx)
+void	set_image(t_image *img, void *mlx)
 {
 	if (!img)
-		return(perror("Error\nInvalid Image Pointer"));
+		return (perror("Error\nInvalid Image Pointer"));
 	img->img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->line_len),
-		&(img->endian));
+			&(img->endian));
 }
 
 //main game loop
-void	runGameLoop(t_gameData *game)
+void	run_game_loop(t_game_data *game)
 {
 	game->mlx = mlx_init();
-	setTexture(&game->textures[0], game, "./textures/Wall_North.xpm");
+	load_textures(game);
 	game->screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
-	setImage(&game->img, game->mlx);
-	renderImage(game);
-	mlx_hook(game->screen, 2, 1L<<0, handleInput, game);
+	set_image(&game->img, game->mlx);
+	render_image(game);
+	mlx_hook(game->screen, 2, 1L << 0, handle_input, game);
 	mlx_loop(game->mlx);
 }
 
 //
 //Game data settup
-void	setGameData(t_gameData *game)
+void	set_game_data(t_game_data *game)
 {
-	setPlayer(&game->player, &game->map, 10.0);
-	setCamera(&game->camera, &game->player, 10.0, 60.0);
+	set_player(&game->player, &game->map, 10.0);
+	set_camera(&game->camera, &game->player, 20.0, 60.0);
 	ft_bzero(game->buffer, HEIGHT * WIDTH);
 }

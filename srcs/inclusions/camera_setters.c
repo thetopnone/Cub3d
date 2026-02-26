@@ -15,7 +15,7 @@
 #include <math.h>
 
 //Sets the initial plane for the player, adjustreed according to the fov we want
-void	setCameraPlane(t_camera *camera, t_player *player)
+void	set_camera_plane(t_camera *camera, t_player *player)
 {
 	double	fov_adjustment;
 
@@ -27,7 +27,7 @@ void	setCameraPlane(t_camera *camera, t_player *player)
 }
 
 //Assigns camera rotation speed
-void	setCameraRot_speed(t_camera *camera, double speed)
+void	set_camera_rot_speed(t_camera *camera, double speed)
 {
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
@@ -41,7 +41,7 @@ void	setCameraRot_speed(t_camera *camera, double speed)
 }
 
 //Assigns camera fov
-void	setCameraFov(t_camera *camera, double fov)
+void	set_camera_fov(t_camera *camera, double fov)
 {
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
@@ -58,20 +58,20 @@ void	setCameraFov(t_camera *camera, double fov)
 }
 
 //Assisgns the initial data for the camera
-void	setCamera(t_camera *camera, t_player *player, double speed, double fov)
+void	set_camera(t_camera *camera, t_player *player, double speed, double fov)
 {
 	if (!camera)
 		return (perror("Error\nInvalid Camera Pointer\n"));
-	setCameraFov(camera, fov);
-	setCameraRot_speed(camera, speed);
-	setCameraPlane(camera, player);
+	set_camera_fov(camera, fov);
+	set_camera_rot_speed(camera, speed);
+	set_camera_plane(camera, player);
 }
 
-void	printCamera(t_camera *camera)
+void	print_camera(t_camera *camera)
 {
 	printf("Camera\n");
 	printf("	Plane");
-	print2DVector(camera->plane);
+	print_2dvector(&camera->plane);
 	printf("	rot_speed: %lf\n", camera->rot_speed);
 	printf("	FOV: %lf\n", camera->fov);
 }

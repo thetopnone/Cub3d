@@ -15,7 +15,7 @@
 #include <math.h>
 
 //Sets the dist that the ray traveled until it hit the trigger
-void	set2DRayDist_to_hit(t_rayCast2D *ray)
+void	set_2dray_dist_to_hit(t_raycast2d *ray)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
@@ -26,7 +26,7 @@ void	set2DRayDist_to_hit(t_rayCast2D *ray)
 }
 
 //Sets the "spot" we hit the wall in the x-axis
-void	set2DRayWall_hit_x(t_rayCast2D *ray, t_gameData *game)
+void	set_2dray_wall_hit_x(t_raycast2d *ray, t_game_data *game)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
@@ -37,29 +37,30 @@ void	set2DRayWall_hit_x(t_rayCast2D *ray, t_gameData *game)
 	ray->wall_hit_x -= floor(ray->wall_hit_x);
 }
 
-void	set2DRayTex(t_rayCast2D *ray)
+void	set_2dray_tex(t_raycast2d *ray)
 {
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
 	ray->tex.y = 0;
 	ray->tex.x = (int)(ray->wall_hit_x * TEX_WIDTH);
-	if ((ray->side == 0 && ray->dir.x < 0) || (ray->side == 1 && ray->dir.y > 0))
+	if ((ray->side == 0 && ray->dir.x < 0)
+		|| (ray->side == 1 && ray->dir.y > 0))
 		ray->tex.x = TEX_WIDTH - ray->tex.x - 1;
 }
 
-void	print2DRay(t_rayCast2D ray)
+void	print_2dray(t_raycast2d *ray)
 {
-	printf("rayCast2D\n");
+	printf("raycast2d\n");
 	printf("	dir ");
-	print2DVector(ray.dir);
+	print_2dvector(&ray->dir);
 	printf("	pos ");
-	printVector(ray.pos);
+	print_vector(&ray->pos);
 	printf("	delta_dist ");
-	print2DVector(ray.delta_dist);
+	print_2dvector(&ray->delta_dist);
 	printf("	side_dist ");
-	print2DVector(ray.side_dist);
+	print_2dvector(&ray->side_dist);
 	printf("	step ");
-	printVector(ray.step);
+	print_vector(&ray->step);
 	printf("	dist_to_hit: %lf\n	hit: %d\n	side: %d\n	error: %d\n",
-		ray.dist_to_hit, ray.hit, ray.side, ray.error);;
+		ray->dist_to_hit, ray->hit, ray->side, ray->error);
 }

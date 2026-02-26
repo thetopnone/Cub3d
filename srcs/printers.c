@@ -12,20 +12,20 @@
 
 #include "game_data.h"
 
-void	printGameData(t_gameData *game)
+void	print_game_data(t_game_data *game)
 {
 	printf("--GAME-DATA--------\n\n");
-	printCamera(&game->camera);
-	printPlayer(&game->player);
-	printMap(game->map);
+	print_camera(&game->camera);
+	print_player(&game->player);
+	print_map(&game->map);
 	printf("	mlx pointer: %p\n", game->mlx);
 	printf("---------------\n\n");
 }
 
-void	printImageData(t_image *img)
+void	print_image_data(t_image *img)
 {
 	printf("Image\n");
 	printf("	img pointer: %p\n	addr pointer: %p\n", img->img, img->addr);
 	printf("	bpp: %d\n	line_len: %d\n	endian: %d\n",
-			img->bpp, img->line_len, img->endian);
+		img->bpp, img->line_len, img->endian);
 }

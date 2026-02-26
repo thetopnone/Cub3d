@@ -12,6 +12,7 @@
 
 #include "game_data.h"
 #include "renderer.h"
+#include "frames.h"
 #include "rayCaster.h"
 #include "../libft_extended/libft.h"
 #include <mlx.h>
@@ -27,10 +28,15 @@ void	putPixel(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }*/
 
-void	putTexturePixel(t_image *img, int x, int  y, t_gameData *game, t_vector *tex)
+void	put_texture_pixel(t_image *img,
+			t_vector *pixel, t_game_data *game, t_vector *tex)
 {
 	int		pixel_offset;
+	int		y;
+	int		x;
 
+	x = pixel->x;
+	y = pixel->y;
 	if (img == NULL)
 	{
 		if (y < HEIGHT / 2)
@@ -45,60 +51,81 @@ void	putTexturePixel(t_image *img, int x, int  y, t_gameData *game, t_vector *te
 	}
 }
 
-//Renders all the pixels in the (pxl_i, y) vertical line in the image
-void	renderVerticalLine(t_rayCast2D *ray, t_gameData *game, double pxl_i)
+void	render_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
 {
-	int		line_h;
-	int		render_start;
-	int		render_end;
-	int		y;
-	double	step;
-	double	texPos;
+	if (ray->side == 0)
+	{
+		if (ray->dir.x < 0)
+			put_texture_pixel(&game->textures[3].img, pixel, game, &ray->tex);
+		else
+			put_texture_pixel(&game->textures[2].img, pixel, game, &ray->tex);
+	}
+	else
+	{
+		if (ray->dir.y < 0)
+			put_texture_pixel(&game->textures[0].img, pixel, game, &ray->tex);
+		else
+			put_texture_pixel(&game->textures[1].img, pixel, game, &ray->tex);
+	}
+}
+
+//Renders all the pixels in the (pxl_i, y) vertical line in the image
+void	render_vertical_line(t_raycast2d *ray, t_game_data *game, double pxl_i)
+{
+	int			line_h;
+	t_vector	render_range;
+	t_vector	pixel;
+	double		step;
+	double		tex_pos;
 
 	line_h = (int)(HEIGHT / ray->dist_to_hit);
 	step = 1.0 * TEX_HEIGHT / line_h;
-	setRenderRange(&render_start, &render_end, line_h);
-	texPos = (render_start - (HEIGHT / 2) + (line_h / 2)) * step;
-	y = 0;
-	while (y < HEIGHT)
+	set_render_range(&render_range.x, &render_range.y, line_h);
+	tex_pos = (render_range.x - (HEIGHT / 2) + (line_h / 2)) * step;
+	pixel.x = pxl_i;
+	pixel.y = 0;
+	while (pixel.y < HEIGHT)
 	{
-		ray->tex.y = (int)texPos & (TEX_HEIGHT - 1);
-		if (y >= render_start && y <= render_end)
+		ray->tex.y = (int)tex_pos & (TEX_HEIGHT - 1);
+		if (pixel.y >= render_range.x && pixel.y <= render_range.y)
 		{
-			putTexturePixel(&game->textures[0].img, pxl_i, y, game, &ray->tex);
-			texPos += step;
+			render_texture(ray, game, &pixel);
+			tex_pos += step;
 		}
 		else
-			putTexturePixel(NULL, pxl_i, y, game, &ray->tex);
-		y++;
+			put_texture_pixel(NULL, &pixel, game, &ray->tex);
+		pixel.y++;
 	}
 }
 
 //Renders the whole WIDTH of the image
-void	renderImage(t_gameData *game)
+void	render_image(t_game_data *game)
 {
-	t_rayCast2D		ray;
+	t_raycast2d		ray;
 	double			pxl_i;
+	double			old_time;
 
 	pxl_i = 0;
-	ft_bzero(game->buffer, HEIGHT * WIDTH); 
+	ft_bzero(game->buffer, HEIGHT * WIDTH);
+	old_time = get_time_in_s();
 	while (pxl_i < WIDTH)
 	{
 		ft_bzero(&ray, sizeof(ray));
-		castRay2D(&ray, game, pxl_i);
-		renderVerticalLine(&ray, game, pxl_i);
+		cast_ray2d(&ray, game, pxl_i);
+		render_vertical_line(&ray, game, pxl_i);
 		pxl_i++;
 	}
 	mlx_clear_window(game->mlx, game->screen);
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
 	printf("\nFinished Rendering Image\n");
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
+	printf("\nFPS: %ld\n", get_fps(old_time));
 }
 
 //Sets how many pixels we should render from the texture on the screen
 //We will add additional function to render floors (before render start)
 // and ceiling (after render end)
-void	setRenderRange(int *render_start, int *render_end, int line_h)
+void	set_render_range(int *render_start, int *render_end, int line_h)
 {
 	*render_start = (HEIGHT / 2) - (line_h / 2);
 	*render_end = (HEIGHT / 2) + (line_h / 2);
