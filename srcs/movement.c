@@ -14,6 +14,7 @@
 #include "renderer.h"
 #include <X11/keysym.h>
 #include <stdlib.h>
+#include "cleanup.h"
 
 static void	set_cushion(t_2dvector *cushion,
 		t_player *player, int direction_x, int direction_y)
@@ -73,7 +74,7 @@ static void	rotate_camera(int direction, t_game_data *game)
 int	handle_input(int keycode, t_game_data *game)
 {
 	if (keycode == XK_Escape)
-		exit(0);
+		clean_game_data(game);
 	if (keycode == XK_W || keycode == XK_w)
 		move_player(0, 1, game);
 	else if (keycode == XK_S || keycode == XK_s)

@@ -10,12 +10,12 @@ MLX = $(MLX_DIR)/libmlx.a
 LIBFT = $(LIBFT_DIR)/libft.a
 OBJS_DIR = objs
 SRCS = srcs/main.c srcs/map_validation.c srcs/map_validation_utils.c \
-srcs/renderer.c srcs/rayCaster.c srcs/rayCaster_setters_1.c \
-srcs/rayCaster_setters_2.c srcs/gameLoop.c srcs/inclusions/camera_setters.c \
+srcs/renderer.c srcs/raycaster.c srcs/raycaster_setters_1.c \
+srcs/raycaster_setters_2.c srcs/game_loop.c srcs/inclusions/camera_setters.c \
 srcs/inclusions/map_setters_1.c srcs/inclusions/map_setters_2.c \
 srcs/inclusions/player_setters.c srcs/inclusions/vectors_oper_1.c \
 srcs/inclusions/vectors_oper_2.c srcs/printers.c srcs/inclusions/textures_setters.c \
-srcs/movement.c srcs/frames.c
+srcs/movement.c srcs/frames.c srcs/cleanup.c
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 all: $(NAME)

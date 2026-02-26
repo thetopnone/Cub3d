@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayCaster.h"
+#include "raycaster.h"
 #include "game_data.h"
 #include <math.h>
 

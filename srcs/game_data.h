@@ -6,7 +6,7 @@
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:59 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/19 15:36:01 by akonstan         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:19:16 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 #  define TEX_HEIGHT 256
 # endif
 # include "./inclusions/camera.h"
-# include "./inclusions/map.h"
-# include "./inclusions/player.h"
 # include "./inclusions/textures.h"
+# include "../libft_extended/libft.h"
 # include "frames.h"
 # include "map_validation.h"
 # include <errno.h>
+# include <mlx.h>
 
 typedef struct s_game_data
 {

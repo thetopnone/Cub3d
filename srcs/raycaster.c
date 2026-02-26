@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "game_data.h"
-#include "rayCaster.h"
+#include "raycaster.h"
 
 //Loop that casts the pxl_i ray 
 void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)

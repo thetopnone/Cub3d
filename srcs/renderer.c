@@ -13,7 +13,7 @@
 #include "game_data.h"
 #include "renderer.h"
 #include "frames.h"
-#include "rayCaster.h"
+#include "raycaster.h"
 #include "../libft_extended/libft.h"
 #include <mlx.h>
 
