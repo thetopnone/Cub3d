@@ -15,6 +15,7 @@
 # ifndef PI
 #  define PI 3.14159265
 # endif
+
 typedef struct s_vector
 {
 	int		x;
@@ -32,6 +33,6 @@ double		norm_2dvec(t_2dvector v);
 t_2dvector	add_2dvec(t_2dvector v1, t_2dvector v2);
 t_2dvector	sub_2dvec(t_2dvector v1, t_2dvector v2);
 t_2dvector	mul_2dvect(t_2dvector v, double n);
-void		printVector(t_vector v);
-void		print2DVector(t_2dvector v);
+void		print_vector(t_vector *v);
+void		print_2dvector(t_2dvector *v);
 #endif

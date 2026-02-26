@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-void	setMapPlayer_spawn(t_map *map, int row, int col)
+void	set_map_player_spawn(t_map *map, int row, int col)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
@@ -22,7 +22,7 @@ void	setMapPlayer_spawn(t_map *map, int row, int col)
 	map->player_spawn.x = col;
 }
 
-void	setMapSpawn_direction(t_map *map, char c)
+void	set_map_spawn_direction(t_map *map, char c)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
@@ -30,24 +30,24 @@ void	setMapSpawn_direction(t_map *map, char c)
 }
 
 // Function sets up the Map for validation
-void	setMapData(t_map *map, char *filename)
+void	set_map_data(t_map *map, char *filename)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"));
-	setMapRows(map, filename);
-	setMapArray(map, filename);
-	setMapCols(map);
-	setMapVisited(map);
-	setMapStart_wall(map, 0, 0);
-	setMapPlayer_spawn(map, 0, 0);
-	setMapSpawn_direction(map, 0);
+	set_map_rows(map, filename);
+	set_map_array(map, filename);
+	set_map_cols(map);
+	set_map_visited(map);
+	set_map_start_wall(map, 0, 0);
+	set_map_player_spawn(map, 0, 0);
+	set_map_spawn_direction(map, 0);
 }
 
-void	printMap(t_map map)
+void	print_map(t_map *map)
 {
 	printf("Map\n");
-	printf("	rows: %d\n	cols: %d\n", map.rows, map.cols);
-	printf("	spawn_direction: %c\n", map.spawn_direction);
+	printf("	rows: %d\n	cols: %d\n", map->rows, map->cols);
+	printf("	spawn_direction: %c\n", map->spawn_direction);
 	printf("	player_spawn ");
-	printVector(map.player_spawn);
+	print_vector(&map->player_spawn);
 }

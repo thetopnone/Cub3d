@@ -14,31 +14,31 @@
 #include "rayCaster.h"
 
 //Loop that casts the pxl_i ray 
-void	castRay2D(t_rayCast2D *ray, t_gameData *game, double pxl_i)
+void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
 {
 	if (!ray)
 		return (perror("Error\nRay Casting Error\n"));
-	set2DRay(ray, game, pxl_i);
+	set_2dray(ray, game, pxl_i);
 	while (ray->hit == 0)
 	{
-		if (ray->side_dist.x > ray->side_dist.y)
-		{
-			ray->side_dist.y += ray->delta_dist.y;
-			ray->pos.y += ray->step.y;
-			ray->side = 1;
-		}
+		if (game->map.array[ray->pos.y][ray->pos.x] == '1')
+			ray->hit = 1;
 		else
 		{
-			ray->side_dist.x += ray->delta_dist.x;
-			ray->pos.x += ray->step.x;
-			ray->side = 0;
+			if (ray->side_dist.x > ray->side_dist.y)
+			{
+				ray->side_dist.y += ray->delta_dist.y;
+				ray->pos.y += ray->step.y;
+				ray->side = 1;
+			}
+			else
+			{
+				ray->side_dist.x += ray->delta_dist.x;
+				ray->pos.x += ray->step.x;
+				ray->side = 0;
+			}
 		}
-		if (game->map.array[ray->pos.y][ray->pos.x] != '0')
-			ray->hit = 1;
 	}
-	set2DRayDist_to_hit(ray);
-	set2DRayWall_hit_x(ray, game);
-	set2DRayTex(ray);
-	print2DRay(*ray);
+	set_2dray_dist_to_hit(ray);
+	return (set_2dray_wall_hit_x(ray, game), set_2dray_tex(ray));
 }
-

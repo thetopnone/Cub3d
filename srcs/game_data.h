@@ -32,21 +32,34 @@
 # include "map_validation.h"
 # include <errno.h>
 
-typedef struct s_gameData
+typedef struct s_game_data
 {
 	t_camera		camera;
 	t_player		player;
 	t_map			map;
+	t_image			img;
 	t_ceiling		ceiling;
-	t_floor			s_floor;
+	t_floor			floor;
 	t_texture		textures[4];
 	unsigned int	buffer[HEIGHT][WIDTH];
 	void			*mlx;
+	void			*screen;
 	int				error;
-}	t_gameData;
+}	t_game_data;
 
-void	setGameData(t_gameData *game);
-void	runGameLoop(t_gameData *game);
-void	printGameData(t_gameData game);
-void	printImageData(t_image image);
+//-----------------------------------------------------------------------------
+// GAME_LOOP.C (3)
+//-----------------------------------------------------------------------------
+void	set_image(t_image *img, void *mlx);
+void	set_game_data(t_game_data *game);
+void	run_game_loop(t_game_data *game);
+//-----------------------------------------------------------------------------
+// PRINTERS.C (2)
+//-----------------------------------------------------------------------------
+void	print_game_data(t_game_data *game);
+void	print_image_data(t_image *image);
+//-----------------------------------------------------------------------------
+// MOVEMENT.C (2)
+//-----------------------------------------------------------------------------
+int		handle_input(int keycode, t_game_data *game);
 #endif

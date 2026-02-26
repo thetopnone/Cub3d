@@ -14,7 +14,7 @@
 # define TEXTURES_H
 # include "vectors.h"
 
-typedef struct s_gameData	t_gameData;
+typedef struct s_game_data	t_game_data;
 
 //Map will be based on tiles, which means squares
 //Floors will be a size * size flat square
@@ -46,11 +46,12 @@ typedef struct s_image
 }	t_image;
 
 //Array of textures will hold all 4 textures for all 4 faces N,S,E,W
-typedef	struct	s_texture
+typedef struct s_texture
 {
 	char	*path;
 	t_image	img;
 }	t_texture;
 
-void	setTexture(t_texture *tex, t_gameData *game, char *path);
+void	set_texture(t_texture *tex, t_game_data *game, char *path);
+void	load_textures(t_game_data *game);
 #endif

@@ -20,12 +20,14 @@ typedef struct s_camera
 	t_2dvector	plane;
 	double		rot_speed;
 	double		fov;
+	double		fov_adjustment;
 	int			error;
 }	t_camera;
 
-void	setCameraPlane(t_camera *camera, t_player player);
-void	setCameraRot_speed(t_camera *camera, double speed);
-void	setCameraFov(t_camera *camera, double fov);
-void	setCamera(t_camera *camera, t_player player, double speed, double fov);
-void	printCamera(t_camera camera);
+void	set_camera_plane(t_camera *camera, t_player *player);
+void	set_camera_rot_speed(t_camera *camera, double speed);
+void	set_camera_fov(t_camera *camera, double fov);
+void	set_camera(t_camera *camera, t_player *player, double speed,
+			double fov);
+void	print_camera(t_camera *camera);
 #endif

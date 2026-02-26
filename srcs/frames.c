@@ -25,4 +25,3 @@ unsigned long	get_fps(double oldTime)
 {
 	return ((unsigned long)(1.0 / (get_time_in_s() - oldTime)));
 }
-

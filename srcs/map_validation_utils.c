@@ -27,7 +27,7 @@ int	is_map_char(int c)
 }
 
 //Returns 1 if we have a valid map
-int	checkMapData(t_map *map)
+int	check_map_data(t_map *map)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"), 0);
@@ -38,15 +38,15 @@ int	checkMapData(t_map *map)
 
 //The function will run in the map parser on every map cell in order to update
 //map data values
-void	updateMapPlayerData(t_map *map, int row, int col)
+void	update_map_player_data(t_map *map, int row, int col)
 {
 	char	cur_pos;
 
 	cur_pos = map->array[row][col];
 	if (is_spawn_char(cur_pos))
 	{
-		setMapPlayer_spawn(map, row, col);
-		setMapSpawn_direction(map, cur_pos);
+		set_map_player_spawn(map, row, col);
+		set_map_spawn_direction(map, cur_pos);
 		map->spawn_amount++;
 	}
 }

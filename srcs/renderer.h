@@ -11,12 +11,15 @@
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
-#  define RENDERER_H
+# define RENDERER_H
 # include "game_data.h"
 # include "rayCaster.h"
 # include <mlx.h>
 
-void	putPixel(t_image *img, int x, int y, int color);
-void	renderVerticalLine(t_rayCast2D *ray, t_image *img, double pxl_i);
-void	renderImage(t_gameData *game, t_image *img);
+void	put_texture_pixel(t_image *img,
+			t_vector *pixel, t_game_data *game, t_vector *tex);
+void	render_vertical_line(t_raycast2d *ray, t_game_data *game, double pxl_i);
+void	render_image(t_game_data *game);
+void	load_textures(t_game_data *game);
+void	set_render_range(int *render_start, int *render_end, int line_h);
 #endif

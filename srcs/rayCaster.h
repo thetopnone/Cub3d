@@ -29,7 +29,7 @@
 //		coordinates
 //	->hit : if we hit a wall or not
 //	->side : which face of the wall did we hit (NS or EW)? (0 for EW, 1 for NS)
-typedef struct s_rayCast2D
+typedef struct s_raycast2d
 {
 	t_2dvector	dir;
 	t_vector	pos;
@@ -42,25 +42,25 @@ typedef struct s_rayCast2D
 	int			hit;
 	int			side;
 	int			error;
-}	t_rayCast2D;
+}	t_raycast2d;
 
 //-----------------------------------------------------------------------------
 // RAYCASTER_SETTERS_1.C (5)
 //-----------------------------------------------------------------------------
-void	set2DRayDir(t_rayCast2D *ray, t_gameData *game, double pxl_i);
-void	set2DRayPos(t_rayCast2D *ray, t_gameData *game);
-void	set2DRayDelta_Dist(t_rayCast2D *ray);
-void	set2DRaySide_Dist(t_rayCast2D *ray, t_gameData *game);
-void	set2DRay(t_rayCast2D *ray, t_gameData *game, double pxl_i);
+void	set_2dray_dir(t_raycast2d *ray, t_game_data *game, double pxl_i);
+void	set_2dray_pos(t_raycast2d *ray, t_game_data *game);
+void	set_2dray_delta_dist(t_raycast2d *ray);
+void	set_2dray_side_dist(t_raycast2d *ray, t_game_data *game);
+void	set_2dray(t_raycast2d *ray, t_game_data *game, double pxl_i);
 //-----------------------------------------------------------------------------
 // RAYCASTER_SETTERS_2.C (1)
 //-----------------------------------------------------------------------------
-void	set2DRayDist_to_hit(t_rayCast2D *ray);
-void	set2DRayWall_hit_x(t_rayCast2D *ray, t_gameData *game);
-void	set2DRayTex(t_rayCast2D *ray);
-void	print2DRay(t_rayCast2D ray);
+void	set_2dray_dist_to_hit(t_raycast2d *ray);
+void	set_2dray_wall_hit_x(t_raycast2d *ray, t_game_data *game);
+void	set_2dray_tex(t_raycast2d *ray);
+void	print_2dray(t_raycast2d *ray);
 //-----------------------------------------------------------------------------
 // RAYCASTER.C (1)
 //-----------------------------------------------------------------------------
-void	castRay2D(t_rayCast2D *ray, t_gameData *game, double pxl_i);
+void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i);
 #endif
