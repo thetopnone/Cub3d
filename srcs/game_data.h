@@ -13,10 +13,10 @@
 #ifndef GAME_DATA_H
 # define GAME_DATA_H
 # ifndef WIDTH
-#  define WIDTH 1280
+#  define WIDTH 1920
 # endif
 # ifndef HEIGHT
-#  define HEIGHT 1024
+#  define HEIGHT 1080
 # endif
 # ifndef TEX_WIDTH
 #  define TEX_WIDTH 256
@@ -41,6 +41,7 @@ typedef struct s_game_data
 	t_ceiling		ceiling;
 	t_floor			floor;
 	t_texture		textures[4];
+	double			o_time;
 	unsigned int	buffer[HEIGHT][WIDTH];
 	void			*mlx;
 	void			*screen;
@@ -53,6 +54,7 @@ typedef struct s_game_data
 void	set_image(t_image *img, void *mlx);
 void	set_game_data(t_game_data *game);
 void	run_game_loop(t_game_data *game);
+int		reset_direction(int keycode, t_game_data *game);
 //-----------------------------------------------------------------------------
 // PRINTERS.C (2)
 //-----------------------------------------------------------------------------

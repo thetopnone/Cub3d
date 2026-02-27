@@ -13,6 +13,7 @@
 #include "game_data.h"
 #include <stdio.h>
 #include "../libft_extended/libft.h"
+#include "cleanup.h"
 
 int	main(int argc, char *argv[])
 {
@@ -25,7 +26,10 @@ int	main(int argc, char *argv[])
 	if (validate_map(&(game.map)) == 1)
 		printf("This is a VALID MAP!!!\n");
 	else
+	{
 		printf("Error\nIVALID MAP\n");
+		clean_game_data(&game);
+	}
 	set_game_data(&game);
 	run_game_loop(&game);
 	return (0);

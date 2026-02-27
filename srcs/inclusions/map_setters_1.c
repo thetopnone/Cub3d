@@ -80,9 +80,10 @@ void	set_map_array(t_map *map, char *filename)
 	{
 		line = get_next_line(fd);
 		map->array[i] = ft_strtrim(line, "\n");
-		free (line);
+		free(line);
 		i++;
 	}
+	get_next_line(-1);
 	map->array[i] = NULL;
 	close(fd);
 }

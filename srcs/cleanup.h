@@ -14,8 +14,8 @@
 # include "game_data.h"
 # include <stdlib.h>
 
-void	free_array(char ***array, int rows);
-void	clean_game_data(t_game_data *game);
+void	free_array(void **array, int rows);
+int		clean_game_data(t_game_data *game);
 void	clean_textures(t_texture *textures, int amount, void *mlx);
 void	clean_image(t_image *img, void *mlx);
 #endif

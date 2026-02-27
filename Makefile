@@ -15,7 +15,7 @@ srcs/raycaster_setters_2.c srcs/game_loop.c srcs/inclusions/camera_setters.c \
 srcs/inclusions/map_setters_1.c srcs/inclusions/map_setters_2.c \
 srcs/inclusions/player_setters.c srcs/inclusions/vectors_oper_1.c \
 srcs/inclusions/vectors_oper_2.c srcs/printers.c srcs/inclusions/textures_setters.c \
-srcs/movement.c srcs/frames.c srcs/cleanup.c
+srcs/movement.c srcs/frames.c srcs/cleanup.c srcs/renderer_2.c
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 all: $(NAME)
@@ -29,7 +29,7 @@ $(LIBFT):
 $(MLX_DIR):
 	@git clone https://github.com/42paris/minilibx-linux.git mlx_linux
 
-$(MLX): $(MLX_DIR)
+$(MLX): | $(MLX_DIR)
 	@make -C $(MLX_DIR)
 
 $(OBJS_DIR)/%.o: srcs/%.c

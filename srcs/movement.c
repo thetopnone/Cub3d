@@ -12,11 +12,12 @@
 
 #include "game_data.h"
 #include "renderer.h"
+#include <math.h>
 #include <X11/keysym.h>
 #include <stdlib.h>
 #include "cleanup.h"
 
-static void	set_cushion(t_2dvector *cushion,
+void	set_cushion(t_2dvector *cushion,
 		t_player *player, int direction_x, int direction_y)
 {
 	if (direction_x == 0)
@@ -34,29 +35,19 @@ static void	set_cushion(t_2dvector *cushion,
 static void	move_player(int direction_x, int direction_y, t_game_data *game)
 {
 	t_player	*player;
-	t_2dvector	new_pos;
-	t_2dvector	cushion;
 
 	player = &game->player;
-	set_cushion(&cushion, player, direction_x, direction_y);
-	if (direction_x == 0)
+	if (direction_x != 0)
 	{
-		player->speed = direction_y * player->move_speed * 0.01;
-		new_pos.x = player->pos.x + player->speed * player->dir.x;
-		new_pos.y = player->pos.y + player->speed * player->dir.y;
+		printf("dir X set\n");
+		player->move_dir.x = direction_x;
 	}
-	else
+	if (direction_y != 0)
 	{
-		player->speed = direction_x * player->move_speed * 0.01;
-		new_pos.x = player->pos.x - player->speed * player->dir.y;
-		new_pos.y = player->pos.y + player->speed * player->dir.x;
+		printf("dir Y set\n");
+		player->move_dir.y = direction_y;
 	}
-	if (game->map.array[(int)(new_pos.y + cushion.y)]
-		[(int)(new_pos.x + cushion.x)] == '1')
-		return ;
 	player->is_moving = 1;
-	player->pos.x = new_pos.x;
-	player->pos.y = new_pos.y;
 }
 
 static void	rotate_camera(int direction, t_game_data *game)
@@ -66,13 +57,13 @@ static void	rotate_camera(int direction, t_game_data *game)
 
 	camera = &game->camera;
 	player = &game->player;
-	rot_2dvec(&player->dir, camera->rot_speed * direction * 0.1);
-	set_camera_plane(camera, player);
+	camera->turn_dir = direction;
 	player->is_turning = 1;
 }
 
 int	handle_input(int keycode, t_game_data *game)
 {
+	printf("Key down called\n");
 	if (keycode == XK_Escape)
 		clean_game_data(game);
 	if (keycode == XK_W || keycode == XK_w)
@@ -87,11 +78,5 @@ int	handle_input(int keycode, t_game_data *game)
 		rotate_camera(-1, game);
 	else if (keycode == XK_Right)
 		rotate_camera(1, game);
-	if (game->player.is_moving == 1 || game->player.is_turning == 1)
-	{
-		render_image(game);
-		game->player.is_moving = 0;
-		game->player.is_turning = 0;
-	}
 	return (0);
 }

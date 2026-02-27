@@ -17,17 +17,6 @@
 #include "../libft_extended/libft.h"
 #include <mlx.h>
 
-/*
-void	putPixel(t_image *img, int x, int y, int color)
-{
-	char	*dst;
-	int		pixel_offset;
-
-	pixel_offset = (y * img->line_len + x * (img->bpp / 8));
-	dst = img->addr + pixel_offset;
-	*(unsigned int *)dst = color;
-}*/
-
 void	put_texture_pixel(t_image *img,
 			t_vector *pixel, t_game_data *game, t_vector *tex)
 {
@@ -103,11 +92,9 @@ void	render_image(t_game_data *game)
 {
 	t_raycast2d		ray;
 	double			pxl_i;
-	double			old_time;
 
 	pxl_i = 0;
 	ft_bzero(game->buffer, HEIGHT * WIDTH);
-	old_time = get_time_in_s();
 	while (pxl_i < WIDTH)
 	{
 		ft_bzero(&ray, sizeof(ray));
@@ -117,9 +104,9 @@ void	render_image(t_game_data *game)
 	}
 	mlx_clear_window(game->mlx, game->screen);
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
-	printf("\nFinished Rendering Image\n");
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
-	printf("\nFPS: %ld\n", get_fps(old_time));
+	//printf("\nFPS: %ld\n", get_fps(game->o_time));
+	game->o_time = get_time_in_s();
 }
 
 //Sets how many pixels we should render from the texture on the screen

@@ -18,6 +18,7 @@ typedef struct s_player
 {
 	t_2dvector		pos;
 	t_2dvector		dir;
+	t_2dvector		move_dir;
 	double			move_speed;
 	double			speed;
 	int				is_moving;

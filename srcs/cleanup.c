@@ -12,28 +12,36 @@
 
 #include "cleanup.h"
 
-void	free_array(char ***array, int rows)
+void	free_array(void **array, int rows)
 {
 	int	i;
 
+	if (!array || rows == 0)
+		return ;
 	i = rows - 1;
-	while (i != 0)
+	while (i >= 0)
 	{
-		free((*array)[i]);
-		(*array)[i] = NULL;
+		free(array[i]);
+		array[i] = NULL;
 		i--;
 	}
+	free(array);
 }
 
-void	clean_game_data(t_game_data *game)
+int	clean_game_data(t_game_data *game)
 {
-	free_array(&game->map.array, game->map.rows);
-	clean_image(&game->img, game->mlx);
-	clean_textures(game->textures, 4, game->mlx);
-	mlx_destroy_window(game->mlx, game->screen);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
+	free_array((void **)game->map.array, game->map.rows);
+	free_array((void **)game->map.visited, game->map.rows);
+	if (game->mlx)
+	{
+		clean_image(&game->img, game->mlx);
+		clean_textures(game->textures, 4, game->mlx);
+		mlx_destroy_window(game->mlx, game->screen);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
 	exit(0);
+	return (1);
 }
 
 void	clean_textures(t_texture *textures, int amount, void *mlx)
@@ -41,6 +49,8 @@ void	clean_textures(t_texture *textures, int amount, void *mlx)
 	int i;
 
 	i = 0;
+	if (!textures)
+		return ;
 	while (i < amount)
 	{
 		clean_image(&textures[i].img, mlx);
@@ -50,5 +60,6 @@ void	clean_textures(t_texture *textures, int amount, void *mlx)
 
 void	clean_image(t_image *img, void *mlx)
 {
-	mlx_destroy_image(mlx, img->img);
+	if (img)
+		mlx_destroy_image(mlx, img->img);
 }

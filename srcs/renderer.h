@@ -22,4 +22,8 @@ void	render_vertical_line(t_raycast2d *ray, t_game_data *game, double pxl_i);
 void	render_image(t_game_data *game);
 void	load_textures(t_game_data *game);
 void	set_render_range(int *render_start, int *render_end, int line_h);
+void	update_player_pos(t_game_data *game);
+void	set_cushion(t_2dvector *cushion,
+		t_player *player, int direction_x, int direction_y);
+int		update_frame(t_game_data *game);
 #endif

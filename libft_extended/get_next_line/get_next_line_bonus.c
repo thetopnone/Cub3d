@@ -87,14 +87,24 @@ static char	*ft_leftovers(char	*book)
 	return (leftovers);
 }
 
+void	free_buffer(char **buffer, int *i)
+{
+	if (buffer)
+		free(buffer);
+	i++;
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer[FD_LIMIT];
 	char		*line;
+	int			i;
 
+	i = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
-		free(buffer[fd]);
+		while (i < FD_LIMIT)
+			free_buffer(&buffer[i], &i);
 		return (NULL);
 	}
 	if (!buffer[fd])

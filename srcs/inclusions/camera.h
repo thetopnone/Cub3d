@@ -18,6 +18,7 @@
 typedef struct s_camera
 {
 	t_2dvector	plane;
+	int			turn_dir;
 	double		rot_speed;
 	double		fov;
 	double		fov_adjustment;
