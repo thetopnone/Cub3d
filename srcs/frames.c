@@ -21,7 +21,23 @@ double	get_time_in_s(void)
 }
 
 //Calculates how many frames we can render in one seconds
-unsigned long	get_fps(double oldTime)
+unsigned long	get_fps(double old_time)
 {
-	return ((unsigned long)(1.0 / (get_time_in_s() - oldTime)));
+	static double			accum_s = 0.0;
+	static unsigned long	frames = 0;
+	static unsigned long 	fps = 0;
+	double					dt;
+
+	dt = get_time_in_s() - old_time;
+	if (dt < 0.000001)
+		dt = 0.000001;
+	accum_s += dt;
+	frames++;
+	if (accum_s >= 0.25)
+	{
+		fps = (unsigned long)(frames / accum_s);
+		accum_s = 0.0;
+		frames = 0;
+	}
+	return (fps);
 }

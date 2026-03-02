@@ -41,8 +41,7 @@ typedef struct s_game_data
 	t_ceiling		ceiling;
 	t_floor			floor;
 	t_texture		textures[4];
-	double			o_time;
-	unsigned int	buffer[HEIGHT][WIDTH];
+	unsigned int	buffer[HEIGHT * WIDTH + 1];
 	void			*mlx;
 	void			*screen;
 	int				error;

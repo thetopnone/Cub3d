@@ -20,16 +20,8 @@
 void	set_cushion(t_2dvector *cushion,
 		t_player *player, int direction_x, int direction_y)
 {
-	if (direction_x == 0)
-	{
-		cushion->x = 0.05 * direction_y * player->dir.x;
-		cushion->y = 0.05 * direction_y * player->dir.y;
-	}
-	else
-	{
-		cushion->x = -0.05 * direction_x * player->dir.y;
-		cushion->y = 0.05 * direction_x * player->dir.x;
-	}
+	cushion->x = 0.05 * (direction_y * player->dir.x - direction_x * player->dir.y);
+	cushion->y = 0.05 * (direction_y * player->dir.y + direction_x * player->dir.x);
 }
 
 static void	move_player(int direction_x, int direction_y, t_game_data *game)
@@ -40,12 +32,12 @@ static void	move_player(int direction_x, int direction_y, t_game_data *game)
 	if (direction_x != 0)
 	{
 		printf("dir X set\n");
-		player->move_dir.x = direction_x;
+		player->move_dir.x += direction_x;
 	}
 	if (direction_y != 0)
 	{
 		printf("dir Y set\n");
-		player->move_dir.y = direction_y;
+		player->move_dir.y += direction_y;
 	}
 	player->is_moving = 1;
 }
@@ -57,7 +49,7 @@ static void	rotate_camera(int direction, t_game_data *game)
 
 	camera = &game->camera;
 	player = &game->player;
-	camera->turn_dir = direction;
+	camera->turn_dir += direction;
 	player->is_turning = 1;
 }
 

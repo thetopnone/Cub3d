@@ -20,24 +20,25 @@
 void	put_texture_pixel(t_image *img,
 			t_vector *pixel, t_game_data *game, t_vector *tex)
 {
-	int		pixel_offset;
-	int		y;
-	int		x;
+	int				pixel_offset;
+	int				y;
+	int				x;
+    unsigned int	color;
 
 	x = pixel->x;
 	y = pixel->y;
+	color = (unsigned int)0x00000000;
 	if (img == NULL)
 	{
-		if (y < HEIGHT / 2)
-			game->buffer[y][x] = (unsigned int)0x00000000;
-		else
-			game->buffer[y][x] = (unsigned int)0x00303030;
+		if (y > HEIGHT / 2)
+			color = (unsigned int)0x00303030;
 	}
 	else
 	{
 		pixel_offset = (tex->y * img->line_len + tex->x * (img->bpp / 8));
-		game->buffer[y][x] = *(unsigned int *)(img->addr + pixel_offset);
+		color = *(unsigned int *)(img->addr + pixel_offset);
 	}
+	game->buffer[y * WIDTH + x] = color;
 }
 
 void	render_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
@@ -92,12 +93,12 @@ void	render_image(t_game_data *game)
 {
 	t_raycast2d		ray;
 	double			pxl_i;
+	double			o_time;
 
 	pxl_i = 0;
-	ft_bzero(game->buffer, HEIGHT * WIDTH);
+	o_time = get_time_in_s();
 	while (pxl_i < WIDTH)
 	{
-		ft_bzero(&ray, sizeof(ray));
 		cast_ray2d(&ray, game, pxl_i);
 		render_vertical_line(&ray, game, pxl_i);
 		pxl_i++;
@@ -105,8 +106,8 @@ void	render_image(t_game_data *game)
 	mlx_clear_window(game->mlx, game->screen);
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
-	//printf("\nFPS: %ld\n", get_fps(game->o_time));
-	game->o_time = get_time_in_s();
+	printf("\r\033[2KFPS: %lu", get_fps(o_time));
+	fflush(stdout);
 }
 
 //Sets how many pixels we should render from the texture on the screen

@@ -36,7 +36,6 @@ void	run_game_loop(t_game_data *game)
 	load_textures(game);
 	game->screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
 	set_image(&game->img, game->mlx);
-	game->o_time = get_time_in_s();
 	render_image(game);
 	mlx_hook(game->screen, 2, 1L << 0, handle_input, game);
 	mlx_hook(game->screen, 3, 1L << 1, reset_direction, game);
@@ -57,15 +56,18 @@ void	set_game_data(t_game_data *game)
 int	reset_direction(int keycode, t_game_data *game)
 {
 	printf("Key up called\n");
-	if (keycode == XK_W || keycode == XK_w ||
-			keycode == XK_S || keycode == XK_s)
-		game->player.move_dir.y = 0;
+	if (keycode == XK_W || keycode == XK_w)
+		game->player.move_dir.y -= 1;
+	else if (keycode == XK_S || keycode == XK_s)
+		game->player.move_dir.y += 1;
 	else if (keycode == XK_A || keycode == XK_a)
-		game->player.move_dir.x = 0;
+		game->player.move_dir.x += 1;
 	else if (keycode == XK_D || keycode == XK_d)
-		game->player.move_dir.x = 0;
-	else if (keycode == XK_Left || keycode == XK_Right)
-		game->camera.turn_dir = 0;
+		game->player.move_dir.x -= 1;
+	else if (keycode == XK_Left)
+		game->camera.turn_dir += 1;
+	else if (keycode == XK_Right)
+		game->camera.turn_dir -= 1;
 	if (game->player.move_dir.y == 0 && game->player.move_dir.x == 0)
 		game->player.is_moving = 0;
 	if (game->camera.turn_dir == 0)
