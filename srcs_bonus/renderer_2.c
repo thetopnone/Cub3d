@@ -33,6 +33,7 @@ void	update_player_pos(t_game_data *game)
 	t_2dvector	new_side;
 	t_2dvector	cushion;
 	double		speed;
+	char		c;
 
 	player = &game->player;
 	ft_bzero(&new_fb, sizeof(t_2dvector));
@@ -47,9 +48,10 @@ void	update_player_pos(t_game_data *game)
 	speed = player->move_dir.x * player->move_speed;
 	new_side.x = -speed * player->dir.y;
 	new_side.y = speed * player->dir.x;
-	if (game->map.array
+	c = game->map.array
 		[(int)(player->pos.y + new_fb.y + new_side.y + cushion.y)]
-		[(int)(player->pos.x + new_fb.x + new_side.x + cushion.x)] == '1')
+		[(int)(player->pos.x + new_fb.x + new_side.x + cushion.x)];
+	if (c == '1')
 		return ;
 	player->pos.x += new_fb.x + new_side.x;
 	player->pos.y += new_fb.y + new_side.y;

@@ -12,12 +12,12 @@
 
 #include "frames.h"
 
-double	get_time_in_s(void)
+double	get_time_in_ms(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return ((double)time.tv_sec + ((double)time.tv_usec) / 1000000);
+	return ((double)time.tv_sec * 1000 + ((double)time.tv_usec) / 1000);
 }
 
 //Calculates how many frames we can render in one second
@@ -29,7 +29,7 @@ unsigned long	get_fps(double old_time)
 	static unsigned long	fps = 0;
 	double					dt;
 
-	dt = get_time_in_s() - old_time;
+	dt = (get_time_in_ms() - old_time) / 1000;
 	if (dt < 0.000001)
 		dt = 0.000001;
 	accum_s += dt;
