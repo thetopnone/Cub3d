@@ -39,6 +39,7 @@ typedef struct s_raycast2d
 	t_vector	step;
 	double		dist_to_wall;
 	double		dist_to_door;
+	double		closest_door;
 	double		wall_hit_x;
 	double		door_hit_x;
 	t_vector	wall_tex;

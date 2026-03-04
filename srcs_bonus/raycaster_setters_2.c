@@ -58,6 +58,8 @@ void	set_2dray_door_hit(t_raycast2d *ray, t_game_data *game)
 		ray->dist_to_door = ray->side_dist.y - ray->delta_dist.y / 2;
 		door_hit_x = game->player.pos.x + ray->dist_to_door * ray->dir.x;
 	}
+	if (ray->closest_door == 0.0)
+		ray->closest_door = ray->dist_to_door;
 	door_hit_x -= floor(door_hit_x);
 	ray->door_hit_x = door_hit_x;
 	set_2dray_door_tex(ray);

@@ -48,6 +48,10 @@ void	open_door(t_game_data *game)
 	ft_bzero(&ray, sizeof(t_raycast2d));
 	cast_ray2d(&ray, game, WIDTH / 2);
 	door = get_map_door(&game->map, ray.door_pos.y, ray.door_pos.x);
+    printf("Dist to door: %lf\n", ray.dist_to_door);
+    printf("Closest door: %lf\n", ray.closest_door);
+    printf("Dist to wall: %lf\n", ray.dist_to_wall);
+    printf("ray hit     : %d\n", ray.hit);
 	if (ray.dist_to_door > 0.0 && ray.dist_to_door <= 1)
 	{
 		if (door->is_closed == 1)

@@ -13,18 +13,6 @@
 #include "game_data.h"
 #include "raycaster.h"
 
-int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
-{
-	int		c;
-
-	c = game->map.array[ray->pos.y][ray->pos.x];
-	if (c == '1')
-		return (ray->hit = 1);
-	if (c == 'D')
-		return (ray->hit = 2);
-	return (0);
-}
-/*
 int	check_closed_door(t_raycast2d *ray, t_game_data *game)
 {
 	t_door	*door;
@@ -33,7 +21,24 @@ int	check_closed_door(t_raycast2d *ray, t_game_data *game)
 	if (!door)
 		return (0);
 	return (door->is_closed);
-}*/
+}
+
+int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
+{
+	int		c;
+
+	c = game->map.array[ray->pos.y][ray->pos.x];
+	if (c == '1')
+		return (ray->hit = 1);
+	if (c == 'D')
+	{
+		if (ray->hit == 3)
+			return(ray->hit == 1);
+		else
+			return (ray->hit = 2 + check_closed_door(ray, game));
+	}
+	return (0);
+}
 
 //Loop that casts the pxl_i ray 
 void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
@@ -41,9 +46,9 @@ void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
 	if (!ray)
 		return (perror("Error\nRay Casting Error\n"));
 	set_2dray(ray, game, pxl_i);
-	if (check_ray_hit(ray, game) == 2)
+	if (check_ray_hit(ray, game) > 1)
 		set_2dray_door_hit(ray, game);
-	while (ray->hit != 1)
+	while (check_ray_hit(ray, game) != 1)
 	{
 		if (ray->side_dist.x > ray->side_dist.y)
 		{
@@ -57,7 +62,7 @@ void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
 			ray->pos.x += ray->step.x;
 			ray->side = 0;
 		}
-		if (check_ray_hit(ray, game) == 2)
+		if (check_ray_hit(ray, game) > 1)
 			set_2dray_door_hit(ray, game);
 	}
 	set_2dray_wall_hit(ray, game);
