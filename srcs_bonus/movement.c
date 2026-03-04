@@ -52,6 +52,8 @@ void	open_door(t_game_data *game)
     printf("Closest door: %lf\n", ray.closest_door);
     printf("Dist to wall: %lf\n", ray.dist_to_wall);
     printf("ray hit     : %d\n", ray.hit);
+    printf("line h closest: %d\n", (int)(HEIGHT / ray.closest_door));
+    printf("line h furthes: %d\n", (int)(HEIGHT / ray.dist_to_door));
 	if (ray.dist_to_door > 0.0 && ray.dist_to_door <= 1)
 	{
 		if (door->is_closed == 1)

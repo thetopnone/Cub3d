@@ -86,6 +86,8 @@ void	set_2dray_door_tex(t_raycast2d *ray)
 	if ((ray->side == 0 && ray->dir.x < 0)
 		|| (ray->side == 1 && ray->dir.y > 0))
 		ray->door_tex.x = TEX_WIDTH - ray->door_tex.x - 1;
+    if (ray->closest_door_tex.x == 0)
+        ray->closest_door_tex.x = ray->door_tex.x;
 }
 
 void	print_2dray(t_raycast2d *ray)
