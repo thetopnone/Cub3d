@@ -33,6 +33,7 @@ typedef struct s_raycast2d
 {
 	t_2dvector	dir;
 	t_vector	pos;
+	t_vector	door_pos;
 	t_2dvector	delta_dist;
 	t_2dvector	side_dist;
 	t_vector	step;

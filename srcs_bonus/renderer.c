@@ -46,33 +46,35 @@ void	put_texture_pixel(t_image *img,
 
 void	render_wall_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
 {
-	t_texture	*wall;
+	t_texture	*wall_tex;
 
-	wall = game->wall;
+	wall_tex = game->wall_tex;
 	if (ray->side == 0)
 	{
 		if (ray->dir.x < 0)
-			put_texture_pixel(&wall[3].img, pixel, game, &ray->wall_tex);
+			put_texture_pixel(&wall_tex[3].img, pixel, game, &ray->wall_tex);
 		else
-			put_texture_pixel(&wall[2].img, pixel, game, &ray->wall_tex);
+			put_texture_pixel(&wall_tex[2].img, pixel, game, &ray->wall_tex);
 	}
 	else
 	{
 		if (ray->dir.y < 0)
-			put_texture_pixel(&wall[0].img, pixel, game, &ray->wall_tex);
+			put_texture_pixel(&wall_tex[0].img, pixel, game, &ray->wall_tex);
 		else
-			put_texture_pixel(&wall[1].img, pixel, game, &ray->wall_tex);
+			put_texture_pixel(&wall_tex[1].img, pixel, game, &ray->wall_tex);
 	}
 }
 
 void	render_door_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
 {
-	t_texture	*door;
+	t_texture	*door_tex;
+	t_door		*door;
 	int			i;
 
-	door = game->door;
-	i = game->animation_frame;
-	put_texture_pixel(&door[i].img, pixel, game, &ray->door_tex);
+	door_tex = game->door_tex;
+	door = get_map_door(&game->map, ray->door_pos.y, ray->door_pos.x);
+	i = door->tex_index;
+	put_texture_pixel(&door_tex[i].img, pixel, game, &ray->door_tex);
 }
 
 //Renders all the pixels in the (pxl_i, y) vertical line in the image
@@ -135,24 +137,24 @@ void	render_image(t_game_data *game)
 {
 	t_raycast2d		ray;
 	double			pxl_i;
-	//double			o_time;
+	double			o_time;
 
 	pxl_i = 0;
-	//o_time = get_time_in_ms();
+	o_time = get_time_in_ms();
 	while (pxl_i < WIDTH)
 	{
 		ft_bzero(&ray, sizeof(t_raycast2d));
 		cast_ray2d(&ray, game, pxl_i);
 		render_wall_line(&ray, game, pxl_i);
-		if (ray.dist_to_door < ray.dist_to_wall)
+		if (ray.dist_to_door > 0.0 && ray.dist_to_door < ray.dist_to_wall)
 			render_door_line(&ray, game, pxl_i);
 		pxl_i++;
 	}
 	mlx_clear_window(game->mlx, game->screen);
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
-	//printf("\r\033[2KFPS: %lu", get_fps(o_time));
-	//fflush(stdout);
+	printf("\r\033[2KFPS: %lu", get_fps(o_time));
+	fflush(stdout);
 }
 
 //Sets how many pixels we should render from the texture on the screen

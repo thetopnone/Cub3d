@@ -26,35 +26,42 @@ void	set_cushion(t_2dvector *cushion,
 	cushion->y = 0.05 * (direction_y * dir_y + direction_x * dir_x);
 }
 
+int	is_allowed_to_move(t_game_data *game, int y, int x)
+{
+	t_door		*door;
+	char	c;
+	
+	door = get_map_door(&game->map, y, x);
+	c = game->map.array[y][x];
+	if (c == '1' || (c == 'D' && door->is_closed))
+		return (0);
+	return(1);
+}
+
 void	update_player_pos(t_game_data *game)
 {
 	t_player	*player;
-	t_2dvector	new_fb;
-	t_2dvector	new_side;
+	t_2dvector	new_pos;
 	t_2dvector	cushion;
-	double		speed;
-	char		c;
+	t_vector	v;
+	t_2dvector	speed;
 
 	player = &game->player;
-	ft_bzero(&new_fb, sizeof(t_2dvector));
-	ft_bzero(&new_side, sizeof(t_2dvector));
-	speed = 0;
+	ft_bzero(&new_pos, sizeof(t_2dvector));
+	ft_bzero(&speed, sizeof(t_2dvector));
 	if (player->is_moving == 0)
 		return ;
 	set_cushion(&cushion, player, player->move_dir.x, player->move_dir.y);
-	speed = player->move_dir.y * player->move_speed;
-	new_fb.x = speed * player->dir.x;
-	new_fb.y = speed * player->dir.y;
-	speed = player->move_dir.x * player->move_speed;
-	new_side.x = -speed * player->dir.y;
-	new_side.y = speed * player->dir.x;
-	c = game->map.array
-		[(int)(player->pos.y + new_fb.y + new_side.y + cushion.y)]
-		[(int)(player->pos.x + new_fb.x + new_side.x + cushion.x)];
-	if (c == '1')
+	speed.x = player->move_dir.x * player->move_speed;
+	speed.y = player->move_dir.y * player->move_speed;
+	new_pos.x = speed.y * player->dir.x - speed.x * player->dir.y;
+	new_pos.y = speed.y * player->dir.y + speed.x * player->dir.x;
+	v.x = (int)(player->pos.x + new_pos.x + cushion.x);
+	v.y = (int)(player->pos.y + new_pos.y + cushion.y);
+	if (is_allowed_to_move(game, v.y, v.x) == 0)
 		return ;
-	player->pos.x += new_fb.x + new_side.x;
-	player->pos.y += new_fb.y + new_side.y;
+	player->pos.x += new_pos.x;
+	player->pos.y += new_pos.y;
 }
 
 void	update_camera(t_game_data *game)

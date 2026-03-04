@@ -32,14 +32,10 @@ void	set_texture(t_texture *tex, t_game_data *game, char *path)
 //Loads all textures we need
 void	load_textures(t_game_data *game)
 {
-	set_texture(&game->wall[0], game, "./textures_bonus/Wall_North.xpm");
-	set_texture(&game->wall[1], game, "./textures_bonus/Wall_South.xpm");
-	set_texture(&game->wall[2], game, "./textures_bonus/Wall_East.xpm");
-	set_texture(&game->wall[3], game, "./textures_bonus/Wall_West.xpm");
-	set_texture(&game->door[0], game, "./textures_bonus/Door_1.xpm");
-	set_texture(&game->door[1], game, "./textures_bonus/Door_2.xpm");
-	set_texture(&game->door[2], game, "./textures_bonus/Door_3.xpm");
-	set_texture(&game->door[3], game, "./textures_bonus/Door_4.xpm");
-	set_texture(&game->door[4], game, "./textures_bonus/Door_5.xpm");
-	set_texture(&game->door[5], game, "./textures_bonus/Door_6.xpm");
+	set_texture(&game->wall_tex[0], game, "./textures_bonus/Wall_North.xpm");
+	set_texture(&game->wall_tex[1], game, "./textures_bonus/Wall_South.xpm");
+	set_texture(&game->wall_tex[2], game, "./textures_bonus/Wall_East.xpm");
+	set_texture(&game->wall_tex[3], game, "./textures_bonus/Wall_West.xpm");
+	set_texture(&game->door_tex[0], game, "./textures_bonus/Door_1.xpm");
+	set_texture(&game->door_tex[1], game, "./textures_bonus/Door_6.xpm");
 }

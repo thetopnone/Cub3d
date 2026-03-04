@@ -44,6 +44,8 @@ void	set_2dray_door_hit(t_raycast2d *ray, t_game_data *game)
 
 	door_hit_x = 0.0;
 	ray->dist_to_door = 0.0;
+	ray->door_pos.x = ray->pos.x;
+	ray->door_pos.y = ray->pos.y;
 	if (!ray)
 		return (perror("Error\nInvalid Ray Pointer\n"));
 	if (ray->side == 0)

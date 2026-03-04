@@ -24,7 +24,8 @@ srcs_bonus/raycaster_setters_2.c srcs_bonus/game_loop.c srcs_bonus/inclusions/ca
 srcs_bonus/inclusions/map_setters_1.c srcs_bonus/inclusions/map_setters_2.c \
 srcs_bonus/inclusions/player_setters.c srcs_bonus/inclusions/vectors_oper_1.c \
 srcs_bonus/inclusions/vectors_oper_2.c srcs_bonus/printers.c srcs_bonus/inclusions/textures_setters.c \
-srcs_bonus/movement.c srcs_bonus/frames.c srcs_bonus/cleanup.c srcs_bonus/renderer_2.c
+srcs_bonus/movement.c srcs_bonus/frames.c srcs_bonus/cleanup.c srcs_bonus/renderer_2.c \
+srcs_bonus/inclusions/doors.c
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 OBJS_BONUS = $(patsubst srcs_bonus/%.c, $(OBJS_DIR_BONUS)/%.o, $(SRCS_BONUS))
 

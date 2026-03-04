@@ -40,8 +40,8 @@ typedef struct s_game_data
 	t_image			img;
 	t_ceiling		ceiling;
 	t_floor			floor;
-	t_texture		wall[4];
-	t_texture		door[6];
+	t_texture		wall_tex[4];
+	t_texture		door_tex[2];
 	unsigned int	buffer[HEIGHT * WIDTH + 1];
 	void			*mlx;
 	void			*screen;

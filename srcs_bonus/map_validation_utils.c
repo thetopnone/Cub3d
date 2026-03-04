@@ -31,7 +31,8 @@ int	check_map_data(t_map *map)
 {
 	if (!map)
 		return (perror("Error\nInvalid Map Pointer\n"), 0);
-	if (map->is_closed == 1 && map->is_invalid == 0 && map->spawn_amount == 1)
+	if (map->is_closed == 1 && map->is_invalid == 0 && map->spawn_amount == 1
+		&& map->door_amount <= 4)
 		return (1);
 	return (0);
 }
@@ -48,5 +49,10 @@ void	update_map_player_data(t_map *map, int row, int col)
 		set_map_player_spawn(map, row, col);
 		set_map_spawn_direction(map, cur_pos);
 		map->spawn_amount++;
+	}
+	else if (cur_pos == 'D')
+	{
+		set_door(&map->door[map->door_amount % 4], col, row);
+		map->door_amount++;
 	}
 }

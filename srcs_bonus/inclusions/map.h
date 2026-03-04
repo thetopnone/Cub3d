@@ -12,11 +12,9 @@
 
 #ifndef MAP_H
 # define MAP_H
-# ifndef GRIDSIZE
-#  define GRIDSIZE 1000
-# endif
 # include <stdio.h>
 # include "vectors.h"
+# include "doors.h"
 
 //Setting up before the execution of the raycasting is as now:
 //	1) Validate config file
@@ -34,9 +32,11 @@ typedef struct s_map
 	int			is_closed;
 	int			is_invalid;
 	int			spawn_amount;
+	int			door_amount;
 	int			spawn_direction;
 	t_vector	start_wall;
 	t_vector	player_spawn;
+	t_door		door[4];
 }	t_map;
 
 //Functions for map struct
@@ -54,5 +54,6 @@ void		set_map_start_wall(t_map *map, int row, int col);
 void		set_map_player_spawn(t_map *map, int row, int col);
 void		set_map_spawn_direction(t_map *map, char c);
 void		set_map_data(t_map *map, char *filename);
+t_door		*get_map_door(t_map	*map, int row, int col);
 void		print_map(t_map *map);
 #endif

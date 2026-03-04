@@ -15,7 +15,7 @@
 
 int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
 {
-	int	c;
+	int		c;
 
 	c = game->map.array[ray->pos.y][ray->pos.x];
 	if (c == '1')
@@ -24,6 +24,16 @@ int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
 		return (ray->hit = 2);
 	return (0);
 }
+/*
+int	check_closed_door(t_raycast2d *ray, t_game_data *game)
+{
+	t_door	*door;
+
+	door = get_map_door(&game->map, ray->pos.y, ray->pos.x);
+	if (!door)
+		return (0);
+	return (door->is_closed);
+}*/
 
 //Loop that casts the pxl_i ray 
 void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
