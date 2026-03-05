@@ -15,6 +15,6 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-double			get_time_in_s(void);
+double			get_time_in_ms(void);
 unsigned long	get_fps(double old_time);
 #endif

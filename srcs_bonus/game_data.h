@@ -40,11 +40,14 @@ typedef struct s_game_data
 	t_image			img;
 	t_ceiling		ceiling;
 	t_floor			floor;
-	t_texture		textures[4];
+	t_texture		wall_tex[4];
+	t_texture		door_tex[2];
 	unsigned int	buffer[HEIGHT * WIDTH + 1];
+	double			dt;
 	void			*mlx;
 	void			*screen;
 	int				error;
+	int				animation_frame;
 }	t_game_data;
 
 //-----------------------------------------------------------------------------

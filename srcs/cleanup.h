@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frames.h                                           :+:      :+:    :+:   */
+/*   cleanup.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:37:51 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/20 11:37:52 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/26 18:13:58 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/26 18:13:59 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#ifndef CLEANUP_H
+# define CLEANUP_H
+# include "game_data.h"
+# include <stdlib.h>
 
-#ifndef FRAMES_H
-# define FRAMES_H
-# include <stdio.h>
-# include <sys/time.h>
-
-double			get_time_in_s(void);
-unsigned long	get_fps(double old_time);
+void	free_array(void **array, int rows);
+int		clean_game_data(t_game_data *game);
+void	clean_textures(t_texture *textures, int amount, void *mlx);
+void	clean_image(t_image *img, void *mlx);
 #endif

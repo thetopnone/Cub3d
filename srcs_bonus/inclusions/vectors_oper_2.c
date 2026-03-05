@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frames.h                                           :+:      :+:    :+:   */
+/*   vectors_oper_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:37:51 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/20 11:37:52 by akonstan         ###   ########.fr       */
+/*   Created: 2026/02/18 14:48:42 by akonstan          #+#    #+#             */
+/*   Updated: 2026/02/18 14:48:53 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAMES_H
-# define FRAMES_H
-# include <stdio.h>
-# include <sys/time.h>
+#include "vectors.h"
 
-double			get_time_in_s(void);
-unsigned long	get_fps(double old_time);
-#endif
+//Vector dot product (also known as <v1,v2> or v1 * v2 , v1 and v2 are vectors)
+double	dot_2dvec(t_2dvector v1, t_2dvector v2)
+{
+	return ((v1.x * v2.x) + (v1.y * v2.y));
+}
+
+void	print_vector(t_vector *v)
+{
+	printf("vector x: %d y: %d\n", v->x, v->y);
+}
+
+void	print_2dvector(t_2dvector *v)
+{
+	printf("2dvector x: %lf y: %lf\n", v->x, v->y);
+}

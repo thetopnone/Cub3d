@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frames.h                                           :+:      :+:    :+:   */
+/*   doors.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:37:51 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/20 11:37:52 by akonstan         ###   ########.fr       */
+/*   Created: 2026/03/04 12:58:51 by akonstan          #+#    #+#             */
+/*   Updated: 2026/03/04 12:58:52 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAMES_H
-# define FRAMES_H
-# include <stdio.h>
-# include <sys/time.h>
+#ifndef DOORS_H
+# define DOORS_H
+# include "vectors.h"
 
-double			get_time_in_s(void);
-unsigned long	get_fps(double old_time);
+typedef struct s_door
+{
+	t_vector	pos;
+	int			tex_index;
+	int			is_closed;
+}	t_door;
+
+void		set_door(t_door *door, int x, int y);
 #endif

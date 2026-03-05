@@ -40,10 +40,38 @@ static void	rotate_camera(int direction, t_game_data *game)
 	player->is_turning = 1;
 }
 
+void	open_door(t_game_data *game)
+{
+	t_raycast2d	ray;
+	t_door		*door;
+
+	ft_bzero(&ray, sizeof(t_raycast2d));
+	cast_ray2d(&ray, game, WIDTH / 2);
+	door = get_map_door(&game->map, ray.closest_door_pos.y,
+			ray.closest_door_pos.x);
+	if (ray.closest_door > 0.0 && ray.closest_door <= 1.5)
+	{
+		if (door->is_closed == 1)
+		{
+			door->tex_index = 1;
+			door->is_closed = 0;
+			render_image(game);
+		}
+		else
+		{
+			door->tex_index = 0;
+			door->is_closed = 1;
+			render_image(game);
+		}
+	}
+}
+
 int	handle_input(int keycode, t_game_data *game)
 {
 	if (keycode == XK_Escape)
 		clean_game_data(game);
+	if (keycode == XK_e || keycode == XK_E)
+		open_door(game);
 	if (keycode == XK_W || keycode == XK_w)
 		move_player(0, 1, game);
 	else if (keycode == XK_S || keycode == XK_s)
