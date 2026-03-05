@@ -44,7 +44,7 @@ void	run_game_loop(t_game_data *game)
 //Game data settup
 void	set_game_data(t_game_data *game)
 {
-	set_player(&game->player, &game->map, 0.05);
-	set_camera(&game->camera, &game->player, 1.5, 90.0);
+	set_player(&game->player, &game->map, 2);
+	set_camera(&game->camera, &game->player, 90, 90.0);
 	ft_bzero(game->buffer, HEIGHT * WIDTH);
 }

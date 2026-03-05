@@ -13,9 +13,7 @@
 #include "game_data.h"
 #include "renderer.h"
 #include "frames.h"
-#include "raycaster.h"
 #include "../libft_extended/libft.h"
-#include <mlx.h>
 
 void	put_texture_pixel(t_image *img,
 			t_vector *pixel, t_game_data *game, t_vector *tex)
@@ -44,7 +42,8 @@ void	put_texture_pixel(t_image *img,
 	game->buffer[y * WIDTH + x] = color;
 }
 
-void	render_wall_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
+void	render_wall_texture(t_raycast2d *ray, t_game_data *game,
+			t_vector *pixel)
 {
 	t_texture	*wall_tex;
 
@@ -65,21 +64,6 @@ void	render_wall_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
 	}
 }
 
-void	render_door_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel, double dist)
-{
-	t_texture	*door_tex;
-	t_door		*door;
-	int			i;
-
-	door_tex = game->door_tex;
-	door = get_map_door(&game->map, ray->door_pos.y, ray->door_pos.x);
-	i = door->tex_index;
-	if (dist == ray->dist_to_door)
-		put_texture_pixel(&door_tex[i].img, pixel, game, &ray->door_tex);
-	else
-		put_texture_pixel(&door_tex[i].img, pixel, game, &ray->closest_door_tex);
-}
-
 //Renders all the pixels in the (pxl_i, y) vertical line in the image
 void	render_wall_line(t_raycast2d *ray, t_game_data *game, double pxl_i)
 {
@@ -98,37 +82,14 @@ void	render_wall_line(t_raycast2d *ray, t_game_data *game, double pxl_i)
 	while (pixel.y < HEIGHT)
 	{
 		ray->wall_tex.y = (int)tex_pos & (TEX_HEIGHT - 1);
-		if (pixel.y >= render_range.x && pixel.y <= render_range.y)
+		if (pixel.y >= render_range.x && pixel.y <= render_range.y
+			&& ray->hit != 3)
 		{
 			render_wall_texture(ray, game, &pixel);
 			tex_pos += step;
 		}
 		else
 			put_texture_pixel(NULL, &pixel, game, &ray->wall_tex);
-		pixel.y++;
-	}
-}
-
-void	render_door_line(t_raycast2d *ray, t_game_data *game, double pxl_i, double dist)
-{
-	int			line_h;
-	t_vector	render_range;
-	t_vector	pixel;
-	double		step;
-	double		tex_pos;
-
-	line_h = (int)(HEIGHT / dist);
-	step = 1.0 * TEX_HEIGHT / line_h;
-	set_render_range(&render_range.x, &render_range.y, line_h);
-	tex_pos = (render_range.x - (HEIGHT / 2) + (line_h / 2)) * step;
-	pixel.x = pxl_i;
-	pixel.y = render_range.x;
-	while (pixel.y <= render_range.y)
-	{
-		ray->door_tex.y = (int)tex_pos & (TEX_HEIGHT - 1);
-		ray->closest_door_tex.y = (int)tex_pos & (TEX_HEIGHT - 1);
-		render_door_texture(ray, game, &pixel, dist);
-		tex_pos += step;
 		pixel.y++;
 	}
 }
@@ -149,13 +110,15 @@ void	render_image(t_game_data *game)
 		render_wall_line(&ray, game, pxl_i);
 		if (ray.dist_to_door > 0.0 && ray.dist_to_door <= ray.dist_to_wall)
 			render_door_line(&ray, game, pxl_i, ray.dist_to_door);
-		if (ray.closest_door > 0.0 && ray.closest_door <= ray.dist_to_wall)
+		if (ray.closest_door > 0.0 && ray.closest_door <= ray.dist_to_wall
+			&& ray.closest_door != ray.dist_to_door)
 			render_door_line(&ray, game, pxl_i, ray.closest_door);
 		pxl_i++;
 	}
 	mlx_clear_window(game->mlx, game->screen);
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
+	game->dt = (get_time_in_ms() - o_time) / 1000;
 	printf("\r\033[2KFPS: %lu", get_fps(o_time));
 	fflush(stdout);
 }

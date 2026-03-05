@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doors.c                                            :+:      :+:    :+:   */
+/*   raycaster_setters_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 13:01:58 by akonstan          #+#    #+#             */
-/*   Updated: 2026/03/04 13:02:01 by akonstan         ###   ########.fr       */
+/*   Created: 2026/03/05 16:00:19 by akonstan          #+#    #+#             */
+/*   Updated: 2026/03/05 16:00:20 by akonstan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doors.h"
-#include "map.h"
+#include "raycaster.h"
 
-void	set_door(t_door *door, int x, int y)
+void	set_2dray_closest_door(t_raycast2d *ray)
 {
-	door->pos.x = x;
-	door->pos.y = y;
-	door->tex_index = 0;
-	door->is_closed = 1;
-}
-
-t_door	*get_map_door(t_map *map, int row, int col)
-{
-	int		i;
-	t_door	*door;
-
-	i = 0;
-	door = NULL;
-	while (i < 4)
+	if (ray->closest_door == 0.0)
 	{
-		door = &map->door[i];
-		if (door && door->pos.x == col && door->pos.y == row)
-			return (door);
-		i++;
+		ray->closest_door = ray->dist_to_door;
+		ray->closest_door_pos.x = ray->pos.x;
+		ray->closest_door_pos.y = ray->pos.y;
+		ray->closest_door_tex.x = ray->door_tex.x;
 	}
-	return (NULL);
 }

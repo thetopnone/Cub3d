@@ -43,6 +43,7 @@ typedef struct s_game_data
 	t_texture		wall_tex[4];
 	t_texture		door_tex[2];
 	unsigned int	buffer[HEIGHT * WIDTH + 1];
+	double			dt;
 	void			*mlx;
 	void			*screen;
 	int				error;

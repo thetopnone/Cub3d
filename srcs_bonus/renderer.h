@@ -16,14 +16,25 @@
 # include "raycaster.h"
 # include <mlx.h>
 
+//-----------------------------------------------------------------------------
+// RENDERER.C (5)
+//-----------------------------------------------------------------------------
 void	put_texture_pixel(t_image *img,
 			t_vector *pixel, t_game_data *game, t_vector *tex);
 void	render_wall_line(t_raycast2d *ray, t_game_data *game, double pxl_i);
 void	render_image(t_game_data *game);
 void	load_textures(t_game_data *game);
 void	set_render_range(int *render_start, int *render_end, int line_h);
-void	update_player_pos(t_game_data *game);
-void	set_cushion(t_2dvector *cushion,
-			t_player *player, int direction_x, int direction_y);
+//-----------------------------------------------------------------------------
+// RENDERER_2.C (5)
+//-----------------------------------------------------------------------------
 int		update_frame(t_game_data *game);
+//-----------------------------------------------------------------------------
+// RENDER_DOOR.C (5)
+//-----------------------------------------------------------------------------
+void	update_doors(t_game_data *game);
+void	render_door_line(t_raycast2d *ray, t_game_data *game, double pxl_i,
+			double dist);
+void	render_door_texture(t_raycast2d *ray, t_game_data *game,
+			t_vector *pixel, double dist);
 #endif

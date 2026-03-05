@@ -14,13 +14,10 @@
 # define DOORS_H
 # include "vectors.h"
 
-typedef struct	s_door
+typedef struct s_door
 {
 	t_vector	pos;
 	int			tex_index;
-	int			is_open;
-	int			is_opening;
-	int			is_closing;
 	int			is_closed;
 }	t_door;
 

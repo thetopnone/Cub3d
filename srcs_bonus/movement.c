@@ -42,31 +42,24 @@ static void	rotate_camera(int direction, t_game_data *game)
 
 void	open_door(t_game_data *game)
 {
-	t_raycast2d ray;
+	t_raycast2d	ray;
 	t_door		*door;
 
 	ft_bzero(&ray, sizeof(t_raycast2d));
 	cast_ray2d(&ray, game, WIDTH / 2);
-	door = get_map_door(&game->map, ray.door_pos.y, ray.door_pos.x);
-    printf("Dist to door: %lf\n", ray.dist_to_door);
-    printf("Closest door: %lf\n", ray.closest_door);
-    printf("Dist to wall: %lf\n", ray.dist_to_wall);
-    printf("ray hit     : %d\n", ray.hit);
-    printf("line h closest: %d\n", (int)(HEIGHT / ray.closest_door));
-    printf("line h furthes: %d\n", (int)(HEIGHT / ray.dist_to_door));
-	if (ray.dist_to_door > 0.0 && ray.dist_to_door <= 1)
+	door = get_map_door(&game->map, ray.closest_door_pos.y,
+			ray.closest_door_pos.x);
+	if (ray.closest_door > 0.0 && ray.closest_door <= 1.5)
 	{
 		if (door->is_closed == 1)
 		{
 			door->tex_index = 1;
 			door->is_closed = 0;
-			door->is_open = 1;
 			render_image(game);
 		}
-		else if (door->is_open == 1)
+		else
 		{
 			door->tex_index = 0;
-			door->is_open = 0;
 			door->is_closed = 1;
 			render_image(game);
 		}

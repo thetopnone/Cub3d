@@ -34,6 +34,7 @@ typedef struct s_raycast2d
 	t_2dvector	dir;
 	t_vector	pos;
 	t_vector	door_pos;
+	t_vector	closest_door_pos;
 	t_2dvector	delta_dist;
 	t_2dvector	side_dist;
 	t_vector	step;
@@ -42,10 +43,10 @@ typedef struct s_raycast2d
 	double		closest_door;
 	double		wall_hit_x;
 	double		door_hit_x;
-    double      closest_door_hit_x;
+	double		closest_door_hit_x;
 	t_vector	wall_tex;
 	t_vector	door_tex;
-    t_vector    closest_door_tex;
+	t_vector	closest_door_tex;
 	int			hit;
 	int			side;
 	int			error;
@@ -60,13 +61,17 @@ void	set_2dray_delta_dist(t_raycast2d *ray);
 void	set_2dray_side_dist(t_raycast2d *ray, t_game_data *game);
 void	set_2dray(t_raycast2d *ray, t_game_data *game, double pxl_i);
 //-----------------------------------------------------------------------------
-// RAYCASTER_SETTERS_2.C (1)
+// RAYCASTER_SETTERS_2.C (5)
 //-----------------------------------------------------------------------------
 void	set_2dray_wall_hit(t_raycast2d *ray, t_game_data *game);
 void	set_2dray_door_hit(t_raycast2d *ray, t_game_data *game);
 void	set_2dray_wall_tex(t_raycast2d *ray);
 void	set_2dray_door_tex(t_raycast2d *ray);
 void	print_2dray(t_raycast2d *ray);
+//-----------------------------------------------------------------------------
+// RAYCASTER_SETTERS_3.C (1)
+//-----------------------------------------------------------------------------
+void	set_2dray_closest_door(t_raycast2d *ray);
 //-----------------------------------------------------------------------------
 // RAYCASTER.C (1)
 //-----------------------------------------------------------------------------

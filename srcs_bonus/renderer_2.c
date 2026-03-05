@@ -12,9 +12,8 @@
 
 #include "renderer.h"
 #include "frames.h"
-#include <mlx.h>
 
-void	set_cushion(t_2dvector *cushion,
+static void	set_cushion(t_2dvector *cushion,
 		t_player *player, int direction_x, int direction_y)
 {
 	double	dir_x;
@@ -26,19 +25,19 @@ void	set_cushion(t_2dvector *cushion,
 	cushion->y = 0.05 * (direction_y * dir_y + direction_x * dir_x);
 }
 
-int	is_allowed_to_move(t_game_data *game, int y, int x)
+static int	is_allowed_to_move(t_game_data *game, int y, int x)
 {
-	t_door		*door;
+	t_door	*door;
 	char	c;
-	
+
 	door = get_map_door(&game->map, y, x);
 	c = game->map.array[y][x];
 	if (c == '1' || (c == 'D' && door->is_closed))
 		return (0);
-	return(1);
+	return (1);
 }
 
-void	update_player_pos(t_game_data *game)
+static void	update_player_pos(t_game_data *game)
 {
 	t_player	*player;
 	t_2dvector	new_pos;
@@ -52,14 +51,17 @@ void	update_player_pos(t_game_data *game)
 	if (player->is_moving == 0)
 		return ;
 	set_cushion(&cushion, player, player->move_dir.x, player->move_dir.y);
-	speed.x = player->move_dir.x * player->move_speed;
-	speed.y = player->move_dir.y * player->move_speed;
+	speed.x = player->move_dir.x * player->move_speed * game->dt;
+	speed.y = player->move_dir.y * player->move_speed * game->dt;
 	new_pos.x = speed.y * player->dir.x - speed.x * player->dir.y;
 	new_pos.y = speed.y * player->dir.y + speed.x * player->dir.x;
 	v.x = (int)(player->pos.x + new_pos.x + cushion.x);
 	v.y = (int)(player->pos.y + new_pos.y + cushion.y);
 	if (is_allowed_to_move(game, v.y, v.x) == 0)
+	{
+		player->is_moving = 0;
 		return ;
+	}
 	player->pos.x += new_pos.x;
 	player->pos.y += new_pos.y;
 }
@@ -73,13 +75,14 @@ void	update_camera(t_game_data *game)
 	player = &game->player;
 	if (player->is_turning == 0)
 		return ;
-	rot_2dvec(&player->dir, camera->turn_dir * camera->rot_speed);
+	rot_2dvec(&player->dir, camera->turn_dir * camera->rot_speed * game->dt);
 	set_camera_plane(camera, player);
 }
 
 int	update_frame(t_game_data *game)
 {
 	update_player_pos(game);
+	update_doors(game);
 	update_camera(game);
 	if (game->player.is_moving == 1 || game->player.is_turning == 1)
 		render_image(game);

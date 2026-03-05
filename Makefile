@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -O2
 LIBFT_DIR = ./libft_extended
 MLX_DIR = ./mlx_linux
 LIBFTFLAGS = -Llibft_extended -lft
@@ -25,7 +25,7 @@ srcs_bonus/inclusions/map_setters_1.c srcs_bonus/inclusions/map_setters_2.c \
 srcs_bonus/inclusions/player_setters.c srcs_bonus/inclusions/vectors_oper_1.c \
 srcs_bonus/inclusions/vectors_oper_2.c srcs_bonus/printers.c srcs_bonus/inclusions/textures_setters.c \
 srcs_bonus/movement.c srcs_bonus/frames.c srcs_bonus/cleanup.c srcs_bonus/renderer_2.c \
-srcs_bonus/inclusions/doors.c
+srcs_bonus/inclusions/doors.c srcs_bonus/render_door.c srcs_bonus/raycaster_setters_3.c 
 OBJS = $(patsubst srcs/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 OBJS_BONUS = $(patsubst srcs_bonus/%.c, $(OBJS_DIR_BONUS)/%.o, $(SRCS_BONUS))
 

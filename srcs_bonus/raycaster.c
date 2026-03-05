@@ -13,7 +13,7 @@
 #include "game_data.h"
 #include "raycaster.h"
 
-int	check_closed_door(t_raycast2d *ray, t_game_data *game)
+static int	check_closed_door(t_raycast2d *ray, t_game_data *game)
 {
 	t_door	*door;
 
@@ -23,7 +23,7 @@ int	check_closed_door(t_raycast2d *ray, t_game_data *game)
 	return (door->is_closed);
 }
 
-int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
+static int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
 {
 	int		c;
 
@@ -31,12 +31,9 @@ int	check_ray_hit(t_raycast2d *ray, t_game_data *game)
 	if (c == '1')
 		return (ray->hit = 1);
 	if (c == 'D')
-	{
-		if (ray->hit == 3)
-			return(ray->hit == 1);
-		else
-			return (ray->hit = 2 + check_closed_door(ray, game));
-	}
+		return (ray->hit = 2 + check_closed_door(ray, game));
+	if (c == '0' && ray->hit == 3)
+		return (ray->hit = 1);
 	return (0);
 }
 
@@ -48,7 +45,7 @@ void	cast_ray2d(t_raycast2d *ray, t_game_data *game, double pxl_i)
 	set_2dray(ray, game, pxl_i);
 	if (check_ray_hit(ray, game) > 1)
 		set_2dray_door_hit(ray, game);
-	while (check_ray_hit(ray, game) != 1)
+	while (ray->hit != 1)
 	{
 		if (ray->side_dist.x > ray->side_dist.y)
 		{
