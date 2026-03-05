@@ -42,6 +42,7 @@ typedef struct s_game_data
 	t_floor			floor;
 	t_texture		wall_tex[4];
 	t_texture		door_tex[2];
+	t_vector		mouse;
 	unsigned int	buffer[HEIGHT * WIDTH + 1];
 	double			dt;
 	void			*mlx;
@@ -64,6 +65,12 @@ void	print_image_data(t_image *image);
 //-----------------------------------------------------------------------------
 // MOVEMENT.C (2)
 //-----------------------------------------------------------------------------
-int		handle_input(int keycode, t_game_data *game);
+void	move_player(int direction_x, int direction_y, t_game_data *game);
+void	rotate_camera(int direction, t_game_data *game);
+int		handle_key_input(int keycode, t_game_data *game);
 int		reset_direction(int keycode, t_game_data *game);
+//-----------------------------------------------------------------------------
+// MOUSE.C (2)
+//-----------------------------------------------------------------------------
+int		handle_mouse_input(int x, int y, t_game_data *game);
 #endif
