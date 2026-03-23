@@ -8,7 +8,9 @@ bool    ft_valid_input_syntax(char *argument, int argc, int *error)
     int match;
     int arg_len;
     int i;
+    int	j;
 
+    j = 0;
     ext = "buc.";
     arg_len = ft_strlen(argument);
     i = 0;
