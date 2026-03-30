@@ -22,6 +22,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	ft_bzero(&game, sizeof (game));
+	set_scene_data(&game, argv[1]);
 	set_map_data(&(game.map), argv[1]);
 	if (validate_map(&(game.map)) == 1)
 		printf("This is a VALID MAP!!!\n");

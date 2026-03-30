@@ -1,0 +1,32 @@
+cub3d - code reading
+
+
+ask Alex how exactly ft_bzero works 
+
+
+validate_map:
+
+- second if, second condition: why are checking that since it is alocated to by calloc, and if we go out
+of range then it is segfault anyway.
+
+is_edge:
+
+- fourth if second condition: why <= in columns and < in rows
+			    : what for check row + 1, col + 1
+								11111111
+								10000001
+								01000010
+								10000001
+								01000010
+								00100100
+							       E00011000
+						               EEE    EEE
+
+if statement with is_edge to be understood (map_validation.c : 39)
+	especially the map->is_closed = 0 (I don't know how does it check borders since it is
+						checking only the first one) ?
+-----------------------------------------------------------------------------------------------------------
+My job:
+
+Texture paths to set in t_game_data game structure ---- USED BY LOAD_TEXTURE FUNCTION IN RUN_GAME_LOOP.
+

@@ -1,0 +1,1 @@
+cc config_parser.c ../libft_extended/ft_split.c ../libft_extended/get_next_line/get_next_line_bonus.c ../libft_extended/ft_strchr.c ../libft_extended/ft_strlen.c ../libft_extended/ft_bzero.c ../libft_extended/ft_strlcpy.c ../libft_extended/ft_atoi.c ../libft_extended/ft_isdigit.c  ../libft_extended/ft_calloc.c ../libft_extended/ft_strjoin.c 

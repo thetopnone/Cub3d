@@ -29,7 +29,7 @@ void	set_texture(t_texture *tex, t_game_data *game, char *path)
 		return (perror("Error\nFailed to Load PNG Image\n"));
 }
 
-//Loads all wall textures we need
+//Loads all wall texture
 void	load_textures(t_game_data *game)
 {
 	set_texture(&game->textures[0], game, "./textures/Wall_North.xpm");

@@ -1,8 +1,211 @@
-#include <errno.h>
+#include "./inclusions/textures.h"
+#include "../libft_extended/libft.h"
+#include <stdlib.h>
 #include <fcntl.h>
-#include <stdbool.h>
 
-bool    ft_valid_input_syntax(char *argument, int argc, int *error)
+typedef struct s_floor
+{
+	float		size;
+	int			rgb[3];
+}	t_floor;
+
+typedef struct s_ceiling
+{
+	float		size;
+	int			rgb[3];
+}	t_ceiling;
+
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_image;
+
+typedef struct s_texture
+{
+	char	*path;
+	t_image	img;
+}	t_texture;
+
+typedef struct s_game_data
+{
+	t_ceiling		ceiling;
+	t_floor			floor;
+	t_texture		textures[4];
+}	t_game_data;
+
+int floor_color(t_floor *floor, char *line, int *elements)
+{
+    char    **split;
+    int i;
+
+    while (*line && *line < '0' && *line > '9')
+        line++;
+    if (*line < '0' || *line > '9')
+        return (0);
+    split = ft_split(line, ','); 
+    i = 0;
+    while (split[i])
+    {
+        floor->rgb[i] = atoi(split[i]);
+        printf("floor->rbg[%i\n]: %i", i, floor->rgb[i]);
+        if (floor->rgb[i] > 255 || floor->rgb[i] < 0)
+            return (0);
+        i++;
+    }
+    if (i > 3)
+    {
+        perror("Error\nWrong Floor Color Syntax\n");
+        exit(1);
+    }
+    elements[0]++;
+    return (1);
+}
+
+int ceiling_color(t_ceiling *ceiling, char *line, int *elements)
+{
+    char    **split;
+    int i;
+
+    while (*line && *line < '0' && *line > '9')
+        line++;
+    if (*line < '0' || *line > '9')
+        return (0);
+    split = ft_split(line, ','); 
+    i = 0;
+    while (split[i])
+    {
+        ceiling->rgb[i] = atoi(split[i]);
+        if (ceiling->rgb[i] > 255 || ceiling->rgb[i] < 0)
+            return (0);
+        i++;
+    }
+    if (i > 3)
+    {
+        perror("Error\nWrong Ceiling Color Syntax\n");
+        exit(1);
+    }
+    elements[0]++;
+    return (1);
+}
+
+int north_texture(t_texture *texture, char *line, int *elements)
+{
+    int i;
+
+    if (line[1] == 'O')
+    {
+        i = 0;
+        while (line[i] && line[i] != '.')
+            i++;
+       if (line[i] == '.')
+       {
+            elements[0]++;;
+            return(texture->path = &line[i], 1);
+       }
+    }
+    perror("Error\nInvalid North Texture Path\n");
+    exit(1);
+}
+
+int south_texture(t_texture *texture, char *line, int *elements)
+{
+    int i;
+
+    if (line[1] == 'O')
+    {
+        i = 0;
+        while (line[i] && line[i] != '.')
+            i++;
+        if (line[i] == '.')
+        {
+            elements[0]++;;
+            return(texture->path = &line[i], 1);
+        }
+    }
+    perror("Error\nInvalid South Texture Path\n");
+    exit(4);
+}
+
+int west_texture(t_texture *texture, char *line, int *elements)
+{
+    int i;
+
+    if (line[1] == 'E')
+    {
+        i = 0;
+        while (line[i] && line[i] != '.')
+            i++;
+        if (line[i] == '.')
+        {
+            elements[0]++;;
+            return(texture->path = &line[i], 1);
+        }
+    }
+    perror("Error\nInvalid West Texture Path\n");
+    exit(3);
+}
+
+int east_texture(t_texture *texture, char *line, int *elements)
+{
+    int i;
+
+    if (line[1] == 'A')
+    {
+        i = 0;
+        while (line[i] && line[i] != '.')
+            i++;
+        if (line[i] == '.')
+        {
+            elements[0]++;
+            return (texture->path = &line[i], 1);
+        }
+    }
+    perror("Error\nInvalid East Texture Path\n");
+    exit(2);
+}
+
+int set_scene_elements(t_game_data *game, int fd)
+{
+    char    *line;
+    int elements[1];
+    int i;
+
+    line = get_next_line(fd);
+    elements[0] = 0;
+    i = 0;
+    while (line)
+    {
+        printf("LINE: %s", line);
+        if (line[0] == 'N')
+            north_texture(&game->textures[0], line, elements);
+        else if (line[0] == 'S')
+            south_texture(&game->textures[1], line, elements);
+        else if (line[0] == 'W')
+            west_texture(&game->textures[2], line, elements);
+        else if (line[0] == 'E')
+            east_texture(&game->textures[3], line, elements);
+        else if (line[0] == 'F')
+            floor_color(&game->floor, line, elements);
+        else if (line[0] == 'C')
+            ceiling_color(&game->ceiling, line, elements);
+        else if (ft_strchr(line, '1') || ft_strchr(line, '0'))
+            break ;
+        printf("ELEMS: %i\n", elements[0]);
+        if (elements[0] == 6)
+            return (1);
+        line = get_next_line(fd);
+    }
+    perror("Error\nNo matching Scene Configuration Element\n");
+    exit(1);
+}
+
+int check_extension(char *config_filename)
 {
     char    *ext;
     int match;
@@ -10,144 +213,55 @@ bool    ft_valid_input_syntax(char *argument, int argc, int *error)
     int i;
 
     ext = "buc.";
-    arg_len = ft_strlen(argument);
+    match = 0;
+    arg_len = ft_strlen(config_filename) - 1;
     i = 0;
     while (arg_len > 0 && ext[i])
     {
-        if (argument[arg_len--] == ext[i++])
+        if (config_filename[arg_len--] == ext[i++])
             match++;
     }
     if (match == 4)
-        return (true);
+        return (1);
     else
-        return (perror("Invalid input.\nUsage: ./cub3D <path/to/map.cub\n"), false);
-}
-
-bool    ft_north_text(char *line)
-{
-    int i;
-
-    i = 0;
-    if (line[1] == 'O')
     {
-        while (line[i] && line[i] != '.')
-            i++;
-        return (true);
+        perror("Error\nInvalid input\nUsage: ./cub3D <path/to/map.cub\n");
+        exit(4);
     }
 }
 
-bool    ft_south_text(char *line)
-{
-    if (line[1] == 'O')
-    {
-        return (true);
-    }
-}
-
-bool    ft_west_text(char *line)
-{
-    if (line[1] == 'E')
-    {
-        return (true);
-    }
-}
-
-bool    ft_east_text(char *line)
-{
-    if (line[1] == 'A')
-    {
-        return (true);
-    }
-}
-
-bool    ft_floor_color(char *line)
-{
-    char    **split;
-    int RGB[3];
-    int i;
-
-    while (*line && *line < '0' && *line > '9')
-        line++;
-    if (*line < '0' || *line > '9')
-        return (false);
-    split = ft_split(line, ','); 
-    i = 0;
-    while (split[i])
-    {
-        RGB[i] = atoi(split[i]);
-        if (RGB[i] > 255 || RGB[i] < 0)
-            return (false);
-        i++;
-    }
-    if (i > 3)
-        return (false);
-    i = 0;
-    map->ceiling->R = RGB[0];
-    map->ceiling->G = RGB[1];
-    map->ceiling->B = RGB[2];
-    return (true);
-}
-
-bool    ft_ceiling_color(char *line)
-{
-    char    **split;
-    int RGB[3];
-    int i;
-
-    while (*line && *line < '0' && *line > '9')
-        line++;
-    if (*line < '0' || *line > '9')
-        return (false);
-    split = ft_split(line, ','); 
-    i = 0;
-    while (split[i])
-    {
-        RGB[i] = atoi(split[i]);
-        if (RGB[i] > 255 || RGB[i] < 0)
-            return (false);
-        i++;
-    }
-    if (i > 3)
-        return (false);
-    i = 0;
-    map->ceiling->R = RGB[0];
-    map->ceiling->G = RGB[1];
-    map->ceiling->B = RGB[2];
-    return (true);
-}
-
-bool    ft_valid_scene(int fd)
-{
-    char    *line;
-
-    line = get_next_line(fd);
-    while (line)
-    {
-        if (line[0] == 'N')
-            ft_north_text(line);
-        else if (line[0] == 'S')
-            return (ft_south_text(line));
-        else if (line[0] == 'W')
-            return (ft_west_text(line));
-        else if (line[0] == 'E')
-            return (ft_east_text(line));
-        else if (line[0] == 'F')
-            return (ft_floor_color(line));
-        else if (line[0] == 'C')
-            return (ft_ceiling_color(line));
-        line = get_next_line(fd);
-    }
-    return (false);
-}
-
-int main(int argc, char **argv)
+int set_scene_data(t_game_data *game, char *config_filename)
 {
     int fd;
 
-    if (ft_valid_input_syntax(argv[1], argc))
+    check_extension(config_filename);
+    if ((fd = open("file1.cub", O_RDONLY)) < 0)
     {
-        if ((fd = open(argv[1], O_RDONLY)) == -1)
-            return (perror("Error: File doesn't exist\n"), 1); 
-        if (ft_valid_config(fd)) 
+        perror("Error\nInvalid configuration file");
+        exit(7);
     }
+    set_scene_elements(game, fd);
+}
+
+void    print_scene_elements(t_game_data *game)
+{
+    int i;
+
+    i = 0;
+    while (i < 3)
+        printf("game->ceiling->rgb[%i]: %i\n", i, game->ceiling.rgb[i]);
+    while (i < 3)
+        printf("game->floor->rgb[%i]: %i\n", i, game->floor.rgb[i]);
+    i = 0;
+    while (i < 4)
+        printf("game->textures[%i]->path: %s\n", game->textures[i].path);
+}
+
+int main(void)
+{
+    t_game_data game;
+
+    ft_bzero(&game, sizeof(game));
+    set_scene_data(&game, "file1.cub");
+    print_scene_elements(&game);
 }
