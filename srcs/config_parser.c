@@ -1,6 +1,7 @@
 #include "../libft_extended/libft.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 typedef struct s_floor
 {
@@ -51,6 +52,11 @@ int floor_color(t_floor *floor, char *line, int *elements)
     char    **split;
     int i;
 
+    if (elements[0] != 4)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     while (*line && !ft_isdigit(*line))
         line++;
     if (!ft_isdigit(*line) && !ft_isspace(*line))
@@ -81,6 +87,11 @@ int ceiling_color(t_ceiling *ceiling, char *line, int *elements)
     char    **split;
     int i;
 
+    if (elements[0] != 5)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     while (*line && !ft_isdigit(*line))
         line++;
     if (!ft_isdigit(*line) && !ft_isspace(*line))
@@ -110,6 +121,11 @@ int north_texture(t_texture *texture, char *line, int *elements)
 {
     int i;
 
+    if (elements[0] != 0)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     if (line[1] == 'O')
     {
         i = 0;
@@ -130,6 +146,11 @@ int south_texture(t_texture *texture, char *line, int *elements)
 {
     int i;
 
+    if (elements[0] != 1)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     if (line[1] == 'O')
     {
         i = 0;
@@ -150,6 +171,11 @@ int west_texture(t_texture *texture, char *line, int *elements)
 {
     int i;
 
+    if (elements[0] != 2)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     if (line[1] == 'E')
     {
         i = 0;
@@ -170,6 +196,11 @@ int east_texture(t_texture *texture, char *line, int *elements)
 {
     int i;
 
+    if (elements[0] != 3)
+    {
+        perror("Error\nInvalid North Texture Path\n");
+        exit(1);
+    }
     if (line[1] == 'A')
     {
         i = 0;
@@ -186,15 +217,47 @@ int east_texture(t_texture *texture, char *line, int *elements)
     exit(2);
 }
 
+int read_off_map(t_game_data *game, int fd)
+{
+    char *map;
+    char *line;
+    char *line_ref;
+    int map_bit;
+
+    map = NULL;
+    line = get_next_line(fd);
+    while (line)
+    {
+        map_bit = 0;
+        line_ref = line;
+        while (*line_ref)
+        {
+            if (!is_spawn_char(*line_ref) || !ft_isspace(*line_ref) ||
+                    !is_map_char(*line_ref))
+            {
+                perror("Error\nInvalid Map Configuration\n");
+                free(map);
+                free(line);
+                exit(6);
+            }
+            if (is_map_char(*line_ref))
+                map_bit = 1;
+            line_ref++;
+        }
+        if (map_bit)
+            map = ft_strjoin(map, line); 
+        line = get_next_line(fd);
+    }
+    game->map->array = ft_split(map, '\n');
+}
+
 int set_scene_elements(t_game_data *game, int fd)
 {
     char    *line;
     int elements[1];
-    int i;
 
     line = get_next_line(fd);
     elements[0] = 0;
-    i = 0;
     while (line)
     {
         if (line[0] == 'N')
@@ -209,12 +272,16 @@ int set_scene_elements(t_game_data *game, int fd)
             floor_color(&game->floor, line, elements);
         else if (line[0] == 'C')
             ceiling_color(&game->ceiling, line, elements);
-        else if (ft_strchr(line, '1') || ft_strchr(line, '0'))
+        else if (ft_iswhite())
             break ;
         if (elements[0] == 6)
+        {
+            read_off_map(game, fd);
             return (1);
+        }
         line = get_next_line(fd);
     }
+    free(line);
     perror("Error\nNo matching Scene Configuration Element\n");
     exit(1);
 }
