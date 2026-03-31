@@ -1,4 +1,3 @@
-#include "./inclusions/textures.h"
 #include "../libft_extended/libft.h"
 #include <stdlib.h>
 #include <fcntl.h>
@@ -39,21 +38,31 @@ typedef struct s_game_data
 	t_texture		textures[4];
 }	t_game_data;
 
+void    ft_nl_to_null(char *string)
+{
+    while (*string && *string != '\n')
+        string++;
+    if (*string == '\n')
+        *string = '\0';
+}
+
 int floor_color(t_floor *floor, char *line, int *elements)
 {
     char    **split;
     int i;
 
-    while (*line && *line < '0' && *line > '9')
+    while (*line && !ft_isdigit(*line))
         line++;
-    if (*line < '0' || *line > '9')
-        return (0);
+    if (!ft_isdigit(*line) && !ft_isspace(*line))
+    {
+        perror("Error\nWrong Floor Color Syntax\n");
+        exit(1);
+    }
     split = ft_split(line, ','); 
     i = 0;
     while (split[i])
     {
-        floor->rgb[i] = atoi(split[i]);
-        printf("floor->rbg[%i\n]: %i", i, floor->rgb[i]);
+        floor->rgb[i] = ft_atoi(split[i]);
         if (floor->rgb[i] > 255 || floor->rgb[i] < 0)
             return (0);
         i++;
@@ -72,15 +81,18 @@ int ceiling_color(t_ceiling *ceiling, char *line, int *elements)
     char    **split;
     int i;
 
-    while (*line && *line < '0' && *line > '9')
+    while (*line && !ft_isdigit(*line))
         line++;
-    if (*line < '0' || *line > '9')
-        return (0);
+    if (!ft_isdigit(*line) && !ft_isspace(*line))
+    {
+        perror("Error\nWrong Ceiling Color Syntax\n");
+        exit(1);
+    }
     split = ft_split(line, ','); 
     i = 0;
     while (split[i])
     {
-        ceiling->rgb[i] = atoi(split[i]);
+        ceiling->rgb[i] = ft_atoi(split[i]);
         if (ceiling->rgb[i] > 255 || ceiling->rgb[i] < 0)
             return (0);
         i++;
@@ -105,7 +117,8 @@ int north_texture(t_texture *texture, char *line, int *elements)
             i++;
        if (line[i] == '.')
        {
-            elements[0]++;;
+            elements[0]++;
+            ft_nl_to_null(line);
             return(texture->path = &line[i], 1);
        }
     }
@@ -124,7 +137,8 @@ int south_texture(t_texture *texture, char *line, int *elements)
             i++;
         if (line[i] == '.')
         {
-            elements[0]++;;
+            elements[0]++;
+            ft_nl_to_null(line);
             return(texture->path = &line[i], 1);
         }
     }
@@ -143,7 +157,8 @@ int west_texture(t_texture *texture, char *line, int *elements)
             i++;
         if (line[i] == '.')
         {
-            elements[0]++;;
+            elements[0]++;
+            ft_nl_to_null(line);
             return(texture->path = &line[i], 1);
         }
     }
@@ -163,6 +178,7 @@ int east_texture(t_texture *texture, char *line, int *elements)
         if (line[i] == '.')
         {
             elements[0]++;
+            ft_nl_to_null(line);
             return (texture->path = &line[i], 1);
         }
     }
@@ -181,7 +197,6 @@ int set_scene_elements(t_game_data *game, int fd)
     i = 0;
     while (line)
     {
-        printf("LINE: %s", line);
         if (line[0] == 'N')
             north_texture(&game->textures[0], line, elements);
         else if (line[0] == 'S')
@@ -196,7 +211,6 @@ int set_scene_elements(t_game_data *game, int fd)
             ceiling_color(&game->ceiling, line, elements);
         else if (ft_strchr(line, '1') || ft_strchr(line, '0'))
             break ;
-        printf("ELEMS: %i\n", elements[0]);
         if (elements[0] == 6)
             return (1);
         line = get_next_line(fd);
@@ -249,12 +263,22 @@ void    print_scene_elements(t_game_data *game)
 
     i = 0;
     while (i < 3)
+    {
         printf("game->ceiling->rgb[%i]: %i\n", i, game->ceiling.rgb[i]);
+        i++;
+    }
+    i = 0;
     while (i < 3)
+    {
         printf("game->floor->rgb[%i]: %i\n", i, game->floor.rgb[i]);
+        i++;
+    }
     i = 0;
     while (i < 4)
-        printf("game->textures[%i]->path: %s\n", game->textures[i].path);
+    {
+        printf("game->textures[%i]->path: %s\n", i ,game->textures[i].path);
+        i++;
+    }
 }
 
 int main(void)

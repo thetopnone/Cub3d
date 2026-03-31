@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "libft.h"
 
-static int	ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (0);
