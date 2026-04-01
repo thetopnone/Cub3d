@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "game_data.h"
 #include <stdio.h>
 #include "../libft_extended/libft.h"
@@ -28,7 +29,7 @@ int	main(int argc, char *argv[])
 		printf("This is a VALID MAP!!!\n");
 	else
 	{
-		printf("Error\nIVALID MAP\n");
+		printf("Error\nINVALID MAP\n");
 		clean_game_data(&game);
 	}
 	set_game_data(&game);

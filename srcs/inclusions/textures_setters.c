@@ -32,8 +32,8 @@ void	set_texture(t_texture *tex, t_game_data *game, char *path)
 //Loads all wall texture
 void	load_textures(t_game_data *game)
 {
-	set_texture(&game->textures[0], game, "./textures/Wall_North.xpm");
-	set_texture(&game->textures[1], game, "./textures/Wall_South.xpm");
-	set_texture(&game->textures[2], game, "./textures/Wall_East.xpm");
-	set_texture(&game->textures[3], game, "./textures/Wall_West.xpm");
+	set_texture(&game->textures[0], game, game->textures[0].path);
+	set_texture(&game->textures[1], game, game->textures[1].path);
+	set_texture(&game->textures[2], game, game->textures[2].path);
+	set_texture(&game->textures[3], game, game->textures[3].path);
 }

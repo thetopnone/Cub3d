@@ -11,9 +11,11 @@ MLX = $(MLX_DIR)/libmlx.a
 LIBFT = $(LIBFT_DIR)/libft.a
 OBJS_DIR = objs
 OBJS_DIR_BONUS = objs_bonus
-SRCS = srcs/main.c srcs/map_validation.c srcs/map_validation_utils.c \
+SRCS = srcs/main.c srcs/parser.c srcs/parser_textures.c \
+srcs/parser_colors.c srcs/parser_utils.c \
+srcs/map_validation.c srcs/map_validation_utils.c srcs/game_loop.c\
 srcs/renderer.c srcs/raycaster.c srcs/raycaster_setters_1.c \
-srcs/raycaster_setters_2.c srcs/game_loop.c srcs/inclusions/camera_setters.c \
+srcs/raycaster_setters_2.c srcs/inclusions/camera_setters.c \
 srcs/inclusions/map_setters_1.c srcs/inclusions/map_setters_2.c \
 srcs/inclusions/player_setters.c srcs/inclusions/vectors_oper_1.c \
 srcs/inclusions/vectors_oper_2.c srcs/printers.c srcs/inclusions/textures_setters.c \

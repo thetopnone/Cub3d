@@ -13,11 +13,9 @@
 #include <stdio.h>
 #include "libft.h"
 
-int	ft_isspace(int c)
+static int	ft_isspace(int c)
 {
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (0);
-	return (1);
+	return (c == 32 || (c >= 9 && c <= 13));
 }
 
 int	ft_atoi(const char *nptr)
@@ -29,7 +27,7 @@ int	ft_atoi(const char *nptr)
 	ref = (char *)nptr;
 	value = 0;
 	sign = 1;
-	while (ft_isspace((int)*ref) == 0)
+	while (ft_isspace((int)*ref))
 		ref++;
 	if (*ref == '-' || *ref == '+')
 	{
