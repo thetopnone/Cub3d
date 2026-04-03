@@ -36,34 +36,17 @@ void	set_map_cols(t_map *map)
 	}
 }
 
-void	set_map_rows(t_map *map, char *filename)
+void	set_map_rows(t_map *map)
 {
-	int		fd;
-	char	*line;
-
-	if (!map || !filename)
+	if (!map)
 		return (perror("Map Pointer Error\n"));
 	map->rows = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (perror("Invalid File Descriptor\n"));
-	line = NULL;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line)
-		{
-			free(line);
-			map->rows++;
-		}
-		else
-			break ;
-	}
-	close(fd);
+	while (map->array[map->rows])
+		map->rows++;
 }
 
 //The map array we use for validation
-void	set_map_array(t_map *map, char *filename)
+/*void	set_map_array(t_map *map, char *filename)
 {
 	int		fd;
 	int		i;
@@ -86,7 +69,7 @@ void	set_map_array(t_map *map, char *filename)
 	get_next_line(-1);
 	map->array[i] = NULL;
 	close(fd);
-}
+}*/
 
 //Allocates the visited array, in order to track which border blocks have been
 // validated already

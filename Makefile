@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O2
+CFLAGS = -Wall -Wextra -Werror -O2 -g
 LIBFT_DIR = ./libft_extended
 MLX_DIR = ./mlx_linux
 LIBFTFLAGS = -Llibft_extended -lft

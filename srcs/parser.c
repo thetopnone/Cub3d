@@ -13,7 +13,10 @@ void    read_off_map(t_game_data *game, int fd)
         map_bit[0] = 0;
         validate_line(map, line, map_bit);
         if (map_bit[0])
+        {
             map = ft_strjoin(map, line); 
+            free(line);
+        }
         line = get_next_line(fd);
     }
     game->map.array = ft_split(map, '\n');
@@ -86,7 +89,7 @@ void    set_scene_data(t_game_data *game, char *config_filename)
     int fd;
 
     check_extension(config_filename);
-    if ((fd = open("file1.cub", O_RDONLY)) < 0)
-        error_exit("Error\nInvalid configuration file", 1, NULL);
+    if ((fd = open("map1.cub", O_RDONLY)) < 0)
+        error_exit("Error\nInvalid Configuration File", 1, NULL);
     set_scene_elements(game, fd);
 }

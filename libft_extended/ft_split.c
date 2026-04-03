@@ -88,7 +88,6 @@ static int	ft_split_logic(char **str_arr, char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char		**str_arr;
-	int	i = 0;
 
 	if (!s || *s == '\0')
 	{

@@ -21,10 +21,12 @@ void    south_texture(t_texture *texture, char *line, int *elements);
 void    west_texture(t_texture *texture, char *line, int *elements);
 void    east_texture(t_texture *texture, char *line, int *elements);
 //-----------------------------------------------------------------------------
-//  CONFIG_PARSER_COLORS.C (2)
+//  CONFIG_PARSER_COLORS.C (4)
 //-----------------------------------------------------------------------------
 void    floor_color(t_floor *floor, char *line, int *elements);
+void    format_floor_color(t_floor *floor, int *rgb);
 void    ceiling_color(t_ceiling *ceiling, char *line, int *elements);
+void    format_ceiling_color(t_ceiling *ceiling, int *rgb);
 //-----------------------------------------------------------------------------
 //  CONFIG_PARSER_UTILS (5)
 //-----------------------------------------------------------------------------

@@ -35,14 +35,12 @@ void    ft_nl_to_null(char *string)
 
 void    validate_line(char *map, char *line, int *map_bit)
 {
+    printf("LINE: %s", line);
     while (*line)
     {
         if (!is_spawn_char(*line) && !is_white(*line) &&
                 !is_map_char(*line))
-        {
-            free(map);
-            error_exit("Error\nInvalid Map Configuration\n", 8, line);
-        }
+            error_exit("Error\nInvalid Map Configuration\n", 8, map);
         if (is_map_char(*line))
             map_bit[0] = 1;
         line++;
