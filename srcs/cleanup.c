@@ -28,10 +28,20 @@ void	free_array(void **array, int rows)
 	free(array);
 }
 
+void	free_textures(int *textures)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		free(game->textures[i++].path);
+}
+
 int	clean_game_data(t_game_data *game)
 {
 	free_array((void **)game->map.array, game->map.rows);
 	free_array((void **)game->map.visited, game->map.rows);
+	free_textures(game->textures);
 	if (game->mlx)
 	{
 		mlx_do_key_autorepeaton(game->mlx);

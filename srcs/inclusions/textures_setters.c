@@ -35,4 +35,5 @@ void	load_textures(t_game_data *game)
 	set_texture(&game->textures[1], game);
 	set_texture(&game->textures[2], game);
 	set_texture(&game->textures[3], game);
+	free_textures(game->textures);
 }

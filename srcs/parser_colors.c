@@ -30,6 +30,7 @@ void    floor_color(t_floor *floor, char *line, int *elements)
             return ;
         i++;
     }
+    free_array(split);
     if (i != 3)
         error_exit("Error\nWrong Floor Color Syntax\n", 10, line);
     format_floor_color(floor, floor->rgb);
@@ -66,6 +67,7 @@ void    ceiling_color(t_ceiling *ceiling, char *line, int *elements)
             return ;
         i++;
     }
+    free_array(split);
     if (i != 3)
         error_exit("Error\nInvalid Ceiling Color Syntax\n", 9, line);
     format_ceiling_color(ceiling, ceiling->rgb);
