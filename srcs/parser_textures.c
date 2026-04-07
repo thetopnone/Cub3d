@@ -1,5 +1,19 @@
 #include "parser.h"
 
+int check_path(char *path)
+{
+    int fd;
+
+    fd = open(path, O_RDONLY);
+    if (fd == -1)
+    {
+        free(path);
+        return (0);
+    }
+    close(fd);
+    return (1);
+}
+
 void    north_texture(t_texture *texture, char *line, int *elements)
 {
     int i;
@@ -14,8 +28,10 @@ void    north_texture(t_texture *texture, char *line, int *elements)
        if (line[i] == '.')
        {
             elements[0]++;
-            ft_nl_to_null(line);
-            texture->path = &line[i];
+            texture->path = ft_strdup(&line[i]);
+            ft_nl_to_null(texture->path);
+            if (!check_path(texture->path))
+                error_exit("Error\nInvalid North Texture Path\n", 4, line);
             return ;
        }
     }
@@ -36,8 +52,9 @@ void    south_texture(t_texture *texture, char *line, int *elements)
         if (line[i] == '.')
         {
             elements[0]++;
-            ft_nl_to_null(line);
-            texture->path = &line[i];
+            texture->path = ft_strdup(&line[i]);
+            ft_nl_to_null(texture->path);
+            check_path(texture->path);
             return ;
         }
     }
@@ -58,8 +75,9 @@ void    west_texture(t_texture *texture, char *line, int *elements)
         if (line[i] == '.')
         {
             elements[0]++;
-            ft_nl_to_null(line);
-            texture->path = &line[i];
+            texture->path = ft_strdup(&line[i]);
+            ft_nl_to_null(texture->path);
+            check_path(texture->path);
             return ;
         }
     }
@@ -80,8 +98,9 @@ void    east_texture(t_texture *texture, char *line, int *elements)
         if (line[i] == '.')
         {
             elements[0]++;
-            ft_nl_to_null(line);
-            texture->path = &line[i];
+            texture->path = ft_strdup(&line[i]);
+            ft_nl_to_null(texture->path);
+            check_path(texture->path);
             return ;
         }
     }

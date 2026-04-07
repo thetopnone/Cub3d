@@ -13,6 +13,7 @@
 #include "textures.h"
 #include "../game_data.h"
 #include <mlx.h>
+#include "../cleanup.h"
 
 void	set_texture(t_texture *tex, t_game_data *game)
 {
@@ -35,5 +36,5 @@ void	load_textures(t_game_data *game)
 	set_texture(&game->textures[1], game);
 	set_texture(&game->textures[2], game);
 	set_texture(&game->textures[3], game);
-	free_textures(game->textures);
+	//free_textures(game->textures);
 }

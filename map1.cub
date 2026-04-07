@@ -1,4 +1,4 @@
-NO ./textures/Wall_North.xpm
+NO ./textudres/Wall_North.xpm
 SO ./textures/Wall_South.xpm
 WE ./textures/Wall_West.xpm
 EA ./textures/Wall_East.xpm

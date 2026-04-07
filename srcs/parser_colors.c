@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "cleanup.h"
 
 void    format_floor_color(t_floor *floor, int *rgb)
 {
@@ -30,7 +31,7 @@ void    floor_color(t_floor *floor, char *line, int *elements)
             return ;
         i++;
     }
-    free_array(split);
+    free_array((void **)split, 3);
     if (i != 3)
         error_exit("Error\nWrong Floor Color Syntax\n", 10, line);
     format_floor_color(floor, floor->rgb);
@@ -67,7 +68,7 @@ void    ceiling_color(t_ceiling *ceiling, char *line, int *elements)
             return ;
         i++;
     }
-    free_array(split);
+    free_array((void **)split, 3);
     if (i != 3)
         error_exit("Error\nInvalid Ceiling Color Syntax\n", 9, line);
     format_ceiling_color(ceiling, ceiling->rgb);

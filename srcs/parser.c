@@ -1,9 +1,11 @@
 #include "parser.h"
+#include "cleanup.h"
 
 void    read_off_map(t_game_data *game, int fd)
 {
     char *map;
     char *line;
+    char *temp;
     int map_bit[1];
 
     map = ft_strdup(NULL);
@@ -13,7 +15,11 @@ void    read_off_map(t_game_data *game, int fd)
         map_bit[0] = 0;
         validate_line(map, line, map_bit);
         if (map_bit[0])
+        {
+            temp = map;
             map = ft_strjoin(map, line); 
+            free(temp);
+        }
         free(line);
         line = get_next_line(fd);
     }
@@ -54,9 +60,9 @@ void    set_scene_elements(t_game_data *game, int fd)
     while (line)
     {
         check_and_set(game, line, elements);
+        free(line);
         if (elements[0] == 6)
             return (read_off_map(game, fd));
-        free(line);
         line = get_next_line(fd);
     }
     error_exit("Error\nNo matching Scene Configuration Element\n", 3, line);
