@@ -13,7 +13,8 @@ void    read_off_map(t_game_data *game, int fd)
     while (line)
     {
         map_bit[0] = 0;
-        validate_line(map, line, map_bit);
+        if (!validate_line(map, line, map_bit))
+            error_exit("Error\nInvalid Map Configuration\n", 8, line, game);
         if (map_bit[0])
         {
             temp = map;
@@ -30,24 +31,19 @@ void    read_off_map(t_game_data *game, int fd)
 void    check_and_set(t_game_data *game, char *line, int *elements)
 {
     if (line[0] == 'N')
-            north_texture(&game->textures[0], line, elements);
+            north_texture(game, line, elements);
     else if (line[0] == 'S')
-            south_texture(&game->textures[1], line, elements);
+            south_texture(game, line, elements);
     else if (line[0] == 'W')
-            west_texture(&game->textures[2], line, elements);
+            west_texture(game, line, elements);
     else if (line[0] == 'E')
-            east_texture(&game->textures[3], line, elements);
+            east_texture(game, line, elements);
     else if (line[0] == 'F')
-            floor_color(&game->floor, line, elements);
+            floor_color(game, line, elements);
     else if (line[0] == 'C')
-            ceiling_color(&game->ceiling, line, elements);
-    else if (is_white(line[0]))
-    {
-        if (!check_line(line))
-            error_exit("Error\nInvalid Map Configuration\n", 8, line);
-    }
-    else
-        error_exit("Error\nInvalid Map Configuration\n", 8, line);
+            ceiling_color(game, line, elements);
+    else if (!check_line(line))
+        error_exit("Error\nInvalid Map Configuration\n", 8, line, game);
 }
 
 void    set_scene_elements(t_game_data *game, int fd)
@@ -65,7 +61,7 @@ void    set_scene_elements(t_game_data *game, int fd)
             return (read_off_map(game, fd));
         line = get_next_line(fd);
     }
-    error_exit("Error\nNo matching Scene Configuration Element\n", 3, line);
+    error_exit("Error\nNo matching Scene Configuration Element\n", 3, line, NULL);
 }
 
 void    check_extension(char *config_filename)
@@ -87,7 +83,7 @@ void    check_extension(char *config_filename)
     if (match == 4)
         return ;
     else
-        error_exit("Error\nInvalid input\nUsage: ./cub3D <path/to/map.cub\n", 2, NULL);
+        error_exit("Error\nInvalid input\nUsage: ./cub3D <path/to/map.cub\n", 2, NULL, NULL);
 }
 
 void    set_scene_data(t_game_data *game, char *config_filename)
@@ -96,7 +92,7 @@ void    set_scene_data(t_game_data *game, char *config_filename)
 
     check_extension(config_filename);
     if ((fd = open("map1.cub", O_RDONLY)) < 0)
-        error_exit("Error\nInvalid Configuration File", 1, NULL);
+        error_exit("Error\nInvalid Configuration File", 1, NULL, NULL);
     set_scene_elements(game, fd);
     close(fd);
 }

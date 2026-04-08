@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "cleanup.h"
 
 
 int is_white(char c)
@@ -6,10 +7,15 @@ int is_white(char c)
 	return (c == 32 || (c >= 9 && c <= 13));
 }
 
-void    error_exit(char *error_msg, int exit_code, char *mem)
+void    error_exit(char *error_msg, int exit_code, char *line, t_game_data *game)
 {
-    if (mem)
-        free(mem);
+    if (line)
+    {
+        get_next_line(-1);
+        free(line);
+    }
+    if (game)
+        free_textures(game->textures);
     perror(error_msg);
     exit(exit_code);
 }
@@ -33,18 +39,19 @@ void    ft_nl_to_null(char *string)
         *string = '\0';
 }
 
-void    validate_line(char *map, char *line, int *map_bit)
+int validate_line(char *map, char *line, int *map_bit)
 {
     while (*line)
     {
         if (!is_spawn_char(*line) && !is_white(*line) &&
                 !is_map_char(*line))
-            {
-                free(line);
-                error_exit("Error\nInvalid Map Configuration\n", 8, map);
-            }
+        {
+            free(map);
+            return (0);
+        }
         if (is_map_char(*line))
             map_bit[0] = 1;
         line++;
     }
+    return (1);
 }

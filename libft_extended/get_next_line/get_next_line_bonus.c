@@ -76,6 +76,8 @@ static char	*ft_leftovers(char	*book)
 		counter++;
 	if (book[counter] == '\n')
 		counter++;
+	if (book[counter] == '\0')
+		return (cub_case(book), NULL);
 	leftovers = ft_calloc((ft_strlen(book) - counter + 1), sizeof(char));
 	while (book[counter] != '\0')
 	{
@@ -90,21 +92,24 @@ static char	*ft_leftovers(char	*book)
 void	free_buffer(char **buffer, int *i)
 {
 	if (buffer)
-		free(buffer);
-	i++;
+	{
+		if (*buffer)
+			free(*buffer);
+	}
+	i[0]++;
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffer[FD_LIMIT];
 	char		*line;
-	int			i;
+	int			i[1];
 
-	i = 0;
+	i[0] = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
-		while (i < FD_LIMIT)
-			free_buffer(&buffer[i], &i);
+		while (i[0] < FD_LIMIT)
+			free_buffer(&buffer[i[0]], i);
 		return (NULL);
 	}
 	if (!buffer[fd])

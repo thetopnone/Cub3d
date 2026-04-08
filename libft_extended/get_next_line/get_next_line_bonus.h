@@ -6,7 +6,7 @@
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:56:22 by akonstan          #+#    #+#             */
-/*   Updated: 2025/02/20 12:56:26 by akonstan         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:23:11 by mstawski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
+void	cub_case(char *book);
 
 #endif

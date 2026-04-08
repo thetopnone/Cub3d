@@ -1,17 +1,19 @@
-NO ./textudres/Wall_North.xpm
+NO ./textures/Wall_North.xpm
 SO ./textures/Wall_South.xpm
 WE ./textures/Wall_West.xpm
 EA ./textures/Wall_East.xpm
 
 
 F 30,150,210
-C 0,0,0
+C 0,0,123
 
 11111111
 10000001
 1000N001
 10011101
 1001 101
+
+
 10011101
 10000001
 11111111
