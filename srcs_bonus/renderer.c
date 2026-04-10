@@ -25,11 +25,11 @@ void	put_texture_pixel(t_image *img,
 
 	x = pixel->x;
 	y = pixel->y;
-	color = (unsigned int)0x00000000;
+	color = game->floor.color;
 	if (img == NULL)
 	{
-		if (y > HEIGHT / 2)
-			color = (unsigned int)0xFF303030;
+		if (y < HEIGHT / 2)
+			color = game->ceiling.color;
 		else
 			color = (unsigned int)0xFF808080;
 		game->buffer[y * WIDTH + x] = color;

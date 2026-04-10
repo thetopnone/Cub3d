@@ -6,7 +6,7 @@
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:57:54 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/20 17:57:55 by akonstan         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:20:30 by mstawski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	load_textures(t_game_data *game);
 void	set_render_range(int *render_start, int *render_end, int line_h);
 void	update_player_pos(t_game_data *game);
 void	set_cushion(t_2dvector *cushion,
-		t_player *player, int direction_x, int direction_y);
+			t_player *player, int direction_x, int direction_y);
 int		update_frame(t_game_data *game);
 #endif

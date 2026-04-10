@@ -6,7 +6,7 @@
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 18:13:58 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/26 18:13:59 by akonstan         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:29:43 by mstawski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CLEANUP_H
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 
 void	free_array(void **array, int rows);
-void    free_textures(t_texture *textures);
+void	free_textures(t_texture *textures);
 int		clean_game_data(t_game_data *game);
 void	clean_textures(t_texture *textures, int amount, void *mlx);
 void	clean_image(t_image *img, void *mlx);

@@ -28,6 +28,15 @@ void	free_array(void **array, int rows)
 	free(array);
 }
 
+void	free_textures(t_texture *textures)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		free(textures[i++].path);
+}
+
 int	clean_game_data(t_game_data *game)
 {
 	free_array((void **)game->map.array, game->map.rows);

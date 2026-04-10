@@ -12,7 +12,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 OBJS_DIR = objs
 OBJS_DIR_BONUS = objs_bonus
 SRCS = srcs/main.c srcs/parser.c srcs/parser_textures.c \
-srcs/parser_colors.c srcs/parser_utils.c \
+srcs/parser_colors.c srcs/parser_utils.c srcs/parser_utils_2.c \
 srcs/map_validation.c srcs/map_validation_utils.c srcs/game_loop.c\
 srcs/renderer.c srcs/raycaster.c srcs/raycaster_setters_1.c \
 srcs/raycaster_setters_2.c srcs/inclusions/camera_setters.c \
@@ -20,7 +20,9 @@ srcs/inclusions/map_setters_1.c srcs/inclusions/map_setters_2.c \
 srcs/inclusions/player_setters.c srcs/inclusions/vectors_oper_1.c \
 srcs/inclusions/vectors_oper_2.c srcs/printers.c srcs/inclusions/textures_setters.c \
 srcs/movement.c srcs/frames.c srcs/cleanup.c srcs/renderer_2.c
-SRCS_BONUS = srcs_bonus/main.c srcs_bonus/map_validation.c srcs_bonus/map_validation_utils.c \
+SRCS_BONUS = srcs_bonus/main.c srcs_bonus/parser.c srcs_bonus/parser_textures.c \
+srcs_bonus/parser_colors.c srcs_bonus/parser_utils.c srcs_bonus/parser_utils_2.c \
+srcs_bonus/map_validation.c srcs_bonus/map_validation_utils.c \
 srcs_bonus/renderer.c srcs_bonus/raycaster.c srcs_bonus/raycaster_setters_1.c \
 srcs_bonus/raycaster_setters_2.c srcs_bonus/game_loop.c srcs_bonus/inclusions/camera_setters.c \
 srcs_bonus/inclusions/map_setters_1.c srcs_bonus/inclusions/map_setters_2.c \

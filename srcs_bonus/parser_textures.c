@@ -38,9 +38,9 @@ void	north_texture(t_game_data *game, char *line, int *elements)
 		if (line[i] == '.')
 		{
 			elements[0]++;
-			game->textures[0].path = ft_strdup(&line[i]);
-			ft_nl_to_null(game->textures[0].path);
-			if (!check_path(game->textures[0].path))
+			game->wall_tex[0].path = ft_strdup(&line[i]);
+			ft_nl_to_null(game->wall_tex[0].path);
+			if (!check_path(game->wall_tex[0].path))
 				error_exit("Error\nInvalid North Texture Path\n",
 					4, line, game);
 			return ;
@@ -63,9 +63,9 @@ void	south_texture(t_game_data *game, char *line, int *elements)
 		if (line[i] == '.')
 		{
 			elements[0]++;
-			game->textures[1].path = ft_strdup(&line[i]);
-			ft_nl_to_null(game->textures[1].path);
-			if (!check_path(game->textures[1].path))
+			game->wall_tex[1].path = ft_strdup(&line[i]);
+			ft_nl_to_null(game->wall_tex[1].path);
+			if (!check_path(game->wall_tex[1].path))
 				error_exit("Error\nInvalid South Texture Path\n",
 					4, line, game);
 			return ;
@@ -88,9 +88,9 @@ void	west_texture(t_game_data *game, char *line, int *elements)
 		if (line[i] == '.')
 		{
 			elements[0]++;
-			game->textures[2].path = ft_strdup(&line[i]);
-			ft_nl_to_null(game->textures[2].path);
-			if (!check_path(game->textures[2].path))
+			game->wall_tex[2].path = ft_strdup(&line[i]);
+			ft_nl_to_null(game->wall_tex[2].path);
+			if (!check_path(game->wall_tex[2].path))
 				error_exit("Error\nInvalid West Texture Path\n", 4, line, game);
 			return ;
 		}
@@ -112,9 +112,9 @@ void	east_texture(t_game_data *game, char *line, int *elements)
 		if (line[i] == '.')
 		{
 			elements[0]++;
-			game->textures[3].path = ft_strdup(&line[i]);
-			ft_nl_to_null(game->textures[3].path);
-			if (!check_path(game->textures[3].path))
+			game->wall_tex[3].path = ft_strdup(&line[i]);
+			ft_nl_to_null(game->wall_tex[3].path);
+			if (!check_path(game->wall_tex[3].path))
 				error_exit("Error\nInvalid East Texture Path\n", 4, line, game);
 			return ;
 		}
