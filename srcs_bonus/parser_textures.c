@@ -68,6 +68,7 @@ void	south_texture(t_game_data *game, char *line, int *elements)
 			if (!check_path(game->wall_tex[1].path))
 				error_exit("Error\nInvalid South Texture Path\n",
 					4, line, game);
+			printf("SO PATH: %s\n", game->wall_tex[1].path);
 			return ;
 		}
 	}
