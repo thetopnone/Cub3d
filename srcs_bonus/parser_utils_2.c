@@ -45,7 +45,6 @@ int	check_line(char *line)
 
 void	ft_nl_to_null(char *string)
 {
-	
 	while (*string && *string != '\n')
 		string++;
 	if (*string == '\n')

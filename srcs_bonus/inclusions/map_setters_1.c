@@ -38,39 +38,12 @@ void	set_map_cols(t_map *map)
 
 void	set_map_rows(t_map *map)
 {
-
 	if (!map)
 		return (perror("Map Pointer Error\n"));
 	map->rows = 0;
 	while (map->array[map->rows])
 		map->rows++;
 }
-
-/*The map array we use for validation
-void	set_map_array(t_map *map, char *filename)
-{
-	int		fd;
-	int		i;
-	char	*line;
-
-	if (!map || !filename)
-		return (perror("Map Pointer Error\n"));
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (perror("Invalid File Descriptor\n"));
-	map->array = ft_calloc(map->rows + 1, sizeof(char *));
-	i = 0;
-	while (i < map->rows)
-	{
-		line = get_next_line(fd);
-		map->array[i] = ft_strtrim(line, "\n");
-		free(line);
-		i++;
-	}
-	get_next_line(-1);
-	map->array[i] = NULL;
-	close(fd);
-}*/
 
 //Allocates the visited array, in order to track which border blocks have been
 // validated already
