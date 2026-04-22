@@ -23,7 +23,6 @@ void	put_texture_pixel(t_image *img,
 			t_vector *pixel, t_game_data *game, t_vector *tex);
 void	render_wall_line(t_raycast2d *ray, t_game_data *game, double pxl_i);
 void	render_image(t_game_data *game);
-void	load_textures(t_game_data *game);
 void	set_render_range(int *render_start, int *render_end, int line_h);
 //-----------------------------------------------------------------------------
 // RENDERER_2.C (5)

@@ -19,8 +19,10 @@ void	set_texture(t_texture *tex, t_game_data *game)
 {
 	if (!tex)
 		return (perror("Error\nInvalid Textures Pointer\n"));
-	if (!tex->path || !*(tex->path))
+	if (!tex->path || !*(tex->path)){
+		printf("HERE\n");
 		return (perror("Error\nInvalid Path to Texture\n"));
+	}
 	tex->img.img = mlx_xpm_file_to_image(game->mlx, tex->path,
 			&(tex->img.width), &(tex->img.height));
 	tex->img.addr = mlx_get_data_addr(tex->img.img, &(tex->img.bpp),

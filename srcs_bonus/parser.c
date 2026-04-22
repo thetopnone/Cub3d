@@ -100,9 +100,11 @@ void	set_scene_data(t_game_data *game, char *config_filename)
 	int	fd;
 
 	check_extension(config_filename);
-	fd = open("map1.cub", O_RDONLY);
+	fd = open(config_filename, O_RDONLY);
 	if (fd < 0)
 		error_exit("Error\nInvalid Configuration File", 1, NULL, NULL);
 	set_scene_elements(game, fd);
+	game->door_tex[0].path = "./textures_bonus/Door_1.xpm";
+	game->door_tex[1].path = "./textures_bonus/Door_6.xpm";
 	close(fd);
 }

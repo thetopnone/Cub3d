@@ -1,7 +1,7 @@
-NO ./textures/Wall_North.xpm
-SO ./textures/Wall_South.xpm
-WE ./textures/Wall_West.xpm
-EA ./textures/Wall_East.xpm
+NO ./textures_bonus/Wall_North.xpm
+SO ./textures_bonus/Wall_South.xpm
+WE ./textures_bonus/Wall_West.xpm
+EA ./textures_bonus/Wall_East.xpm
 
 
 F 220,100,0
