@@ -32,10 +32,8 @@ static size_t	ft_word_amount(char const *s, char c)
 	in_word = 0;
 	while (*s)
 	{
-		printf("\noutside of ifs:%c", *s);
 		if (*s != c && in_word == 0)
 		{
-			printf("\ninside *s != c, s:%c, c: %c", *s, c);
 			words++;
 			in_word = 1;
 		}

@@ -28,6 +28,15 @@ void	free_array(void **array, int rows)
 	free(array);
 }
 
+void	free_textures(t_texture *textures)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		free(textures[i++].path);
+}
+
 int	clean_game_data(t_game_data *game)
 {
 	free_array((void **)game->map.array, game->map.rows);
@@ -38,6 +47,7 @@ int	clean_game_data(t_game_data *game)
 		mlx_mouse_show(game->mlx, game->screen);
 		clean_image(&game->img, game->mlx);
 		clean_textures(game->wall_tex, 4, game->mlx);
+		free_textures(game->wall_tex);
 		clean_textures(game->door_tex, 2, game->mlx);
 		mlx_destroy_window(game->mlx, game->screen);
 		mlx_destroy_display(game->mlx);

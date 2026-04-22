@@ -43,8 +43,7 @@ typedef struct s_map
 //----------------------------------------------------------------------------
 // MAP_SETTERS_1 (5)
 //----------------------------------------------------------------------------
-void		set_map_rows(t_map *map, char *filename);
-void		set_map_array(t_map *map, char *filename);
+void		set_map_rows(t_map *map);
 void		set_map_cols(t_map *map);
 void		set_map_visited(t_map *map);
 void		set_map_start_wall(t_map *map, int row, int col);
@@ -53,7 +52,7 @@ void		set_map_start_wall(t_map *map, int row, int col);
 //----------------------------------------------------------------------------
 void		set_map_player_spawn(t_map *map, int row, int col);
 void		set_map_spawn_direction(t_map *map, char c);
-void		set_map_data(t_map *map, char *filename);
+void		set_map_data(t_map *map);
 t_door		*get_map_door(t_map	*map, int row, int col);
 void		print_map(t_map *map);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tiles.h                                            :+:      :+:    :+:   */
+/*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akonstan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 17:24:54 by akonstan          #+#    #+#             */
-/*   Updated: 2026/02/17 17:24:55 by akonstan         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:39:55 by mstawski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ typedef struct s_game_data	t_game_data;
 //for assigning them later different textures
 typedef struct s_floor
 {
-	float		size;
-	int			rgb[3];
+	float			size;
+	int				rgb[3];
+	unsigned int	color;
 }	t_floor;
 
 typedef struct s_ceiling
 {
-	float		size;
-	int			rgb[3];
+	float			size;
+	int				rgb[3];
+	unsigned int	color;
 }	t_ceiling;
 
 typedef struct s_image
@@ -52,6 +54,6 @@ typedef struct s_texture
 	t_image	img;
 }	t_texture;
 
-void	set_texture(t_texture *tex, t_game_data *game, char *path);
+void	set_texture(t_texture *tex, t_game_data *game);
 void	load_textures(t_game_data *game);
 #endif

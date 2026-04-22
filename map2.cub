@@ -1,3 +1,13 @@
+NO ./textures_bonus/Wall_North.xpm
+SO ./textures_bonus/Wall_South.xpm
+WE ./textures_bonus/Wall_West.xpm
+EA ./textures_bonus/Wall_East.xpm
+
+
+F 220,100,0
+C 225,30,0
+
+
 111111111111111111111111111111111
 100000000000000000000000000000001
 111111111111111111111111111000001
