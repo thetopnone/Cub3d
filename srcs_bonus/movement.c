@@ -17,30 +17,30 @@
 #include <stdlib.h>
 #include "cleanup.h"
 
-static void	move_player(int direction_x, int direction_y, t_game_data *game)
+void	move_player(int direction_x, int direction_y, t_game_data *game)
 {
 	t_player	*player;
 
 	player = &game->player;
 	if (direction_x != 0)
-		player->move_dir.x += direction_x;
+		player->move_dir.x = direction_x;
 	if (direction_y != 0)
-		player->move_dir.y += direction_y;
+		player->move_dir.y = direction_y;
 	player->is_moving = 1;
 }
 
-static void	rotate_camera(int direction, t_game_data *game)
+void	rotate_camera(int direction, t_game_data *game)
 {
 	t_camera	*camera;
 	t_player	*player;
 
 	camera = &game->camera;
 	player = &game->player;
-	camera->turn_dir += direction;
+	camera->turn_dir = direction;
 	player->is_turning = 1;
 }
 
-void	open_door(t_game_data *game)
+static void	open_door(t_game_data *game)
 {
 	t_raycast2d	ray;
 	t_door		*door;
@@ -49,24 +49,16 @@ void	open_door(t_game_data *game)
 	cast_ray2d(&ray, game, WIDTH / 2);
 	door = get_map_door(&game->map, ray.closest_door_pos.y,
 			ray.closest_door_pos.x);
-	if (ray.closest_door > 0.0 && ray.closest_door <= 1.5)
+	if (ray.closest_door > 0.0 && ray.closest_door <= 1.5
+		&& door->is_closed == 1)
 	{
-		if (door->is_closed == 1)
-		{
-			door->tex_index = 1;
-			door->is_closed = 0;
-			render_image(game);
-		}
-		else
-		{
-			door->tex_index = 0;
-			door->is_closed = 1;
-			render_image(game);
-		}
+		door->tex_index = 1;
+		door->is_closed = 0;
+		render_image(game);
 	}
 }
 
-int	handle_input(int keycode, t_game_data *game)
+int	handle_key_input(int keycode, t_game_data *game)
 {
 	if (keycode == XK_Escape)
 		clean_game_data(game);
@@ -89,17 +81,21 @@ int	handle_input(int keycode, t_game_data *game)
 
 int	reset_direction(int keycode, t_game_data *game)
 {
-	if (keycode == XK_W || keycode == XK_w)
+	if ((keycode == XK_W || keycode == XK_w)
+		&& game->player.move_dir.y == 1)
 		game->player.move_dir.y -= 1;
-	else if (keycode == XK_S || keycode == XK_s)
+	else if ((keycode == XK_S || keycode == XK_s)
+		&& game->player.move_dir.y == -1)
 		game->player.move_dir.y += 1;
-	else if (keycode == XK_A || keycode == XK_a)
+	else if ((keycode == XK_A || keycode == XK_a)
+		&& game->player.move_dir.x == -1)
 		game->player.move_dir.x += 1;
-	else if (keycode == XK_D || keycode == XK_d)
+	else if ((keycode == XK_D || keycode == XK_d)
+		&& game->player.move_dir.x == 1)
 		game->player.move_dir.x -= 1;
-	else if (keycode == XK_Left)
+	else if (keycode == XK_Left && game->camera.turn_dir == -1)
 		game->camera.turn_dir += 1;
-	else if (keycode == XK_Right)
+	else if (keycode == XK_Right && game->camera.turn_dir == 1)
 		game->camera.turn_dir -= 1;
 	if (game->player.move_dir.y == 0 && game->player.move_dir.x == 0)
 		game->player.is_moving = 0;

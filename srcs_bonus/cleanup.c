@@ -44,6 +44,7 @@ int	clean_game_data(t_game_data *game)
 	if (game->mlx)
 	{
 		mlx_do_key_autorepeaton(game->mlx);
+		mlx_mouse_show(game->mlx, game->screen);
 		clean_image(&game->img, game->mlx);
 		clean_textures(game->wall_tex, 4, game->mlx);
 		clean_textures(game->door_tex, 2, game->mlx);
