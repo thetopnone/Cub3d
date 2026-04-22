@@ -32,11 +32,14 @@ void	run_game_loop(t_game_data *game)
 	mlx_do_key_autorepeatoff(game->mlx);
 	load_textures(game);
 	game->screen = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
+	mlx_mouse_hide(game->mlx, game->screen);
+	mlx_mouse_move(game->mlx, game->screen, WIDTH / 2, HEIGHT / 2);
 	set_image(&game->img, game->mlx);
 	render_image(game);
-	mlx_hook(game->screen, 2, 1L << 0, handle_input, game);
+	mlx_hook(game->screen, 2, 1L << 0, handle_key_input, game);
 	mlx_hook(game->screen, 3, 1L << 1, reset_direction, game);
 	mlx_hook(game->screen, 17, 0, clean_game_data, game);
+	mlx_hook(game->screen, 6, 1L << 6, handle_mouse_input, game);
 	mlx_loop_hook(game->mlx, update_frame, game);
 	mlx_loop(game->mlx);
 }
