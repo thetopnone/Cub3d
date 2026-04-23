@@ -23,7 +23,7 @@ int	is_spawn_char(int c)
 //Returns 1 on map char detection
 int	is_map_char(int c)
 {
-	return (c == '1' || c == '0' || c == 'D' || is_spawn_char(c));
+	return (c == '1' || c == '0' || is_spawn_char(c));
 }
 
 //Returns 1 if we have a valid map
