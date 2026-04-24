@@ -24,8 +24,6 @@ int	validate_map(t_map *map)
 {
 	t_vector	v;
 
-	if (!map)
-		return (perror("Error\nInvalid Map Pointer\n"), -1);
 	v.y = 0;
 	while (map->array[v.y] && map->is_invalid == 0)
 	{
@@ -34,7 +32,8 @@ int	validate_map(t_map *map)
 		{
 			update_map_player_data(map, v.y, v.x);
 			if (!is_map_char(map->array[v.y][v.x])
-					&& map->array[v.y][v.x] != ' ')
+					&& map->array[v.y][v.x] != ' '
+					&& map->array[v.y][v.x] != 'D')
 				return (map->is_invalid = 1, 0);
 			if (is_edge(map, v.y, v.x) == 1 && map->visited[v.y][v.x] == 0)
 			{
@@ -113,7 +112,7 @@ int	is_edge(t_map *map, int row, int col)
 {
 	if (!map || row < 0 || col < 0)
 		return (0);
-	if (!is_map_char(map->array[row][col]))
+	if (!is_map_char(map->array[row][col]) && !(map->array[row][col] == 'D'))
 		return (0);
 	if (row == 0 || row + 1 == map->rows || col == 0
 		|| col + 1 == (int)ft_strlen(map->array[row]))

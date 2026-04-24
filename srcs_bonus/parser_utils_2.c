@@ -55,12 +55,12 @@ int	validate_line(char *map, char *line, int *map_bit)
 {
 	while (*line)
 	{
-		if (!is_white(*line) && !is_map_char(*line))
+		if (!is_white(*line) && !is_map_char(*line) && *line != 'D')
 		{
 			free(map);
 			return (0);
 		}
-		if (is_map_char(*line))
+		if (is_map_char(*line) || *line == 'D')
 			map_bit[0] = 1;
 		line++;
 	}

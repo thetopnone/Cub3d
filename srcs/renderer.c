@@ -107,7 +107,6 @@ void	render_image(t_game_data *game)
 	ft_memcpy(game->img.addr, game->buffer, WIDTH * HEIGHT * 4);
 	mlx_put_image_to_window(game->mlx, game->screen, game->img.img, 0, 0);
 	printf("\r\033[2KFPS: %lu", get_fps(o_time));
-	fflush(stdout);
 }
 
 //Sets how many pixels we should render from the texture on the screen
