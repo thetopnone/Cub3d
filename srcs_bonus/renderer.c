@@ -30,8 +30,6 @@ void	put_texture_pixel(t_image *img,
 	{
 		if (y < HEIGHT / 2)
 			color = game->ceiling.color;
-		else
-			color = (unsigned int)0xFF808080;
 		game->buffer[y * WIDTH + x] = color;
 		return ;
 	}
@@ -51,9 +49,9 @@ void	render_wall_texture(t_raycast2d *ray, t_game_data *game,
 	if (ray->side == 0)
 	{
 		if (ray->dir.x < 0)
-			put_texture_pixel(&wall_tex[3].img, pixel, game, &ray->wall_tex);
-		else
 			put_texture_pixel(&wall_tex[2].img, pixel, game, &ray->wall_tex);
+		else
+			put_texture_pixel(&wall_tex[3].img, pixel, game, &ray->wall_tex);
 	}
 	else
 	{

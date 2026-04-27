@@ -46,9 +46,9 @@ void	render_texture(t_raycast2d *ray, t_game_data *game, t_vector *pixel)
 	if (ray->side == 0)
 	{
 		if (ray->dir.x < 0)
-			put_texture_pixel(&game->textures[3].img, pixel, game, &ray->tex);
-		else
 			put_texture_pixel(&game->textures[2].img, pixel, game, &ray->tex);
+		else
+			put_texture_pixel(&game->textures[3].img, pixel, game, &ray->tex);
 	}
 	else
 	{

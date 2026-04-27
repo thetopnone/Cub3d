@@ -42,7 +42,7 @@ Followed by a map blueprint with '1' representing walls, '0' representing floors
 11111111
 ```
 
-For the bonus part, you can include up to 4 'D' characters to make doors in any wall you want.
+For the bonus part, you can include up to 4 'D' characters to make doors in wall chokepoints
 
 ## Resources
 A very thorough explanation on raycasting from lodev: [here](https://lodev.org/cgtutor/raycasting.html)
